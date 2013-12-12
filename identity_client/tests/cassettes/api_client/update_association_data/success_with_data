@@ -1,0 +1,24 @@
+- request: !!python/object:vcr.request.Request
+    body: '{"timezone": "America/Sao_Paulo", "updated_by": "identity_client.UpdateAssociationData",
+      "updated_at": "2013-06-24 14:55:00"}'
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [cache-control, no-cache]
+      - !!python/tuple [user-agent, myfc_id client]
+      - !!python/tuple [Content-Length, !!python/unicode '125']
+      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      - !!python/tuple [accept, application/json]
+      - !!python/tuple [content-type, application/json]
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+    host: sandbox.app.passaporteweb.com.br
+    method: PUT
+    path: /accounts/api/service-info/c3769912-baa9-4a0c-9856-395a706c7d57/identity_client/
+    port: 80
+    protocol: http
+  response:
+    body: {string: '{"updated_at": "2013-06-24 14:55:00", "timezone": "America/Sao_Paulo",
+        "is_active": true, "slug": "identity_client", "updated_by": "identity_client.UpdateAssociationData"}'}
+    headers: {allow: 'GET, PUT, HEAD, OPTIONS', cache-control: no-cache, connection: keep-alive,
+      content-length: '171', content-type: application/json, date: 'Mon, 24 Jun 2013
+        18:16:10 GMT', expires: 'Mon, 24 Jun 2013 18:16:09 GMT', p3p: CP="NON DSP
+        COR CURa TIA", server: nginx/0.7.67, vary: 'Authenticate, Accept'}
+    status: {code: 200, message: OK}

@@ -1,0 +1,29 @@
+- request: !!python/object:vcr.request.Request
+    body: '{"first_name": "Identity", "last_name": "Client", "send_partner_news":
+      true, "send_myfreecomm_news": true}'
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [cache-control, no-cache]
+      - !!python/tuple [user-agent, myfc_id client]
+      - !!python/tuple [Content-Length, !!python/unicode '106']
+      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      - !!python/tuple [accept, application/json]
+      - !!python/tuple [content-type, application/json]
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+    host: sandbox.app.passaporteweb.com.br
+    method: PUT
+    path: /accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/
+    port: 80
+    protocol: http
+  response:
+    body:
+      string: !!binary |
+        H4sIAD53yFEC/62QQUvEMBCF/8qSs7XVta31JHjyN4iEaTKBgTQpmXS1LP53k7YLWi978Bbyhve9
+        987CUOAoHQwong7iVaOLFGdxcxAWfggvlpKSvxmdliOE6DBIhx+c5BgmTNI0kc7H6tg2XXd3X/QA
+        XfEAlSq6x7opjl0NbdWoVtdttiKWoCKdMsGA5cVj1BBRkjNeTsFmuxKU8pOLXMJIJa0RCbm8hlNm
+        kPORDCmI5F3OexaLYXpVuShxXDi/zhaY+Er6BZ9u3t4vCwyzCYjKD8NuBMZwIoUrZgs7S7Xu96fN
+        dl3kvtf12VmuEXEAWrbaqc+aePQMvUVyvf+8TYHzIGPwhiz+z8KbWUryDddEi65PAgAA
+    headers: {cache-control: no-cache, connection: keep-alive, content-encoding: gzip,
+      content-length: '279', content-type: application/json, date: 'Mon, 24 Jun 2013
+        16:43:42 GMT', expires: 'Mon, 24 Jun 2013 16:43:41 GMT', p3p: CP="NON DSP
+        COR CURa TIA", server: nginx/0.7.67, vary: Accept-Encoding}
+    status: {code: 200, message: OK}

@@ -1,0 +1,30 @@
+- request: !!python/object:vcr.request.Request
+    body: '{"plan_slug": "unittest-updated", "expiration": "9999-12-31"}'
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [cache-control, no-cache]
+      - !!python/tuple [user-agent, myfc_id client]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      - !!python/tuple [accept, application/json]
+      - !!python/tuple [content-type, application/json]
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Content-Length, !!python/unicode '61']
+    host: sandbox.app.passaporteweb.com.br
+    method: PUT
+    path: /organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/
+    port: 80
+    protocol: http
+  response:
+    body:
+      string: !!binary |
+        H4sIAMnFzFEC/61Ru27EIBD8FYs6yG/7uC5KlT5ddLLWsHdBwtjikZflfw/4UaW54hAFzM4OO8xM
+        JgW6s8rfyDkhXkvn0DrqJwEOBXlKyIBDj8Z2AYDAeZ8P5ENOnUAHUtnOGxX709HcQMtfcHLUNoVJ
+        psD56LULl4qznmNFCzhxWtXFlQLmJc0g6xsmrqLqId2lU162DWN5QXsARivIOGWnuqElq6HNGt6K
+        uk3jdFKgdtL9xNfvaYo9ZlRooxUyfmk05LJcAvooC/EF/J6kWRWiJAuLhrHKPMmy87ojyaL5lByP
+        j52JhgEj/3X3lLwoGU4rdw/osNvxrbSE2j7ef523kGTyvFWjiPdSRPweG5uyEN2WyMMDJssf7VU/
+        pXsCAAA=
+    headers: {allow: 'GET, PUT, HEAD, OPTIONS', cache-control: no-cache, connection: keep-alive,
+      content-encoding: gzip, content-length: '290', content-type: application/json,
+      date: 'Thu, 27 Jun 2013 23:07:53 GMT', expires: 'Thu, 27 Jun 2013 23:07:52 GMT',
+      p3p: CP="NON DSP COR CURa TIA", server: nginx/0.7.67, vary: 'Authenticate, Accept,
+        Accept-Encoding'}
+    status: {code: 200, message: OK}

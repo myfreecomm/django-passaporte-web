@@ -1,0 +1,25 @@
+- request: !!python/object:vcr.request.Request
+    body: '{"plan_slug": "unittest", "expiration": null, "name": "Test Account"}'
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [cache-control, no-cache]
+      - !!python/tuple [user-agent, myfc_id client]
+      - !!python/tuple [Content-Length, !!python/unicode '69']
+      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      - !!python/tuple [accept, application/json]
+      - !!python/tuple [content-type, application/json]
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+    host: sandbox.app.passaporteweb.com.br
+    method: POST
+    path: /organizations/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/accounts/
+    port: 80
+    protocol: http
+  response:
+    body: {string: '{"membership_details_url": "/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/c3769912-baa9-4a0c-9856-395a706c7d57/",
+        "plan_slug": "unittest", "roles": ["owner"], "url": "/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/",
+        "expiration": null, "service_data": {"name": "Identity Client", "slug": "identity_client"},
+        "account_data": {"name": "Test Account", "uuid": "a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba"},
+        "add_member_url": "/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/"}'}
+    headers: {allow: 'GET, POST, HEAD, OPTIONS', connection: keep-alive, content-length: '538',
+      content-type: application/json, date: 'Mon, 24 Jun 2013 19:47:19 GMT', location: 'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
+      p3p: CP="NON DSP COR CURa TIA", server: nginx/0.7.67, vary: 'Authenticate, Accept'}
+    status: {code: 201, message: CREATED}

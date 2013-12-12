@@ -1,0 +1,35 @@
+- request:
+    body: null
+    headers: !!python/object:requests.structures.CaseInsensitiveDict
+      _store:
+        accept: !!python/tuple [accept, application/json]
+        accept-encoding: !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+        authorization: !!python/tuple [Authorization, !!python/unicode 'Basic amtBS1ZOUGxndzpHUGp6elVacEU3dXNRUWV6WmtGeFZGakxjelN0d0NTVg==']
+        cache-control: !!python/tuple [cache-control, no-cache]
+        content-length: !!python/tuple [content-length, '0']
+        content-type: !!python/tuple [content-type, application/json]
+        user-agent: !!python/tuple [user-agent, myfc_id client]
+    method: GET
+    url: /organizations/api/identities/1cf30b5f-e78c-4eb9-a7b2-294a1d024e6d/accounts/
+  response:
+    body:
+      string: !!binary |
+        H4sIADC6w1EC/8WXT2vcMBDFv8ric8TKkizJOTZNC4VCaQs9hLCMpFHi4rW2/pMmLf3ulZO0bMhF
+        tpNd8GmQZh56P57ki9/ZFrcG2+662m0c9lDV3WZo6+x0la1DewVN9Qv6KjTdGnbVGqwNQ9N3a0+d
+        5g4VUSVXRFBXEgBaEOMNKIbMWgvrx9br3HpOTeEJKm2JQBMXK8MIKwXkjjKB0q2zk1W2q6HZdPVw
+        NY7vsK6xHcttqLGLpYss/Gxi6TLWXkrj2B9vd1V73yG2bIa6PhmntzeVxY2DHmL1d9bAFseJ5zZs
+        t9haHHf+04r/i39i9VHB872f2vAd+9CtzkK7C+PIm9CNfYahcuOCFMkPI5zbPBzvi7s19p+Lheba
+        SqMVkYWUcZAWBDSzROUqIiC8dqw4NhZJGg+KxUf7LtzuY5AicQYGk9xZgoErdMGdBYKFiM4KaYgu
+        DCde5Ry8ZNzw/NgYJGk8KAZfgu93cFU1sM9Cis4ZLEyyaAkLKsYNZYUkJZWMCM0idKaUBD0Ya5BL
+        C0dnIUnjYSPhzrd4v3afhRSdM1iYZNGi60FhbgTPSa5BE1GM0OUSibd5NF0aZ6k8NgtJGp+xkDGa
+        c0IVoXxF6en9l70WHO+x759cFwmS51wXU9xaFBFeaMOAEwYUibBKEu29IGisR8gxvl6WRoQduj5s
+        l4VEisqDhsSbu7fVk3hIUDgnHqbYs4QDCT6P6cNJXrpoLfcROGVz4uIdBd5wD5QeOx6SNB6UgvMf
+        Q7XD1Ve4/YZmH4cUqTNwmOTSEhxMwQAFY8Si9PGJEgPWoC0JSiYBLDNcu2PjkKTxoDh8xm38s9zn
+        IEXjDA4m2bOEAxGfJ0xaTzTV8bdFqZKYGD2EClpiwY2jWr0aB+M5duk8JGk9Rjx8COYsgL3eByNF
+        7AwwJvmV/bn8CyiQ7EuFEgAA
+    headers: {allow: 'GET, POST, HEAD, OPTIONS', cache-control: no-cache, connection: keep-alive,
+      content-encoding: gzip, content-length: '702', content-type: application/json,
+      date: 'Fri, 21 Jun 2013 02:28:00 GMT', expires: 'Fri, 21 Jun 2013 02:27:59 GMT',
+      p3p: CP="NON DSP COR CURa TIA", server: nginx/0.7.67, vary: 'Authenticate, Accept,
+        Accept-Encoding'}
+    status: {code: 200, message: OK}

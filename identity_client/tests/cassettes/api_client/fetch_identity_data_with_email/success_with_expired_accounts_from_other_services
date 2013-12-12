@@ -1,0 +1,36 @@
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [cache-control, no-cache]
+      - !!python/tuple [user-agent, myfc_id client]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      - !!python/tuple [accept, application/json]
+      - !!python/tuple [content-type, application/json]
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [content-length, '0']
+    host: sandbox.app.passaporteweb.com.br
+    method: GET
+    path: /profile/api/info//?include_other_services=True&email=identity_client%40disposableinbox.com&include_expired_accounts=True
+    port: 80
+    protocol: http
+  response:
+    body:
+      string: !!binary |
+        H4sIAOBV6FEC/61Vy27bMBD8FUHnsiYlUo+cmkOPQS+9tYGwJJcJAZkSRCqPGvn3krJdpI6LCk5g
+        wZC41MzO7FK7y42dfOgcbDG/yvL8U5b3cLLg0eluhCk4nDqHjz4GDPQeY2yerU77VFlXbcsKIgFa
+        woEq0jaiImUroKaVqrWoE5b1HahgHxJ4mOYFYtQQsLPODN089QltA0oNswt+A6PdWI0u2GDRb9bQ
+        bBKPG4I1VkGwg0v57vIFMN7RJNH6sPD8tW0hy19i/Egf9/zY5Ucvbqy7B5/B2Mc3fs6UYp3+jUCf
+        v7KCSaVRFJrUGhrCG0qJ1KIl2iC0VVuWCnli2eVjD67z/XyXXvPY9zgtuR/4vqphu8VJYXa9zycF
+        p6HHJa98eIz1yG8T88G1YboDZ3+9UvPHR2GYMLUUBGpTReNKQRpRl4RqEKUuaYmsWYzDp9FOC0KE
+        dHPfL2sBJwd9twg8LB7lrkE+I1fNPgzbfwmGdwvmDaAxJScFVbFTaNnGKrQ10Q0TtKDYSM4vE7wG
+        +Yzg2dkQ0IfXgm+es2/hHqfselyaat+tl4tGAbIyhSHAURJeMkkaFU9LyxkzuoGmLvRlotcgrxT9
+        PT5/QEcDV62MR4kU0CjCRcoNWew7oLJqtdFcwmVa1yCv7OjsHQKrugFpqpKgZBgtLzVpDdXE8Cp2
+        GMiaszPFzAuaUo0Xyyi9Wq78f4rXUK1UfKjuO4tbU1ooaIEwzUQ8Y1QQybEkDQMdf4VU1ZnP1UXa
+        11DlL7fHObh9NhNi+lCdjkKP04NVuJ82h5n13Kneogtvh9phN0ljb91YO4HcTyrcgl3cPIl+0daP
+        gwfZo3VyePocM05WjNNgbI8fM2gPYDGT36R7vidICAAA
+    headers: {cache-control: no-cache, connection: keep-alive, content-encoding: gzip,
+      content-length: '660', content-type: application/json, date: 'Thu, 18 Jul 2013
+        20:53:52 GMT', expires: 'Thu, 18 Jul 2013 20:53:51 GMT', last-modified: 'Thu,
+        18 Jul 2013 20:53:52 GMT', p3p: CP="NON DSP COR CURa TIA", server: nginx/0.7.67,
+      vary: Accept-Encoding}
+    status: {code: 200, message: OK}

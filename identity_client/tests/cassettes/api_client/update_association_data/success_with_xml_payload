@@ -1,0 +1,32 @@
+- request: !!python/object:vcr.request.Request
+    body: '{"timezone": "America/Sao_Paulo", "payload": {"body": "<?xml version=\"1.0\"
+      encoding=\"UTF-8\" ?> <\u4fc4\u8bed>\u0434\u0430\u043d\u043d\u044b\u0435</\u4fc4\u8bed>",
+      "content-type": "application/xml"}, "updated_by": "identity_client.UpdateAssociationData",
+      "updated_at": "2013-06-24 14:55:00"}'
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [cache-control, no-cache]
+      - !!python/tuple [user-agent, myfc_id client]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      - !!python/tuple [accept, application/json]
+      - !!python/tuple [content-type, application/json]
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Content-Length, !!python/unicode '294']
+    host: sandbox.app.passaporteweb.com.br
+    method: PUT
+    path: /accounts/api/service-info/c3769912-baa9-4a0c-9856-395a706c7d57/identity_client/
+    port: 80
+    protocol: http
+  response:
+    body:
+      string: !!binary |
+        H4sIAC+OyFEC/22QwWrDMBBEf0XoXMdyIpdg3IRA6bnQ5mYwa0kNAlkS1irUDfn3Sjq0FHoZltkZ
+        eLs3Gr0EVHKcVtoRqqWyqHEdhdFp2pzL9hSCExpQO/sMCPSB/NQAc23Lml3FHqstJw3v2rZjLIdQ
+        z+rLWZUjp1ktWkD9Bm58hWhcDugwgkB9zQlcokpWMPHyD0lOe1iNA5m2Nzo5WYD74+dsyFUtIcE9
+        DbTZsIESZYWT2l6ScX5/qfbJOh5IP0T+IfgQ95OShyEyvuNFWVH5q3wqc9vXfyoZQjiLiafC1Ze7
+        wHuT7sq/qRMKvd+/AeAgWW9UAQAA
+    headers: {allow: 'GET, PUT, HEAD, OPTIONS', cache-control: no-cache, connection: keep-alive,
+      content-encoding: gzip, content-length: '249', content-type: application/json,
+      date: 'Mon, 24 Jun 2013 18:21:35 GMT', expires: 'Mon, 24 Jun 2013 18:21:34 GMT',
+      p3p: CP="NON DSP COR CURa TIA", server: nginx/0.7.67, vary: 'Authenticate, Accept,
+        Accept-Encoding'}
+    status: {code: 200, message: OK}

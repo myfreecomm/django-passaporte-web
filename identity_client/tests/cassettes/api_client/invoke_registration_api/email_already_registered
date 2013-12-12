@@ -1,0 +1,46 @@
+- request: !!python/object:vcr.request.Request
+    body: '{"first_name": "Myfc ID", "last_name": "Clients", "tos": "True", "password2":
+      "*SudN7%r$MiYRa!E", "cpf": "", "password": "*SudN7%r$MiYRa!E", "email": "identity_client@disposableinbox.com"}'
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      - !!python/tuple [accept, application/json]
+      - !!python/tuple [user-agent, myfc_id client]
+      - !!python/tuple [cache-control, no-cache]
+      - !!python/tuple [content-type, application/json]
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Content-Length, !!python/unicode '186']
+    host: sandbox.app.passaporteweb.com.br
+    method: POST
+    path: /accounts/api/create/
+    port: 80
+    protocol: http
+  response:
+    body: {string: !!python/str "{ \"email\": [\"Este email j\xE1 est\xE1 cadastrado.\
+        \ Por favor insira outro email\"] }"}
+    headers: {connection: keep-alive, content-length: '78', content-type: text/html;
+        charset=utf-8, date: 'Fri, 21 Jun 2013 21:51:39 GMT', p3p: CP="NON DSP COR
+        CURa TIA", server: nginx/0.7.67}
+    status: {code: 409, message: CONFLICT}
+- request: !!python/object:vcr.request.Request
+    body: '{"first_name": "Myfc ID", "last_name": "Clients", "tos": true, "password2":
+      "*SudN7%r$MiYRa!E", "cpf": "", "password": "*SudN7%r$MiYRa!E", "email": "identity_client@disposableinbox.com"}'
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [cache-control, no-cache]
+      - !!python/tuple [user-agent, myfc_id client]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      - !!python/tuple [accept, application/json]
+      - !!python/tuple [content-type, application/json]
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Content-Length, !!python/unicode '186']
+    host: sandbox.app.passaporteweb.com.br
+    method: POST
+    path: /accounts/api/create/
+    port: 80
+    protocol: http
+  response:
+    body: {string: !!python/str "{ \"email\": [\"Este email j\xE1 est\xE1 cadastrado.\
+        \ Por favor insira outro email\"] }"}
+    headers: {connection: keep-alive, content-length: '78', content-type: text/html;
+        charset=utf-8, date: 'Tue, 25 Jun 2013 18:35:20 GMT', p3p: CP="NON DSP COR
+        CURa TIA", server: nginx/0.7.67}
+    status: {code: 409, message: CONFLICT}

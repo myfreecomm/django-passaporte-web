@@ -1,0 +1,21 @@
+- request: !!python/object:vcr.request.Request
+    body: '{"plan_slug": "unittest", "expiration": "0000-01-01", "uuid": "a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba"}'
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [cache-control, no-cache]
+      - !!python/tuple [user-agent, myfc_id client]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      - !!python/tuple [accept, application/json]
+      - !!python/tuple [content-type, application/json]
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Content-Length, !!python/unicode '101']
+    host: sandbox.app.passaporteweb.com.br
+    method: POST
+    path: /organizations/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/accounts/
+    port: 80
+    protocol: http
+  response:
+    body: {string: '{"field_errors": {"expiration": ["Informe uma data v\u00e1lida."]}}'}
+    headers: {allow: 'GET, POST, HEAD, OPTIONS', connection: keep-alive, content-length: '67',
+      content-type: application/json, date: 'Tue, 25 Jun 2013 23:15:02 GMT', p3p: CP="NON
+        DSP COR CURa TIA", server: nginx/0.7.67, vary: 'Authenticate, Accept'}
+    status: {code: 400, message: BAD REQUEST}

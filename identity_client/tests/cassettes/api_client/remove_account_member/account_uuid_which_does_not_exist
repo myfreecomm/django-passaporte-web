@@ -1,0 +1,22 @@
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [accept, application/json]
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      - !!python/tuple [cache-control, no-cache]
+      - !!python/tuple [Content-Length, '0']
+      - !!python/tuple [content-type, application/json]
+      - !!python/tuple [user-agent, myfc_id client]
+    host: sandbox.app.passaporteweb.com.br
+    method: DELETE
+    path: /organizations/api/accounts/00000000-0000-0000-0000-000000000000/members/bedcd531-c741-4d32-90d7-a7f7432f3f15/
+    port: 80
+    protocol: http
+  response:
+    body: {string: '"Account with uuid=00000000-0000-0000-0000-000000000000 does not
+        exist"'}
+    headers: {allow: 'GET, PUT, DELETE, HEAD, OPTIONS', connection: keep-alive, content-length: '71',
+      content-type: application/json, date: 'Wed, 26 Jun 2013 21:33:04 GMT', p3p: CP="NON
+        DSP COR CURa TIA", server: nginx/0.7.67, vary: 'Authenticate, Accept'}
+    status: {code: 404, message: NOT FOUND}

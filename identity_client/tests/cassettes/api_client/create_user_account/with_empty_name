@@ -1,0 +1,19 @@
+- request:
+    body: '{"plan_slug": "unittest", "name": "", "expiration": null}'
+    headers: !!python/object:requests.structures.CaseInsensitiveDict
+      _store:
+        accept: !!python/tuple [accept, application/json]
+        accept-encoding: !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+        authorization: !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+        cache-control: !!python/tuple [cache-control, no-cache]
+        content-length: !!python/tuple [Content-Length, !!python/unicode '57']
+        content-type: !!python/tuple [content-type, application/json]
+        user-agent: !!python/tuple [user-agent, myfc_id client]
+    method: POST
+    url: /organizations/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/accounts/
+  response:
+    body: {string: '{"errors": ["Either name or uuid must be supplied."]}'}
+    headers: {allow: 'GET, POST, HEAD, OPTIONS', connection: keep-alive, content-length: '53',
+      content-type: application/json, date: 'Mon, 24 Jun 2013 19:53:19 GMT', p3p: CP="NON
+        DSP COR CURa TIA", server: nginx/0.7.67, vary: 'Authenticate, Accept'}
+    status: {code: 400, message: BAD REQUEST}

@@ -1,0 +1,22 @@
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [cache-control, no-cache]
+      - !!python/tuple [user-agent, myfc_id client]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      - !!python/tuple [accept, application/json]
+      - !!python/tuple [content-type, application/json]
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [content-length, '0']
+    host: sandbox.app.passaporteweb.com.br
+    method: GET
+    path: /organizations/api/accounts/c3769912-baa9-4a0c-9856-395a706c7d57/
+    port: 80
+    protocol: http
+  response:
+    body: {string: '"Account c3769912-baa9-4a0c-9856-395a706c7d57 has no relation
+        with service identity_client"'}
+    headers: {allow: 'GET, PUT, HEAD, OPTIONS', connection: keep-alive, content-length: '91',
+      content-type: application/json, date: 'Fri, 28 Jun 2013 18:59:03 GMT', p3p: CP="NON
+        DSP COR CURa TIA", server: nginx/0.7.67, vary: 'Authenticate, Accept'}
+    status: {code: 404, message: NOT FOUND}

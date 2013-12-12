@@ -1,0 +1,29 @@
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [cache-control, no-cache]
+      - !!python/tuple [user-agent, myfc_id client]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      - !!python/tuple [accept, application/json]
+      - !!python/tuple [content-type, application/json]
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [content-length, '0']
+    host: sandbox.app.passaporteweb.com.br
+    method: GET
+    path: /organizations/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/accounts/
+    port: 80
+    protocol: http
+  response:
+    body:
+      string: !!binary |
+        H4sIAE2lyFEC/62Ru27DIBSGX8ViLrLja8hWdereLYrQMZykR8LY4tJblHcv1O7UpUM2+H7xnR84
+        XtmE04jOv9IiNQYg42V0hh0KVs7uApa+INBsfQkLlaDUHG1Im1aJUWHLa9gr3nb1mQPuGl5BNfZC
+        n3U7QrmpS9UMvRC7mo8AgrdQKS72Xc8b0cFQ9WrQ3VCyh4ItBqz0Jl7y+GgpBPQhB2426BM8svnd
+        omOnxO7VMvvxYyH3Y0hKG41JzKN7I4VSQ4BEr8zChHnis0YbKHwWT4bSKp//7UxbJNUa3VK2tfnr
+        eUmXKx7XNEtiJJ35f1qvZq3l+sZ3/zJ2O30DQ9eE9BwCAAA=
+    headers: {allow: 'GET, POST, HEAD, OPTIONS', cache-control: no-cache, connection: keep-alive,
+      content-encoding: gzip, content-length: '263', content-type: application/json,
+      date: 'Mon, 24 Jun 2013 20:00:13 GMT', expires: 'Mon, 24 Jun 2013 20:00:12 GMT',
+      p3p: CP="NON DSP COR CURa TIA", server: nginx/0.7.67, vary: 'Authenticate, Accept,
+        Accept-Encoding'}
+    status: {code: 200, message: OK}

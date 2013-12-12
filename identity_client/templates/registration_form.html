@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block title %}Criação de usuários{% endblock %}
+
+{% block navigation %}
+    <li><a href="{% url index %}">Inicio</a></li>
+    <li class="active"><a href="#">Criação de usuários</a></li>
+    <li><a href="{% url auth_login %}">Login via API</a></li>
+    <li><a href="{% url sso_consumer:iframe %}">Login via SSO</a></li>
+    <li><a href="{% url user_profile %}">Perfil</a></li>
+    <li><a href="{% url list_accounts %}">Contas</a></li>
+    <li><a href="#">Notificações</a></li>
+{% endblock navigation %}
+
+{% block content-header %}
+  <h1>Criação de usuários</h1>
+{% endblock content-header %}
+
+{% block content-inner %}
+    {% if form.non_field_errors %}
+    <div class="alert-message error">
+      <a class="close" href="#">×</a>
+      <p>
+        {% for error in form.non_field_errors %}
+            <p>{{ error }}</p>
+        {% endfor %}
+      </p>
+    </div>
+    {% endif %}
+
+    <form method="POST" action=".">
+      <fieldset>
+        <div class="clearfix">
+          <label for="xlInput">{{ form.first_name.label_tag }}</label>
+          <div class="input">
+              {{ form.first_name }}
+              <span class="help-inline">{{ form.first_name.errors }}</span>
+          </div>
+        </div>
+        <div class="clearfix">
+          <label for="xlInput">{{ form.last_name.label_tag }}</label>
+          <div class="input">
+              {{ form.last_name }}
+              <span class="help-inline">{{ form.last_name.errors }}</span>
+          </div>
+        </div>
+        <div class="clearfix">
+          <label for="xlInput">{{ form.email.label_tag }}</label>
+          <div class="input">
+              {{ form.email }}
+              <span class="help-inline">{{ form.email.errors }}</span>
+          </div>
+        </div>
+        <div class="clearfix">
+          <label for="xlInput">{{ form.password.label_tag }}</label>
+          <div class="input">
+              {{ form.password }}
+              <span class="help-inline">{{ form.password.errors }}</span>
+          </div>
+        </div>
+        <div class="clearfix">
+          <label for="xlInput">{{ form.password2.label_tag }}</label>
+          <div class="input">
+              {{ form.password2 }}
+              <span class="help-inline">{{ form.password2.errors }}</span>
+          </div>
+        </div>
+        <div class="clearfix">
+          <label for="xlInput">{{ form.cpf.label_tag }}</label>
+          <div class="input">
+              {{ form.cpf }}
+              <span class="help-inline">{{ form.cpf.errors }}</span>
+          </div>
+        </div>
+        <div class="clearfix">
+          <div class="input">
+            <ul class="inputs-list">
+              <li>
+                <label>
+                  {{ form.tos }}
+                  <span>{{ form.tos.label }}</span>
+                </label>
+              </li>
+            </ul>
+            <span class="help-inline">{{ form.tos.errors }}</span>
+          </div>
+        </div>
+
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}" />
+      </fieldset>
+
+      <div class="actions">
+        <input type="SUBMIT" class="btn primary" value="Criar meu Passaporte Web"/>
+        <a href="{% url auth_login %}" class="btn">Já tenho um passaporte Web</a>
+      </div>
+    </form>
+{% endblock content-inner %}
+
+{% block content-aside %}
+    <dl>
+        <dt>Sobre esta operação <span class="label important">Importante</span></dt>
+        <dd>Opcionalmente, você pode direcionar o usuário para a página de registro do PassaporteWeb fornecendo o parâmetro "origin=&lt;slug de sua aplicação&gt;".</dd>
+    </dl>
+{% endblock content-aside %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Login via API{% endblock %}
+
+{% block navigation %}
+    <li><a href="{% url index %}">Inicio</a></li>
+    <li><a href="{% url registration_register %}">Criação de usuários</a></li>
+    <li class="active"><a href="{% url auth_login %}">Login via API</a></li>
+    <li><a href="{% url sso_consumer:iframe %}">Login via SSO</a></li>
+    <li><a href="{% url user_profile %}">Perfil</a></li>
+    <li><a href="{% url list_accounts %}">Contas</a></li>
+    <li><a href="#">Notificações</a></li>
+{% endblock navigation %}
+
+{% block content-header %}
+  <h1>Login via API</h1>
+{% endblock content-header %}
+
+{% block content-inner %}
+    <div class="login">
+        {% if form.errors %}
+        <div class="alert-message error">
+          <a class="close" href="#">×</a>
+          <p>
+            <strong>Erro!</strong>
+            Não foi possível efetuar o login, confira as informações e favor tente novamente.
+          </p>
+        </div>
+        {% endif %}
+
+        <form method="post" action=".">
+          <fieldset>
+            <div class="clearfix">
+              <label for="xlInput">{{ form.email.label_tag }}</label>
+              <div class="input">
+                  {{ form.email }}
+                  <span class="help-inline">{{ form.email.errors }}</span>
+              </div>
+            </div>
+            <div class="clearfix">
+              <label for="xlInput">{{ form.password.label_tag }}</label>
+              <div class="input">
+                  {{ form.password }}
+                  <span class="help-inline">{{ form.password.errors }}</span>
+              </div>
+            </div>
+
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}" />
+          </fieldset>
+
+          <div class="actions">
+            <input type="submit" class="btn primary" value="Login"/>
+            <a href="{% url registration_register %}" class="btn">Cadastro</a>
+          </div>
+        </form>
+    </div>
+{% endblock content-inner %}
+
+{% block content-aside %}
+    <dl>
+        <dt>Sobre esta operação <span class="label important">Importante</span></dt>
+        <dd>Deve-se utilizar este método de login somente em casos especiais.</dd>
+    </dl>
+{% endblock content-aside %}
