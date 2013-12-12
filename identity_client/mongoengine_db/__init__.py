@@ -8,7 +8,7 @@ except ImportError:
     sys.exit(1)
 
 from django.conf import settings as django_settings
-from django.test.simple import TestCase as SimpleTestCase
+from django.test import TestCase as SimpleTestCase
 
 import models
 import settings

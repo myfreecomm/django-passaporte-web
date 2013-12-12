@@ -7,7 +7,7 @@ from views.client_views import login, show_login
 from views.client_views import new_identity, register
 from forms import IdentityAuthenticationForm, RegistrationForm
 
-urlpatterns = patterns('',
+urlpatterns = patterns('identity_client.views',
     route(r'^login/$',
         GET=show_login,
         POST=login,
@@ -25,4 +25,9 @@ urlpatterns = patterns('',
         {'template_name': 'logout.html'},
         name='auth_logout'
     ),
+     url(r'^accounts/$',
+        'list_accounts',
+        name='list_accounts'
+    ),
+    (r'^sso/', include('identity_client.sso.urls', namespace='sso_consumer')),
 )

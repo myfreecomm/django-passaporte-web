@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 import json
 
 from mock import patch
@@ -19,7 +20,7 @@ test_user_email = 'identity_client@disposableinbox.com'
 test_user_password = '*SudN7%r$MiYRa!E'
 test_user_uuid = 'c3769912-baa9-4a0c-9856-395a706c7d57'
 
-cassettes = path.join(path.dirname(__file__))
+cassettes = os.path.dirname(__file__)
 vcr = vcrpy.VCR(
     cassette_library_dir=cassettes, match_on = ['url', 'method', 'headers', 'body']
 )

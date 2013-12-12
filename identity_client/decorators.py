@@ -1,4 +1,5 @@
 #-*- coding: utf-8 -*-
+import logging
 from functools import wraps
 
 import requests
@@ -8,7 +9,6 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import user_passes_test
 from django.template import Context, loader
 
-from requestlogging import logging
 from identity_client.utils import get_account_module
 from identity_client.utils import prepare_form_errors
 
@@ -80,7 +80,6 @@ def requires_plan(plan_slug):
                     request.user.uuid,
                     request.path,
                     plan_slug,
-                    request=request
                 )
                 return http.HttpResponseForbidden()
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.test.simple import TestCase
+from django.test import TestCase
 
 import models
 import settings

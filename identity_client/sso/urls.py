@@ -2,7 +2,7 @@
 from django.conf.urls.defaults import *
 from django.contrib.auth import views as auth_views
 
-from shortcuts import route
+from identity_client.shortcuts import route
 
 urlpatterns = patterns('identity_client.sso.views',
     url(r'^$', 'initiate', name='request_token'),

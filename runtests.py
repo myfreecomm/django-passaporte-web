@@ -31,17 +31,30 @@ def configure_settings(options, PERSISTENCE_STRATEGY=None):
                 'HOST': 'localhost',
             },
             INSTALLED_APPS = (
-                'django.contrib.contenttypes',
+                'django.contrib.sessions',
                 'identity_client',
             ),
             SITE_ID=1,
             TEST_RUNNER='django.test.simple.DjangoTestSuiteRunner',
             TEST_ROOT=join(dirname(__file__), 'identity_client', 'tests'),
+            TEMPLATE_DIRS=(join(dirname(__file__), 'identity_client', 'tests', 'templates'), ),
+            ROOT_URLCONF='identity_client.urls',
+
+            TEMPLATE_CONTEXT_PROCESSORS = (
+                'identity_client.processors.hosts',
+            ),
+
+            MIDDLEWARE_CLASSES = (
+                'django.contrib.sessions.middleware.SessionMiddleware',
+                'django.middleware.csrf.CsrfViewMiddleware',
+                'django.contrib.auth.middleware.AuthenticationMiddleware',
+                'identity_client.middleware.P3PHeaderMiddleware',
+            ),
 
             AUTHENTICATION_BACKENDS = ('identity_client.backend.MyfcidAPIBackend',),
             SERVICE_ACCOUNT_MODULE = 'identity_client.ServiceAccount',
             APPLICATION_HOST = 'http://testserver',
-            LOGIN_REDIRECT_URL = '/developer/profile/',
+            LOGIN_REDIRECT_URL = '/accounts/',
             MYFC_ID = {
                 'HOST': 'http://sandbox.app.passaporteweb.com.br',
                 'SLUG': 'identity_client',
@@ -81,12 +94,15 @@ def get_runner(settings):
 
 def runtests(options=None, labels=None):
     if not labels:
-        labels = ['generic']
+        labels = ['identity_client']
 
     for PERSISTENCE_STRATEGY in ('django_db', 'mongoengine_db'):
         settings = configure_settings(options, PERSISTENCE_STRATEGY=PERSISTENCE_STRATEGY)
         runner = get_runner(settings)
-        sys.exit(runner.run_tests(labels))
+        errors = runner.run_tests(labels)
+        if errors: break
+
+    sys.exit(errors)
 
 
 if __name__ == '__main__':

@@ -58,6 +58,8 @@ class SSOClientAuthorize(TestCase):
 
     @patch.object(SSOClient, 'fetch_request_token', Mock(return_value=oauth.Token(key='key', secret='secret')))
     def test_authorize_invokes_fetch_request_token(self):
+        self.sso_client.fetch_request_token.reset_mock()
+
         request = HttpRequest()
         request.session = self._get_real_session(self.client)
         authorization_url = self.sso_client.authorize(request)
@@ -67,8 +69,11 @@ class SSOClientAuthorize(TestCase):
         self.assertEquals(self.sso_client.fetch_request_token.call_args, ((), {}))
 
 
+
     @patch.object(SSOClient, 'fetch_request_token', Mock(return_value=oauth.Token(key='key', secret='secret')))
     def test_authorize_stores_request_token_in_session(self):
+        self.sso_client.fetch_request_token.reset_mock()
+
         request = HttpRequest()
         request.session = self._get_real_session(self.client)
         authorization_url = self.sso_client.authorize(request)
@@ -79,6 +84,8 @@ class SSOClientAuthorize(TestCase):
 
     @patch.object(SSOClient, 'fetch_request_token', Mock(return_value=oauth.Token(key='key', secret='secret')))
     def test_authorize_stores_next_url_in_session(self):
+        self.sso_client.fetch_request_token.reset_mock()
+
         request = HttpRequest()
         request.GET = {'next': '/oauth-protected-view/'}
         request.session = self._get_real_session(self.client)

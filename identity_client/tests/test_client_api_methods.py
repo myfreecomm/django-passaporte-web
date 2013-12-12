@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 from datetime import datetime, date
 import time
 
@@ -29,7 +30,7 @@ second_account_uuid = 'e5ab6f2f-a4eb-431b-8c12-9411fd8a872d'
 second_user_email = 'identity_client_2@disposableinbox.com'
 second_user_uuid = 'bedcd531-c741-4d32-90d7-a7f7432f3f15'
 
-cassettes = path.join(path.dirname(__file__))
+cassettes = os.path.dirname(__file__)
 vcr = vcrpy.VCR(
     cassette_library_dir=cassettes, match_on = ['url', 'method', 'headers', 'body']
 )

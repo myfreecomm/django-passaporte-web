@@ -14,7 +14,7 @@ from identity_client.forms import IdentityAuthenticationForm as AuthenticationFo
 from identity_client.utils import prepare_form_errors, get_account_module
 from identity_client.client_api_methods import APIClient
 
-__all__ = ["new_identity", "register", "login", "show_login"]
+__all__ = ["new_identity", "register", "login", "show_login", "list_accounts"]
 
 @required_method("GET")
 @never_cache
