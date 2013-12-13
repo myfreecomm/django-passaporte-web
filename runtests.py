@@ -8,18 +8,18 @@ import warnings
 
 def parse_args():
     parser = OptionParser()
-    parser.add_option('--use-tz', dest='USE_TZ', action='store_true')
+    parser.add_option('--mongodb', action='store_true', dest='USE_MONGODB', default=False)
+    parser.add_option('--sql', action='store_false', dest='USE_MONGODB')
     return parser.parse_args()
 
 
-def configure_settings(options, PERSISTENCE_STRATEGY=None):
+def configure_settings(options):
     from django.conf import settings
 
     # If DJANGO_SETTINGS_MODULE envvar exists the settings will be
     # configured by it. Otherwise it will use the parameters bellow.
     if not settings.configured:
         params = dict(
-            PERSISTENCE_STRATEGY=PERSISTENCE_STRATEGY,
             DATABASES = {
                 'default': {
                     'ENGINE': 'django.db.backends.sqlite3',
@@ -72,10 +72,10 @@ def configure_settings(options, PERSISTENCE_STRATEGY=None):
 
         # Force the use of timezone aware datetime and change Django's warning to
         # be treated as errors.
-        if getattr(options, 'USE_TZ', False):
-            params.update(USE_TZ=True)
-            warnings.filterwarnings('error', r"DateTimeField received a naive datetime",
-                                    RuntimeWarning, r'django\.db\.models\.fields')
+        if getattr(options, 'USE_MONGODB', False):
+            params.update(PERSISTENCE_STRATEGY='mongoengine_db')
+        else:
+            params.update(PERSISTENCE_STRATEGY='django_db')
 
         # Configure Django's settings
         settings.configure(**params)
@@ -96,14 +96,9 @@ def runtests(options=None, labels=None):
     if not labels:
         labels = ['identity_client']
 
-    for PERSISTENCE_STRATEGY in ('django_db', 'mongoengine_db'):
-        settings = configure_settings(options, PERSISTENCE_STRATEGY=PERSISTENCE_STRATEGY)
-        runner = get_runner(settings)
-        errors = runner.run_tests(labels)
-        if errors: break
-
-    sys.exit(errors)
-
+    settings = configure_settings(options)
+    runner = get_runner(settings)
+    sys.exit(runner.run_tests(labels))
 
 if __name__ == '__main__':
     options, labels = parse_args()
