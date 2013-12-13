@@ -1,5 +1,20 @@
+# -*- coding: utf-8 -*-
 import setuptools
 from os.path import join, dirname
+
+from setuptools.command.test import test as TestCommand
+import sys
+
+class Tox(TestCommand):
+    def finalize_options(self):
+        TestCommand.finalize_options(self)
+        self.test_args = []
+        self.test_suite = True
+    def run_tests(self):
+        #import here, cause outside the eggs aren't loaded
+        import tox
+        errno = tox.cmdline(self.test_args)
+        sys.exit(errno)
 
 setuptools.setup(
     name="django-passaporte-web",
@@ -7,9 +22,8 @@ setuptools.setup(
     packages=["identity_client"],
     include_package_data=True,  # declarations in MANIFEST.in
     install_requires=open(join(dirname(__file__), 'requirements.txt')).readlines(),
-    tests_require=[
-        'django<=1.3.5',
-    ],
+    tests_require=['tox'],
+    cmdclass = {'test': Tox},
     test_suite='runtests.runtests',
     author="vitormazzi",
     author_email="vitormazzi@gmail.com",
