@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-from django.conf.urls.defaults import *
+try:
+    from django.conf.urls.defaults import *
+except ImportError:
+    from django.conf.urls import *
 from django.contrib.auth import views as auth_views
 
 from identity_client.shortcuts import route

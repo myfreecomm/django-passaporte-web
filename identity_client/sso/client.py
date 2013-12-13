@@ -2,7 +2,8 @@
 import oauth2 as oauth
 
 from django.conf import settings
-from django.core.urlresolvers import reverse, set_script_prefix
+
+from ..utils import reverse_with_host
 
 class SSOClient(oauth.Client):
 
@@ -22,10 +23,9 @@ class SSOClient(oauth.Client):
 
 
     def fetch_request_token(self, callback_url=None):
-        set_script_prefix(settings.APPLICATION_HOST)
 
         if callback_url is None:
-            callback_url = reverse('sso_consumer:callback')
+            callback_url = reverse_with_host('sso_consumer:callback')
 
         resp, content = self.post(
             self.request_token_url, body='oauth_callback={0}'.format(callback_url)

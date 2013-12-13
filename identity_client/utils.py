@@ -3,6 +3,8 @@ from django.forms.util import ErrorDict, ErrorList
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
+from django.core.urlresolvers import reverse
+
 def prepare_form_errors(error_dict):
     if 'field_errors' in error_dict:
         error_dict.update(**error_dict['field_errors'])
@@ -26,3 +28,7 @@ def get_account_module():
         raise ImproperlyConfigured(
             'settings.SERVICE_ACCOUNT_MODULE: %s could not be imported' % module_name
         )
+
+def reverse_with_host(namespace, *args, **kwargs):
+    path = reverse(namespace, *args, **kwargs)
+    return '{0}{1}'.format(settings.APPLICATION_HOST, path)

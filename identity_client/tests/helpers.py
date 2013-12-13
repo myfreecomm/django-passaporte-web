@@ -1,7 +1,7 @@
 #coding:utf-8
 from django.conf import settings
 from django.test.client import Client
-from django.test import TransactionTestCase
+from django.test import TestCase
 from django.contrib.auth import authenticate, login
 from django.utils.importlib import import_module
 from django.http import HttpRequest
@@ -82,7 +82,7 @@ class MyfcIDTestCase(PERSISTENCE_MODULE.TestCase):
             import sys
             result.addError(self, sys.exc_info())
             return
-        super(TransactionTestCase, self).__call__(result)
+        super(PERSISTENCE_MODULE.TestCase, self).__call__(result)
         try:
             self._post_teardown()
         except (KeyboardInterrupt, SystemExit):

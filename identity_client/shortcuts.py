@@ -1,6 +1,9 @@
 # -*- encoding: utf-8 -*-
 from django.http import Http404
-from django.conf.urls.defaults import url
+try:
+    from django.conf.urls.defaults import url
+except ImportError:
+    from django.conf.urls import url
 
 
 def route_by_method(request, *args, **kwargs):

@@ -3,8 +3,12 @@ from datetime import datetime as dt
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.localflavor.br import forms as br_forms
 from django.conf import settings
+
+try:
+    from django.contrib.localflavor.br import forms as br_forms
+except ImportError:
+    from localflavor.br import forms as br_forms
 
 from timezones import PRETTY_TIMEZONE_CHOICES
 from backend import MyfcidAPIBackend

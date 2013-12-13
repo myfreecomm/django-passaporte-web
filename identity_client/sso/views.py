@@ -4,7 +4,7 @@ import json
 from httplib2 import HttpLib2Error
 
 from django.conf import settings
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.http import HttpResponseServerError
 from django.shortcuts import render_to_response
 from django.template import RequestContext

@@ -5,8 +5,8 @@ from oauth2 import Token
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from django.conf import settings
 
+from ..utils import reverse_with_host
 from mock_helpers import (
     mocked_request_token, mocked_response, mocked_access_token, patch_httplib2, OAUTH_REQUEST_TOKEN
 )
@@ -37,7 +37,7 @@ class TestOauthCallback(TestCase):
 
         self.assertEquals(response.status_code, 302)
 
-        self.assertEquals(response['Location'], reverse('sso_consumer:request_token'))
+        self.assertEquals(response['Location'], reverse_with_host('sso_consumer:request_token'))
 
 
     def test_adds_callback_url_to_session(self):
@@ -50,7 +50,7 @@ class TestOauthCallback(TestCase):
         self.assertIn('callback_url', self.client.session)
         self.assertEquals(
             self.client.session['callback_url'],
-            reverse('sso_consumer:callback', prefix='{0}/'.format(settings.APPLICATION_HOST))
+            reverse_with_host('sso_consumer:callback')
         )
 
 
@@ -69,7 +69,7 @@ class TestOauthCallback(TestCase):
         self.assertIn('callback_url', self.client.session)
         self.assertEquals(
             self.client.session['callback_url'],
-            reverse('sso_consumer:callback', prefix='{0}/'.format(settings.APPLICATION_HOST))
+            reverse_with_host('sso_consumer:callback')
         )
 
 

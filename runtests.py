@@ -23,7 +23,7 @@ def configure_settings(options):
             DATABASES = {
                 'default': {
                     'ENGINE': 'django.db.backends.sqlite3',
-                    'NAME': ':memory:',
+                    'NAME': '',
                 }
             },
             NOSQL_DATABASES = {
@@ -46,10 +46,12 @@ def configure_settings(options):
 
             MIDDLEWARE_CLASSES = (
                 'django.contrib.sessions.middleware.SessionMiddleware',
+                'django.middleware.common.CommonMiddleware',
                 'django.middleware.csrf.CsrfViewMiddleware',
                 'django.contrib.auth.middleware.AuthenticationMiddleware',
                 'identity_client.middleware.P3PHeaderMiddleware',
             ),
+            SESSION_SERIALIZER='django.contrib.sessions.serializers.PickleSerializer',
 
             AUTHENTICATION_BACKENDS = ('identity_client.backend.MyfcidAPIBackend',),
             SERVICE_ACCOUNT_MODULE = 'identity_client.ServiceAccount',
