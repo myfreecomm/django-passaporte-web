@@ -6,13 +6,22 @@ from setuptools.command.test import test as TestCommand
 import sys
 
 class Tox(TestCommand):
+
+    user_options = TestCommand.user_options + [
+        ('environment=', 'e', "Run 'test_suite' in specified environment")
+    ]
+    environment = None
+
     def finalize_options(self):
         TestCommand.finalize_options(self)
         self.test_args = []
         self.test_suite = True
+
     def run_tests(self):
         #import here, cause outside the eggs aren't loaded
         import tox
+        if self.environment:
+            self.test_args.append('-e{0}'.format(self.environment))
         errno = tox.cmdline(self.test_args)
         sys.exit(errno)
 
