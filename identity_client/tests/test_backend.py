@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
-import os
 import json
 
 from mock import patch
-import vcr as vcrpy
 
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
@@ -13,17 +11,13 @@ from identity_client.backend import MyfcidAPIBackend, get_user
 from identity_client.utils import get_account_module
 from identity_client.tests.helpers import MyfcIDTestCase as TestCase
 from identity_client.client_api_methods import APIClient
+from identity_client.tests.vcr import vcr
 
 __all__ = ['TestMyfcidApiBackend', 'TestGetUser', 'TestFetchUserData']
 
 test_user_email = 'identity_client@disposableinbox.com'
 test_user_password = '*SudN7%r$MiYRa!E'
 test_user_uuid = 'c3769912-baa9-4a0c-9856-395a706c7d57'
-
-cassettes = os.path.dirname(__file__)
-vcr = vcrpy.VCR(
-    cassette_library_dir=cassettes, match_on = ['url', 'method', 'headers', 'body']
-)
 
 
 class TestMyfcidApiBackend(TestCase):
