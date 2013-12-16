@@ -25,6 +25,8 @@ class Identity(Document):
     id_token = StringField(max_length=48, default=None)
     is_active = BooleanField(default=False)
 
+    meta = {'allow_inheritance': True}
+
     def __unicode__(self):
         return self.email
 
@@ -124,6 +126,7 @@ class ServiceAccount(Document):
     expiration = DateTimeField(required=False)
     url = StringField(max_length=1024, required=False)
 
+    meta = {'allow_inheritance': True}
 
     def __unicode__(self):
         return self.name
