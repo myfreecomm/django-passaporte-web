@@ -1,2 +1,12 @@
 include README.rst
 include requirements.txt
+recursive-include identity_client/django_db *.py
+recursive-include identity_client/mongoengine_db *.py
+recursive-include identity_client/views *.py
+recursive-include identity_client/sso *.py
+recursive-include identity_client/templatetags *.py
+recursive-include identity_client/templates *.html
+recursive-include identity_client/migrations *.py
+recursive-include identity_client/tests *.py
+recursive-include identity_client/tests/cassettes *
+recursive-include identity_client/tests/templates *.html
