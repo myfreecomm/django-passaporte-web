@@ -31,4 +31,7 @@ def get_account_module():
 
 def reverse_with_host(namespace, *args, **kwargs):
     path = reverse(namespace, *args, **kwargs)
-    return '{0}{1}'.format(settings.APPLICATION_HOST, path)
+    if path.startswith(settings.APPLICATION_HOST):
+        return path
+    else:
+        return '{0}{1}'.format(settings.APPLICATION_HOST, path)
