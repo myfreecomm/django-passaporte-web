@@ -1,24 +1,23 @@
 # -*- coding: utf-8 -*-
 import os
-import vcr as vcrpy
+from vcr import VCR                                                                                               
 
-from django.conf import settings
-from django.test.client import Client
-from django.test import TestCase
-from django.contrib.auth import authenticate, login
-from django.utils.importlib import import_module
-from django.http import HttpRequest
+from django.conf import settings                                                                                  
+from django.test.client import Client                                                                             
+from django.test import TestCase                                                                                  
+from django.contrib.auth import authenticate, login                                                               
+from django.utils.importlib import import_module                                                                  
+from django.http import HttpRequest                                                                               
 
-import identity_client
-from identity_client import PERSISTENCE_MODULE
+from identity_client import PERSISTENCE_MODULE                                                                    
 
 
 __all__ = [
-    'MyfcIDTestClient', 'MyfcIDTestCase', 'MyfcIDAPITestCase', 'vcr',
+    'MyfcIDTestClient', 'MyfcIDTestCase', 'MyfcIDAPITestCase', 'vcr'
 ]
 
-cassettes = os.path.join(os.path.dirname(identity_client.__file__), 'tests')
-vcr = vcrpy.VCR(
+cassettes = os.path.join(os.path.dirname(__file__), 'cassettes', 'api_client')
+vcr = VCR(
     cassette_library_dir=cassettes, match_on = ['url', 'method', 'headers', 'body']
 )
 

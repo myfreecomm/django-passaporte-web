@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from helpers import vcr
+
 from test_backend import *
 from test_forms import *
 from test_models import *
