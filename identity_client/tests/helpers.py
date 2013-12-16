@@ -1,4 +1,7 @@
-#coding:utf-8
+# -*- coding: utf-8 -*-
+import os
+import vcr as vcrpy
+
 from django.conf import settings
 from django.test.client import Client
 from django.test import TestCase
@@ -6,12 +9,18 @@ from django.contrib.auth import authenticate, login
 from django.utils.importlib import import_module
 from django.http import HttpRequest
 
+import identity_client
 from identity_client import PERSISTENCE_MODULE
 
 
 __all__ = [
-    'MyfcIDTestClient', 'MyfcIDTestCase'
+    'MyfcIDTestClient', 'MyfcIDTestCase', 'MyfcIDAPITestCase', 'vcr',
 ]
+
+cassettes = os.path.join(os.path.dirname(identity_client.__file__), 'tests')
+vcr = vcrpy.VCR(
+    cassette_library_dir=cassettes, match_on = ['url', 'method', 'headers', 'body']
+)
 
 
 class MyfcIDTestClient(Client):

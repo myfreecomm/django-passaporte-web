@@ -9,7 +9,7 @@ from django.test import TestCase
 
 from identity_client.client_api_methods import APIClient
 from identity_client.forms import RegistrationForm, IdentityInformationForm
-from identity_client.tests.vcr import vcr
+from identity_client.tests.helpers import vcr
 
 __all__ = [
     'InvokeRegistrationApi',

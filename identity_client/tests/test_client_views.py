@@ -7,8 +7,7 @@ import requests
 from django.core.urlresolvers import reverse
 
 from identity_client.client_api_methods import APIClient
-from identity_client.tests.helpers import MyfcIDTestCase as TestCase
-from identity_client.tests.vcr import vcr
+from identity_client.tests.helpers import MyfcIDTestCase as TestCase, vcr
 
 
 __all__ = ["IdentityRegistrationTest", "IdentityLoginTest"]
