@@ -3,7 +3,7 @@ from django.conf import settings
 
 def hosts(request):
     return {
-        'MYFC_ID_HOST': settings.MYFC_ID['HOST'],
+        'PASSAPORTE_WEB_HOST': settings.PASSAPORTE_WEB['HOST'],
         'APPLICATION_HOST': settings.APPLICATION_HOST
     }
 

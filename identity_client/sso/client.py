@@ -7,16 +7,16 @@ from ..utils import reverse_with_host
 
 class SSOClient(oauth.Client):
 
-    request_token_url = '%(HOST)s/%(REQUEST_TOKEN_PATH)s' % settings.MYFC_ID
-    access_token_url = '%(HOST)s/%(ACCESS_TOKEN_PATH)s' % settings.MYFC_ID
-    authorization_url = '%(HOST)s/%(AUTHORIZATION_PATH)s' % settings.MYFC_ID
-    user_data_url = '%(HOST)s/%(FETCH_USER_DATA_PATH)s' % settings.MYFC_ID
+    request_token_url = '%(HOST)s/%(REQUEST_TOKEN_PATH)s' % settings.PASSAPORTE_WEB
+    access_token_url = '%(HOST)s/%(ACCESS_TOKEN_PATH)s' % settings.PASSAPORTE_WEB
+    authorization_url = '%(HOST)s/%(AUTHORIZATION_PATH)s' % settings.PASSAPORTE_WEB
+    user_data_url = '%(HOST)s/%(FETCH_USER_DATA_PATH)s' % settings.PASSAPORTE_WEB
 
     def __init__(self, *args, **kwargs):
 
         self.consumer = oauth.Consumer(
-            settings.MYFC_ID['CONSUMER_TOKEN'],
-            settings.MYFC_ID['CONSUMER_SECRET']
+            settings.PASSAPORTE_WEB['CONSUMER_TOKEN'],
+            settings.PASSAPORTE_WEB['CONSUMER_SECRET']
         )
 
         return super(SSOClient, self).__init__(self.consumer, *args, **kwargs)

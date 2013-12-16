@@ -19,11 +19,11 @@ __all__ = ['APIClient']
 
 class APIClient(object):
 
-    api_host = settings.MYFC_ID['HOST']
-    api_user = settings.MYFC_ID['CONSUMER_TOKEN']
-    api_password = settings.MYFC_ID['CONSUMER_SECRET']
-    profile_api = settings.MYFC_ID['PROFILE_API']
-    registration_api = settings.MYFC_ID['REGISTRATION_API']
+    api_host = settings.PASSAPORTE_WEB['HOST']
+    api_user = settings.PASSAPORTE_WEB['CONSUMER_TOKEN']
+    api_password = settings.PASSAPORTE_WEB['CONSUMER_SECRET']
+    profile_api = settings.PASSAPORTE_WEB['PROFILE_API']
+    registration_api = settings.PASSAPORTE_WEB['REGISTRATION_API']
 
     pweb = requests.Session()
     pweb.auth = (api_user, api_password)

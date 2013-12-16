@@ -71,7 +71,7 @@ class InvokeRegistrationApi(TestCase):
             response = APIClient.invoke_registration_api(form)
             status_code, content, new_form = response
 
-        APIClient.pweb.auth = (settings.MYFC_ID['CONSUMER_TOKEN'], settings.MYFC_ID['CONSUMER_SECRET'])
+        APIClient.pweb.auth = (settings.PASSAPORTE_WEB['CONSUMER_TOKEN'], settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
 
         self.assertEquals(status_code, 401)
         self.assertEquals(content, None)
@@ -259,7 +259,7 @@ class FetchIdentityData(TestCase):
             response = APIClient.fetch_identity_data(uuid=test_user_uuid)
             status_code, content, error = response
 
-        APIClient.pweb.auth = (settings.MYFC_ID['CONSUMER_TOKEN'], settings.MYFC_ID['CONSUMER_SECRET'])
+        APIClient.pweb.auth = (settings.PASSAPORTE_WEB['CONSUMER_TOKEN'], settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
 
         self.assertEquals(status_code, 401)
         self.assertEquals(content, None)
@@ -537,7 +537,7 @@ class FetchIdentityDataWithEmail(TestCase):
             response = APIClient.fetch_identity_data(email=test_user_email)
             status_code, content, error = response
 
-        APIClient.pweb.auth = (settings.MYFC_ID['CONSUMER_TOKEN'], settings.MYFC_ID['CONSUMER_SECRET'])
+        APIClient.pweb.auth = (settings.PASSAPORTE_WEB['CONSUMER_TOKEN'], settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
 
         self.assertEquals(status_code, 401)
         self.assertEquals(content, None)
@@ -834,7 +834,7 @@ class UpdateUserApi(TestCase):
             response = APIClient.update_user_api(form, self.user_data['update_info_url'])
             status_code, content, new_form = response
 
-        APIClient.pweb.auth = (settings.MYFC_ID['CONSUMER_TOKEN'], settings.MYFC_ID['CONSUMER_SECRET'])
+        APIClient.pweb.auth = (settings.PASSAPORTE_WEB['CONSUMER_TOKEN'], settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
 
         self.assertEquals(status_code, 401)
         self.assertEquals(content, None)
@@ -974,7 +974,7 @@ class FetchAssociationData(TestCase):
             response = APIClient.fetch_association_data(self.user_data['services']['identity_client'])
             status_code, content, error = response
 
-        APIClient.pweb.auth = (settings.MYFC_ID['CONSUMER_TOKEN'], settings.MYFC_ID['CONSUMER_SECRET'])
+        APIClient.pweb.auth = (settings.PASSAPORTE_WEB['CONSUMER_TOKEN'], settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
 
         self.assertEquals(status_code, 401)
         self.assertEquals(content, None)
@@ -1070,7 +1070,7 @@ class UpdateAssociationData(TestCase):
             response = APIClient.update_association_data(self.association_data, self.user_data['services']['identity_client'])
             status_code, content, error = response
 
-        APIClient.pweb.auth = (settings.MYFC_ID['CONSUMER_TOKEN'], settings.MYFC_ID['CONSUMER_SECRET'])
+        APIClient.pweb.auth = (settings.PASSAPORTE_WEB['CONSUMER_TOKEN'], settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
 
         self.assertEquals(status_code, 401)
         self.assertEquals(content, None)
@@ -1177,7 +1177,7 @@ class FetchUserAccounts(TestCase):
             response = APIClient.fetch_user_accounts(uuid=test_user_uuid)
             status_code, accounts, error = response
 
-        APIClient.pweb.auth = (settings.MYFC_ID['CONSUMER_TOKEN'], settings.MYFC_ID['CONSUMER_SECRET'])
+        APIClient.pweb.auth = (settings.PASSAPORTE_WEB['CONSUMER_TOKEN'], settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
 
         self.assertEquals(status_code, 401)
         self.assertEquals(accounts, None)
@@ -1470,7 +1470,7 @@ class CreateUserAccount(TestCase):
             response = APIClient.create_user_account(uuid=test_user_uuid, account_name='Test Account', plan_slug='unittest')
             status_code, accounts, error = response
 
-        APIClient.pweb.auth = (settings.MYFC_ID['CONSUMER_TOKEN'], settings.MYFC_ID['CONSUMER_SECRET'])
+        APIClient.pweb.auth = (settings.PASSAPORTE_WEB['CONSUMER_TOKEN'], settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
 
         self.assertEquals(status_code, 401)
         self.assertEquals(accounts, None)
@@ -1615,7 +1615,7 @@ class CreateUserAccountWithUUID(TestCase):
             response = APIClient.create_user_account(uuid=test_user_uuid, account_uuid=test_account_uuid, plan_slug='unittest')
             status_code, accounts, error = response
 
-        APIClient.pweb.auth = (settings.MYFC_ID['CONSUMER_TOKEN'], settings.MYFC_ID['CONSUMER_SECRET'])
+        APIClient.pweb.auth = (settings.PASSAPORTE_WEB['CONSUMER_TOKEN'], settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
 
         self.assertEquals(status_code, 401)
         self.assertEquals(accounts, None)
@@ -1792,7 +1792,7 @@ class FetchAccountData(TestCase):
             response = APIClient.fetch_account_data(account_uuid=test_account_uuid)
             status_code, account, error = response
 
-        APIClient.pweb.auth = (settings.MYFC_ID['CONSUMER_TOKEN'], settings.MYFC_ID['CONSUMER_SECRET'])
+        APIClient.pweb.auth = (settings.PASSAPORTE_WEB['CONSUMER_TOKEN'], settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
 
         self.assertEquals(status_code, 401)
         self.assertEquals(account, None)
@@ -1893,7 +1893,7 @@ class UpdateAccountData(TestCase):
             )
             status_code, account, error = response
 
-        APIClient.pweb.auth = (settings.MYFC_ID['CONSUMER_TOKEN'], settings.MYFC_ID['CONSUMER_SECRET'])
+        APIClient.pweb.auth = (settings.PASSAPORTE_WEB['CONSUMER_TOKEN'], settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
 
         self.assertEquals(status_code, 401)
         self.assertEquals(account, None)
@@ -2143,7 +2143,7 @@ class AddAccountMember(TestCase):
             )
             status_code, content, error = response
 
-        APIClient.pweb.auth = (settings.MYFC_ID['CONSUMER_TOKEN'], settings.MYFC_ID['CONSUMER_SECRET'])
+        APIClient.pweb.auth = (settings.PASSAPORTE_WEB['CONSUMER_TOKEN'], settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
 
         self.assertEquals(status_code, 401)
         self.assertEquals(content, None)
@@ -2339,7 +2339,7 @@ class UpdateMemberRoles(TestCase):
             )
             status_code, content, error = response
 
-        APIClient.pweb.auth = (settings.MYFC_ID['CONSUMER_TOKEN'], settings.MYFC_ID['CONSUMER_SECRET'])
+        APIClient.pweb.auth = (settings.PASSAPORTE_WEB['CONSUMER_TOKEN'], settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
 
         self.assertEquals(status_code, 401)
         self.assertEquals(content, None)
@@ -2544,7 +2544,7 @@ class RemoveAccountMember(TestCase):
             )
             status_code, content, error = response
 
-        APIClient.pweb.auth = (settings.MYFC_ID['CONSUMER_TOKEN'], settings.MYFC_ID['CONSUMER_SECRET'])
+        APIClient.pweb.auth = (settings.PASSAPORTE_WEB['CONSUMER_TOKEN'], settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
 
         self.assertEquals(status_code, 401)
         self.assertEquals(content, None)

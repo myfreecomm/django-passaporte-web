@@ -41,9 +41,9 @@ def handle_api_exception(view):
 
 def render_sso_iframe(request):
     context = {
-        'myfcid_host': settings.MYFC_ID['HOST'],
+        'myfcid_host': settings.PASSAPORTE_WEB['HOST'],
         'application_host': settings.APPLICATION_HOST,
-        'application_slug': settings.MYFC_ID['SLUG'],
+        'application_slug': settings.PASSAPORTE_WEB['SLUG'],
     }
 
     return render_to_response(

@@ -36,8 +36,8 @@ def build_access_token_request(oauth_token, oauth_verifier):
     token = oauth.Token(key=oauth_token, secret=secret)
     token.set_verifier(oauth_verifier)
 
-    consumer = oauth.Consumer(settings.MYFC_ID['CONSUMER_TOKEN'],
-                               settings.MYFC_ID['CONSUMER_SECRET'])
+    consumer = oauth.Consumer(settings.PASSAPORTE_WEB['CONSUMER_TOKEN'],
+                               settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
     signature_method_plaintext = oauth.SignatureMethod_PLAINTEXT()
     oauth_request = oauth.Request.from_consumer_and_token(consumer, token=token,
                  http_url=sso_client.access_token_url, parameters={'scope':'sso-sample'})

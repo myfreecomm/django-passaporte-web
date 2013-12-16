@@ -46,11 +46,11 @@ mocked_accounts_json = '''[
         "external_id": null
     }
 ]''' % (
-    settings.MYFC_ID['HOST'],
-    settings.MYFC_ID['HOST'],
+    settings.PASSAPORTE_WEB['HOST'],
+    settings.PASSAPORTE_WEB['HOST'],
     (dt.today() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S'),
-    settings.MYFC_ID['HOST'],
-    settings.MYFC_ID['HOST'],
+    settings.PASSAPORTE_WEB['HOST'],
+    settings.PASSAPORTE_WEB['HOST'],
     (dt.today() + timedelta(days=30)).strftime('%Y-%m-%d %H:%M:%S')
 )
 

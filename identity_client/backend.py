@@ -79,7 +79,7 @@ class MyfcidAPIBackend(object):
     def fetch_user_data(self, user, password):
 
         # Build the API uri
-        uri = "{0[HOST]}/{0[AUTH_API]}".format(settings.MYFC_ID)
+        uri = "{0[HOST]}/{0[AUTH_API]}".format(settings.PASSAPORTE_WEB)
 
         headers = {
             'content-type': 'application/json',

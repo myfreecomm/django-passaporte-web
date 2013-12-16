@@ -57,7 +57,7 @@ def configure_settings(options):
             SERVICE_ACCOUNT_MODULE = 'identity_client.ServiceAccount',
             APPLICATION_HOST = 'http://testserver',
             LOGIN_REDIRECT_URL = '/accounts/',
-            MYFC_ID = {
+            PASSAPORTE_WEB = {
                 'HOST': 'http://sandbox.app.passaporteweb.com.br',
                 'SLUG': 'identity_client',
                 'CONSUMER_TOKEN': 'qxRSNcIdeA',
