@@ -36,3 +36,6 @@ class TestCase(SimpleTestCase):
             if collection == 'system.indexes':
                 continue
             self.db.drop_collection(collection)
+
+    def _fixture_teardown(self, *args, **kwargs):
+        pass
