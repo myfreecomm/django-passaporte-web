@@ -22,18 +22,20 @@ O Passaporte Web oferece:
 Configurações necessárias
 -------------------------
 
-PERSISTENCE_STRATEGY = 'django_db' ou 'mongoengine_db'
-SERVICE_ACCOUNT_MODULE = 'identity_client.ServiceAccount'
-PASSAPORTE_WEB = {
-    'HOST': 'http://sandbox.app.passaporteweb.com.br',
-    'SLUG': <slug da sua aplicação>,
-    'CONSUMER_TOKEN': <token de uma instância da sua aplicação>,
-    'CONSUMER_SECRET': <secret de uma instância da sua aplicação>,
-    'AUTH_API': 'accounts/api/auth/',
-    'REGISTRATION_API': 'accounts/api/create/',
-    'PROFILE_API': 'profile/api/info/',
-    'REQUEST_TOKEN_PATH': 'sso/initiate/',
-    'AUTHORIZATION_PATH': 'sso/authorize/',
-    'ACCESS_TOKEN_PATH': 'sso/token/',
-    'FETCH_USER_DATA_PATH': 'sso/fetchuserdata/',
-}
+.. code-block:: python
+
+    PERSISTENCE_STRATEGY = 'django_db' ou 'mongoengine_db'
+    SERVICE_ACCOUNT_MODULE = 'identity_client.ServiceAccount'
+    PASSAPORTE_WEB = {
+        'HOST': 'http://sandbox.app.passaporteweb.com.br',
+        'SLUG': <slug da sua aplicação>,
+        'CONSUMER_TOKEN': <token de uma instância da sua aplicação>,
+        'CONSUMER_SECRET': <secret de uma instância da sua aplicação>,
+        'AUTH_API': 'accounts/api/auth/',
+        'REGISTRATION_API': 'accounts/api/create/',
+        'PROFILE_API': 'profile/api/info/',
+        'REQUEST_TOKEN_PATH': 'sso/initiate/',
+        'AUTHORIZATION_PATH': 'sso/authorize/',
+        'ACCESS_TOKEN_PATH': 'sso/token/',
+        'FETCH_USER_DATA_PATH': 'sso/fetchuserdata/',
+    }
