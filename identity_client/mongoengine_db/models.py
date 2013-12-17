@@ -148,25 +148,32 @@ class ServiceAccount(Document):
 
 
     @classmethod
-    def refresh_accounts(cls, identity):
+    def refresh_accounts(cls, identity, **kwargs):
 
-        accounts = cls.pull_remote_accounts(identity)
+        accounts = cls.pull_remote_accounts(identity, **kwargs)
         cls.update_user_accounts(identity, accounts)
         cls.remove_stale_accounts(identity, accounts)
 
 
     @classmethod
-    def pull_remote_accounts(cls, identity):
-        status_code, accounts, error = APIClient.fetch_user_accounts(identity.uuid)
+    def pull_remote_accounts(cls, identity, **kwargs):
+        status_code, accounts, error = APIClient.fetch_user_accounts(identity.uuid, **kwargs)
 
-        return [dict(
-            uuid = item['account_data']['uuid'],
-            name = item['account_data']['name'],
-            expiration = item.get('expiration'),
-            plan_slug = item['plan_slug'],
-            url = item.get('url'),
-            roles = item['roles'],
-        ) for item in accounts]
+        default_roles = []
+        if 'role' in kwargs:
+            default_roles.append(kwargs['role'])
+
+        if error:
+            return []
+        else:
+            return [dict(
+                uuid = item['account_data']['uuid'],
+                name = item['account_data']['name'],
+                expiration = item.get('expiration'),
+                plan_slug = item.get('plan_slug', 'UNKNOWN'),
+                url = item.get('url'),
+                roles = item.get('roles', default_roles),
+            ) for item in accounts]
 
 
     @classmethod
