@@ -24,7 +24,19 @@ Configurações necessárias
 
 .. code-block:: python
 
+    INSTALLED_APPS += (
+        'identity_client',
+    )
+    TEMPLATE_CONTEXT_PROCESSORS += (
+        'identity_client.processors.hosts',
+    )
+    MIDDLEWARE_CLASSES += (
+        'identity_client.middleware.P3PHeaderMiddleware',
+    )
+
+    APPLICATION_HOST = '<protocol>://<host>'
     PERSISTENCE_STRATEGY = 'django_db' ou 'mongoengine_db'
+    AUTHENTICATION_BACKENDS = ('identity_client.backend.MyfcidAPIBackend',)
     SERVICE_ACCOUNT_MODULE = 'identity_client.ServiceAccount'
     PASSAPORTE_WEB = {
         'HOST': 'http://sandbox.app.passaporteweb.com.br',
@@ -39,3 +51,10 @@ Configurações necessárias
         'ACCESS_TOKEN_PATH': 'sso/token/',
         'FETCH_USER_DATA_PATH': 'sso/fetchuserdata/',
     }
+
+    if PERSISTENCE_STRATEGY == 'mongoengine_db':
+        SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer' # django >= 1.6
+        NOSQL_DATABASES = {
+            'NAME': '<db name>',
+            'HOST': '<db host>',
+        }
