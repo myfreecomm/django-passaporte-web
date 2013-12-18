@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime as dt, timedelta
+from datetime import datetime, timedelta
 import json
 
 from mock import patch
@@ -48,10 +48,10 @@ mocked_accounts_json = '''[
 ]''' % (
     settings.PASSAPORTE_WEB['HOST'],
     settings.PASSAPORTE_WEB['HOST'],
-    (dt.today() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S'),
+    (datetime.today() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S'),
     settings.PASSAPORTE_WEB['HOST'],
     settings.PASSAPORTE_WEB['HOST'],
-    (dt.today() + timedelta(days=30)).strftime('%Y-%m-%d %H:%M:%S')
+    (datetime.today() + timedelta(days=30)).strftime('%Y-%m-%d %H:%M:%S')
 )
 
 mocked_accounts_list = json.loads(mocked_accounts_json)
@@ -147,12 +147,12 @@ class TestServiceAccountModel(TestCase):
 
 
     def test_account_with_expiration_in_the_future_is_active(self):
-        self.account.expiration = dt.today() + timedelta(days=2)
+        self.account.expiration = datetime.today() + timedelta(days=2)
         self.assertTrue(self.account.is_active)
 
 
     def test_account_with_expiration_in_the_past_is_not_active(self):
-        self.account.expiration = dt.today() - timedelta(days=2)
+        self.account.expiration = datetime.today() - timedelta(days=2)
         self.assertFalse(self.account.is_active)
 
 
@@ -223,7 +223,7 @@ class TestServiceAccountModel(TestCase):
 
 
     def test_account_with_expiration_in_the_future_is_active(self):
-        self.account.expiration = dt.today() + timedelta(days=2)
+        self.account.expiration = datetime.today() + timedelta(days=2)
         self.account.save()
         active_accounts = ServiceAccount.active().all()
         self.assertEqual(len(active_accounts), 1)
@@ -231,7 +231,7 @@ class TestServiceAccountModel(TestCase):
 
 
     def test_account_with_expiration_in_the_past_is_not_active(self):
-        self.account.expiration = dt.today() - timedelta(days=2)
+        self.account.expiration = datetime.today() - timedelta(days=2)
         self.account.save()
         active_accounts = ServiceAccount.active().all()
         self.assertEqual(len(active_accounts), 0)
@@ -250,7 +250,7 @@ class TestServiceAccountModel(TestCase):
 
 
     def test_accounts_for_identity_ignores_expired_accounts_by_default(self):
-        self.account.expiration = dt.today() - timedelta(days=2)
+        self.account.expiration = datetime.today() - timedelta(days=2)
         self.account.add_member(self.identity, roles=[])
 
         active_accounts = ServiceAccount.for_identity(self.identity)
@@ -258,7 +258,7 @@ class TestServiceAccountModel(TestCase):
 
 
     def test_accounts_for_identity_may_include_expired_accounts(self):
-        self.account.expiration = dt.today() - timedelta(days=2)
+        self.account.expiration = datetime.today() - timedelta(days=2)
         self.account.add_member(self.identity, roles=[])
 
         active_accounts = ServiceAccount.for_identity(self.identity, include_expired=True)

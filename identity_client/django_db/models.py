@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from datetime import datetime as dt
+from datetime import datetime
 
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models
@@ -25,7 +25,7 @@ class Identity(models.Model):
     is_active = models.BooleanField(_('active'), default=True,
         help_text=_("Designates whether this user should be treated as active. Unselect this instead of deleting accounts.")
     )
-    last_login = models.DateTimeField(_('last login'), default=dt.now)
+    last_login = models.DateTimeField(_('last login'), default=datetime.now)
 
     class Meta:
         verbose_name = 'usuário do passaporte web'
@@ -145,7 +145,7 @@ class ServiceAccount(models.Model):
     @classmethod
     def active(cls):
         return cls.objects.filter(
-            Q(expiration=None)|Q(expiration__gte=dt.now())
+            Q(expiration=None)|Q(expiration__gte=datetime.now())
         )
 
 
@@ -208,7 +208,7 @@ class ServiceAccount(models.Model):
             account.url = url
 
             if expiration:
-                new_expiration = dt.strptime(expiration, '%Y-%m-%d %H:%M:%S')
+                new_expiration = datetime.strptime(expiration, '%Y-%m-%d %H:%M:%S')
                 account.update_expiration(new_expiration)
             else:
                 account.update_expiration(None)
@@ -240,7 +240,7 @@ class ServiceAccount(models.Model):
 
     @property
     def is_active(self):
-        return (self.expiration is None) or (self.expiration >= dt.now())
+        return (self.expiration is None) or (self.expiration >= datetime.now())
 
 
     @property

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from datetime import datetime as dt
+from datetime import datetime
 
 from mongoengine import *
 from mongoengine.queryset import Q
@@ -134,7 +134,7 @@ class ServiceAccount(Document):
 
     @queryset_manager
     def active(cls, qset):
-        return qset.filter(Q(expiration=None)|Q(expiration__gte=dt.now()))
+        return qset.filter(Q(expiration=None)|Q(expiration__gte=datetime.now()))
 
 
     @classmethod
@@ -196,7 +196,7 @@ class ServiceAccount(Document):
             account.url = url
 
             if expiration:
-                new_expiration = dt.strptime(expiration, '%Y-%m-%d %H:%M:%S')
+                new_expiration = datetime.strptime(expiration, '%Y-%m-%d %H:%M:%S')
                 account.update_expiration(new_expiration)
             else:
                 account.update_expiration(None)
@@ -228,7 +228,7 @@ class ServiceAccount(Document):
 
     @property
     def is_active(self):
-        return (self.expiration is None) or (self.expiration >= dt.now())
+        return (self.expiration is None) or (self.expiration >= datetime.now())
 
 
     @property

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime as dt
+from datetime import datetime
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
@@ -239,7 +239,7 @@ class IdentityProfileForm(forms.Form):
 
     def clean_birth_date(self):
         data = self.cleaned_data.get('birth_date', None)
-        if data and (not dt(1900, 1, 1) <= data <= dt(9999, 12, 31)):
+        if data and (not datetime(1900, 1, 1) <= data <= datetime(9999, 12, 31)):
             raise forms.ValidationError(
                 self.fields['birth_date'].error_messages['invalid']
             )

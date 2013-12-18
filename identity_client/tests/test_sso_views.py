@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from httplib2 import HttpLib2Error
 from oauth2 import Token
-from datetime import datetime as dt, timedelta
+from datetime import datetime, timedelta
 import json
 
 from mock import Mock, patch
@@ -53,8 +53,8 @@ mocked_user_json = """{
         }
     ]
 }""" % (
-    (dt.today() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S'),
-    (dt.today() + timedelta(days=30)).strftime('%Y-%m-%d %H:%M:%S'),
+    (datetime.today() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S'),
+    (datetime.today() + timedelta(days=30)).strftime('%Y-%m-%d %H:%M:%S'),
 )
 
 mocked_user_corrupted = """{
