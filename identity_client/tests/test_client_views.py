@@ -35,7 +35,7 @@ class IdentityRegistrationTest(TestCase):
 
 
     def test_successful_api_registration(self):
-        with identity_client.tests.vcr.use_cassette('invoke_registration_api/registration_success'):
+        with identity_client.tests.use_cassette('invoke_registration_api/registration_success'):
             response = self.client.post(self.url, self.registration_data)
 
         self.assertEquals(302, response.status_code)
@@ -57,7 +57,7 @@ class IdentityRegistrationTest(TestCase):
 
 
     def test_conflict_error_on_api_registration(self):
-        with identity_client.tests.vcr.use_cassette('invoke_registration_api/email_already_registered'):
+        with identity_client.tests.use_cassette('invoke_registration_api/email_already_registered'):
             response = self.client.post(self.url, self.registration_data)
 
         form = response.context['form']
@@ -76,7 +76,7 @@ class IdentityRegistrationTest(TestCase):
 class IdentityLoginTest(TestCase):
 
     def test_successful_login(self):
-        with identity_client.tests.vcr.use_cassette('myfcid_api_backend/success'):
+        with identity_client.tests.use_cassette('myfcid_api_backend/success'):
             response = self.client.post(
                 reverse('auth_login'), {
                     'email': test_user_email,
@@ -87,7 +87,7 @@ class IdentityLoginTest(TestCase):
 
 
     def test_add_userdata_to_session_after_login(self):
-        with identity_client.tests.vcr.use_cassette('myfcid_api_backend/success'):
+        with identity_client.tests.use_cassette('myfcid_api_backend/success'):
             response = self.client.post(
                 reverse('auth_login'), {
                     'email': test_user_email,

@@ -61,7 +61,7 @@ class InvokeRegistrationApi(TestCase):
         self.assertTrue(form.is_valid())
         APIClient.pweb.auth = ('?????', 'XXXXXX')
 
-        with identity_client.tests.vcr.use_cassette('invoke_registration_api/wrong_credentials'):
+        with identity_client.tests.use_cassette('invoke_registration_api/wrong_credentials'):
             response = APIClient.invoke_registration_api(form)
             status_code, content, new_form = response
 
@@ -77,7 +77,7 @@ class InvokeRegistrationApi(TestCase):
         form = RegistrationForm(self.registration_data)
         self.assertTrue(form.is_valid())
 
-        with identity_client.tests.vcr.use_cassette('invoke_registration_api/application_without_permissions'):
+        with identity_client.tests.use_cassette('invoke_registration_api/application_without_permissions'):
             response = APIClient.invoke_registration_api(form)
             status_code, content, new_form = response
 
@@ -92,7 +92,7 @@ class InvokeRegistrationApi(TestCase):
         self.assertTrue(form.is_valid())
         del(form.cleaned_data['tos'])
 
-        with identity_client.tests.vcr.use_cassette('invoke_registration_api/without_tos_set'):
+        with identity_client.tests.use_cassette('invoke_registration_api/without_tos_set'):
             response = APIClient.invoke_registration_api(form)
             status_code, content, new_form = response
 
@@ -107,7 +107,7 @@ class InvokeRegistrationApi(TestCase):
         self.assertTrue(form.is_valid())
         del(form.cleaned_data['password2'])
 
-        with identity_client.tests.vcr.use_cassette('invoke_registration_api/with_password_only_once'):
+        with identity_client.tests.use_cassette('invoke_registration_api/with_password_only_once'):
             response = APIClient.invoke_registration_api(form)
             status_code, content, new_form = response
 
@@ -122,7 +122,7 @@ class InvokeRegistrationApi(TestCase):
         self.assertTrue(form.is_valid())
         form.cleaned_data['password2'] = 'will not match'
 
-        with identity_client.tests.vcr.use_cassette('invoke_registration_api/with_passwords_not_matching'):
+        with identity_client.tests.use_cassette('invoke_registration_api/with_passwords_not_matching'):
             response = APIClient.invoke_registration_api(form)
             status_code, content, new_form = response
 
@@ -136,7 +136,7 @@ class InvokeRegistrationApi(TestCase):
         form = RegistrationForm(self.registration_data)
         self.assertTrue(form.is_valid())
 
-        with identity_client.tests.vcr.use_cassette('invoke_registration_api/registration_success'):
+        with identity_client.tests.use_cassette('invoke_registration_api/registration_success'):
             response = APIClient.invoke_registration_api(form)
             status_code, content, new_form = response
 
@@ -176,7 +176,7 @@ class InvokeRegistrationApi(TestCase):
         form = RegistrationForm(self.registration_data)
         self.assertTrue(form.is_valid())
 
-        with identity_client.tests.vcr.use_cassette('invoke_registration_api/email_already_registered'):
+        with identity_client.tests.use_cassette('invoke_registration_api/email_already_registered'):
             response = APIClient.invoke_registration_api(form)
             status_code, content, new_form = response
 
@@ -192,7 +192,7 @@ class InvokeRegistrationApi(TestCase):
         form.cleaned_data['email'] = 'identity_client+1@disposableinbox.com'
         form.cleaned_data['cpf'] = '11111111111'
 
-        with identity_client.tests.vcr.use_cassette('invoke_registration_api/cpf_already_registered'):
+        with identity_client.tests.use_cassette('invoke_registration_api/cpf_already_registered'):
             response = APIClient.invoke_registration_api(form)
             status_code, content, new_form = response
 
@@ -208,7 +208,7 @@ class InvokeRegistrationApi(TestCase):
         form.cleaned_data['email'] = 'identity_client+1@disposableinbox.com'
         form.cleaned_data['cpf'] = '1111111111122222222'
 
-        with identity_client.tests.vcr.use_cassette('invoke_registration_api/invalid_cpf_pt1'):
+        with identity_client.tests.use_cassette('invoke_registration_api/invalid_cpf_pt1'):
             response = APIClient.invoke_registration_api(form)
             status_code, content, new_form = response
 
@@ -224,7 +224,7 @@ class InvokeRegistrationApi(TestCase):
         form.cleaned_data['email'] = 'identity_client+1@disposableinbox.com'
         form.cleaned_data['cpf'] = 'asdfgqwertzxcvb'
 
-        with identity_client.tests.vcr.use_cassette('invoke_registration_api/invalid_cpf_pt2'):
+        with identity_client.tests.use_cassette('invoke_registration_api/invalid_cpf_pt2'):
             response = APIClient.invoke_registration_api(form)
             status_code, content, new_form = response
 
@@ -249,7 +249,7 @@ class FetchIdentityData(TestCase):
     def test_request_with_wrong_credentials(self):
         APIClient.pweb.auth = ('?????', 'XXXXXX')
 
-        with identity_client.tests.vcr.use_cassette('fetch_identity_data/wrong_credentials'):
+        with identity_client.tests.use_cassette('fetch_identity_data/wrong_credentials'):
             response = APIClient.fetch_identity_data(uuid=test_user_uuid)
             status_code, content, error = response
 
@@ -261,7 +261,7 @@ class FetchIdentityData(TestCase):
 
     def test_request_with_application_without_permissions(self):
 
-        with identity_client.tests.vcr.use_cassette('fetch_identity_data/application_without_permissions'):
+        with identity_client.tests.use_cassette('fetch_identity_data/application_without_permissions'):
             response = APIClient.fetch_identity_data(uuid=test_user_uuid)
             status_code, content, error = response
 
@@ -271,7 +271,7 @@ class FetchIdentityData(TestCase):
 
     def test_request_with_uuid_which_does_not_exist(self):
 
-        with identity_client.tests.vcr.use_cassette('fetch_identity_data/uuid_which_does_not_exist'):
+        with identity_client.tests.use_cassette('fetch_identity_data/uuid_which_does_not_exist'):
             response = APIClient.fetch_identity_data(uuid='00000000-0000-0000-0000-000000000000')
             status_code, content, error = response
 
@@ -282,7 +282,7 @@ class FetchIdentityData(TestCase):
 
     def test_success_request(self):
 
-        with identity_client.tests.vcr.use_cassette('fetch_identity_data/success'):
+        with identity_client.tests.use_cassette('fetch_identity_data/success'):
             response = APIClient.fetch_identity_data(uuid=test_user_uuid)
             status_code, content, error = response
 
@@ -305,7 +305,7 @@ class FetchIdentityData(TestCase):
 
     def test_success_request_with_accounts(self):
 
-        with identity_client.tests.vcr.use_cassette('fetch_identity_data/success_with_accounts'):
+        with identity_client.tests.use_cassette('fetch_identity_data/success_with_accounts'):
             response = APIClient.fetch_identity_data(uuid=test_user_uuid)
             status_code, content, error = response
 
@@ -342,7 +342,7 @@ class FetchIdentityData(TestCase):
 
     def test_request_with_expired_accounts(self):
 
-        with identity_client.tests.vcr.use_cassette('fetch_identity_data/success_with_expired_accounts'):
+        with identity_client.tests.use_cassette('fetch_identity_data/success_with_expired_accounts'):
             response = APIClient.fetch_identity_data(uuid=test_user_uuid, include_expired_accounts=True)
             status_code, content, error = response
 
@@ -381,7 +381,7 @@ class FetchIdentityData(TestCase):
 
     def test_request_with_accounts_from_other_services(self):
 
-        with identity_client.tests.vcr.use_cassette('fetch_identity_data/success_with_accounts_from_other_services'):
+        with identity_client.tests.use_cassette('fetch_identity_data/success_with_accounts_from_other_services'):
             response = APIClient.fetch_identity_data(uuid=test_user_uuid, include_other_services=True)
             status_code, content, error = response
 
@@ -439,7 +439,7 @@ class FetchIdentityData(TestCase):
 
     def test_request_with_expired_accounts_from_other_services(self):
 
-        with identity_client.tests.vcr.use_cassette('fetch_identity_data/success_with_expired_accounts_from_other_services'):
+        with identity_client.tests.use_cassette('fetch_identity_data/success_with_expired_accounts_from_other_services'):
             response = APIClient.fetch_identity_data(uuid=test_user_uuid, include_other_services=1, include_expired_accounts=1)
             status_code, content, error = response
 
@@ -527,7 +527,7 @@ class FetchIdentityDataWithEmail(TestCase):
     def test_request_with_wrong_credentials(self):
         APIClient.pweb.auth = ('?????', 'XXXXXX')
 
-        with identity_client.tests.vcr.use_cassette('fetch_identity_data_with_email/wrong_credentials'):
+        with identity_client.tests.use_cassette('fetch_identity_data_with_email/wrong_credentials'):
             response = APIClient.fetch_identity_data(email=test_user_email)
             status_code, content, error = response
 
@@ -539,7 +539,7 @@ class FetchIdentityDataWithEmail(TestCase):
 
     def test_request_with_application_without_permissions(self):
 
-        with identity_client.tests.vcr.use_cassette('fetch_identity_data_with_email/application_without_permissions'):
+        with identity_client.tests.use_cassette('fetch_identity_data_with_email/application_without_permissions'):
             response = APIClient.fetch_identity_data(email=test_user_email)
             status_code, content, error = response
 
@@ -549,7 +549,7 @@ class FetchIdentityDataWithEmail(TestCase):
 
     def test_request_with_email_which_does_not_exist(self):
 
-        with identity_client.tests.vcr.use_cassette('fetch_identity_data_with_email/email_which_does_not_exist'):
+        with identity_client.tests.use_cassette('fetch_identity_data_with_email/email_which_does_not_exist'):
             response = APIClient.fetch_identity_data(email='nao_registrado@email.test')
             status_code, content, error = response
 
@@ -560,7 +560,7 @@ class FetchIdentityDataWithEmail(TestCase):
 
     def test_success_request(self):
 
-        with identity_client.tests.vcr.use_cassette('fetch_identity_data_with_email/success'):
+        with identity_client.tests.use_cassette('fetch_identity_data_with_email/success'):
             response = APIClient.fetch_identity_data(email=test_user_email)
             status_code, content, error = response
 
@@ -583,7 +583,7 @@ class FetchIdentityDataWithEmail(TestCase):
 
     def test_success_request_with_accounts(self):
 
-        with identity_client.tests.vcr.use_cassette('fetch_identity_data_with_email/success_with_accounts'):
+        with identity_client.tests.use_cassette('fetch_identity_data_with_email/success_with_accounts'):
             response = APIClient.fetch_identity_data(email=test_user_email)
             status_code, content, error = response
 
@@ -620,7 +620,7 @@ class FetchIdentityDataWithEmail(TestCase):
 
     def test_request_with_expired_accounts(self):
 
-        with identity_client.tests.vcr.use_cassette('fetch_identity_data_with_email/success_with_expired_accounts'):
+        with identity_client.tests.use_cassette('fetch_identity_data_with_email/success_with_expired_accounts'):
             response = APIClient.fetch_identity_data(email=test_user_email, include_expired_accounts=True)
             status_code, content, error = response
 
@@ -659,7 +659,7 @@ class FetchIdentityDataWithEmail(TestCase):
 
     def test_request_with_accounts_from_other_services(self):
 
-        with identity_client.tests.vcr.use_cassette('fetch_identity_data_with_email/success_with_accounts_from_other_services'):
+        with identity_client.tests.use_cassette('fetch_identity_data_with_email/success_with_accounts_from_other_services'):
             response = APIClient.fetch_identity_data(email=test_user_email, include_other_services=True)
             status_code, content, error = response
 
@@ -717,7 +717,7 @@ class FetchIdentityDataWithEmail(TestCase):
 
     def test_request_with_expired_accounts_from_other_services(self):
 
-        with identity_client.tests.vcr.use_cassette('fetch_identity_data_with_email/success_with_expired_accounts_from_other_services'):
+        with identity_client.tests.use_cassette('fetch_identity_data_with_email/success_with_expired_accounts_from_other_services'):
             response = APIClient.fetch_identity_data(email=test_user_email, include_other_services=1, include_expired_accounts=1)
             status_code, content, error = response
 
@@ -794,7 +794,7 @@ class UpdateUserApi(TestCase):
     """ Estes testes utilizam o usuário criado em InvokeRegistrationApi.  """
 
     def setUp(self):
-        with identity_client.tests.vcr.use_cassette('fetch_identity_data_with_email/success'):
+        with identity_client.tests.use_cassette('fetch_identity_data_with_email/success'):
             response = APIClient.fetch_identity_data(email=test_user_email)
             status_code, content, error = response
 
@@ -824,7 +824,7 @@ class UpdateUserApi(TestCase):
         form = IdentityInformationForm(self.updated_user_data)
         APIClient.pweb.auth = ('?????', 'XXXXXX')
 
-        with identity_client.tests.vcr.use_cassette('update_user_api/wrong_credentials'):
+        with identity_client.tests.use_cassette('update_user_api/wrong_credentials'):
             response = APIClient.update_user_api(form, self.user_data['update_info_url'])
             status_code, content, new_form = response
 
@@ -839,7 +839,7 @@ class UpdateUserApi(TestCase):
     def test_request_with_application_without_permissions(self):
         form = IdentityInformationForm(self.updated_user_data)
 
-        with identity_client.tests.vcr.use_cassette('update_user_api/application_without_permissions'):
+        with identity_client.tests.use_cassette('update_user_api/application_without_permissions'):
             response = APIClient.update_user_api(form, self.user_data['update_info_url'])
             status_code, content, new_form = response
 
@@ -853,7 +853,7 @@ class UpdateUserApi(TestCase):
         form = IdentityInformationForm(self.updated_user_data)
         form.data['cpf'] = '11111111111'
 
-        with identity_client.tests.vcr.use_cassette('update_user_api/cpf_already_registered'):
+        with identity_client.tests.use_cassette('update_user_api/cpf_already_registered'):
             response = APIClient.update_user_api(form, self.user_data['update_info_url'])
             status_code, content, new_form = response
 
@@ -867,7 +867,7 @@ class UpdateUserApi(TestCase):
         form = IdentityInformationForm(self.updated_user_data)
         form.data['cpf'] = '1111111111122222222'
 
-        with identity_client.tests.vcr.use_cassette('update_user_api/invalid_cpf_pt1'):
+        with identity_client.tests.use_cassette('update_user_api/invalid_cpf_pt1'):
             response = APIClient.update_user_api(form, self.user_data['update_info_url'])
             status_code, content, new_form = response
 
@@ -881,7 +881,7 @@ class UpdateUserApi(TestCase):
         form = IdentityInformationForm(self.updated_user_data)
         form.data['cpf'] = 'asdfgqwertzxcvb'
 
-        with identity_client.tests.vcr.use_cassette('update_user_api/invalid_cpf_pt2'):
+        with identity_client.tests.use_cassette('update_user_api/invalid_cpf_pt2'):
             response = APIClient.update_user_api(form, self.user_data['update_info_url'])
             status_code, content, new_form = response
 
@@ -894,7 +894,7 @@ class UpdateUserApi(TestCase):
     def test_success_request(self):
         form = IdentityInformationForm(self.updated_user_data)
 
-        with identity_client.tests.vcr.use_cassette('update_user_api/success'):
+        with identity_client.tests.use_cassette('update_user_api/success'):
             response = APIClient.update_user_api(form, self.user_data['update_info_url'])
             status_code, content, new_form = response
 
@@ -919,7 +919,7 @@ class UpdateUserApi(TestCase):
         form = IdentityInformationForm(self.updated_user_data)
         form.data['cpf'] = '99999999999'
 
-        with identity_client.tests.vcr.use_cassette('update_user_api/success_with_cpf'):
+        with identity_client.tests.use_cassette('update_user_api/success_with_cpf'):
             response = APIClient.update_user_api(form, self.user_data['update_info_url'])
             status_code, content, new_form = response
 
@@ -945,7 +945,7 @@ class UpdateUserApi(TestCase):
 class FetchAssociationData(TestCase):
 
     def setUp(self):
-        with identity_client.tests.vcr.use_cassette('fetch_identity_data_with_email/success'):
+        with identity_client.tests.use_cassette('fetch_identity_data_with_email/success'):
             response = APIClient.fetch_identity_data(email=test_user_email)
             status_code, content, error = response
 
@@ -964,7 +964,7 @@ class FetchAssociationData(TestCase):
     def test_request_with_wrong_credentials(self):
         APIClient.pweb.auth = ('?????', 'XXXXXX')
 
-        with identity_client.tests.vcr.use_cassette('fetch_association_data/wrong_credentials'):
+        with identity_client.tests.use_cassette('fetch_association_data/wrong_credentials'):
             response = APIClient.fetch_association_data(self.user_data['services']['identity_client'])
             status_code, content, error = response
 
@@ -981,7 +981,7 @@ class FetchAssociationData(TestCase):
         association_url =  self.user_data['services']['identity_client']
         association_url = association_url.replace('identity_client', 'ecommerce')
 
-        with identity_client.tests.vcr.use_cassette('fetch_association_data/application_without_permissions'):
+        with identity_client.tests.use_cassette('fetch_association_data/application_without_permissions'):
             response = APIClient.fetch_association_data(association_url)
             status_code, content, error = response
 
@@ -996,7 +996,7 @@ class FetchAssociationData(TestCase):
         association_url =  self.user_data['services']['identity_client']
         association_url = association_url.replace('identity_client', 'gFXrVmzDXXZm')
 
-        with identity_client.tests.vcr.use_cassette('fetch_association_data/association_which_does_not_exist'):
+        with identity_client.tests.use_cassette('fetch_association_data/association_which_does_not_exist'):
             response = APIClient.fetch_association_data(association_url)
             status_code, content, error = response
 
@@ -1008,7 +1008,7 @@ class FetchAssociationData(TestCase):
         })
 
     def test_success_without_data(self):
-        with identity_client.tests.vcr.use_cassette('fetch_association_data/success_without_data'):
+        with identity_client.tests.use_cassette('fetch_association_data/success_without_data'):
             response = APIClient.fetch_association_data(self.user_data['services']['identity_client'])
             status_code, content, error = response
 
@@ -1017,7 +1017,7 @@ class FetchAssociationData(TestCase):
         self.assertEquals(error, None)
 
     def test_success_with_data(self):
-        with identity_client.tests.vcr.use_cassette('fetch_association_data/success_with_data'):
+        with identity_client.tests.use_cassette('fetch_association_data/success_with_data'):
             response = APIClient.fetch_association_data(self.user_data['services']['identity_client'])
             status_code, content, error = response
 
@@ -1035,7 +1035,7 @@ class FetchAssociationData(TestCase):
 class UpdateAssociationData(TestCase):
 
     def setUp(self):
-        with identity_client.tests.vcr.use_cassette('fetch_identity_data_with_email/success'):
+        with identity_client.tests.use_cassette('fetch_identity_data_with_email/success'):
             response = APIClient.fetch_identity_data(email=test_user_email)
             status_code, content, error = response
 
@@ -1060,7 +1060,7 @@ class UpdateAssociationData(TestCase):
     def test_request_with_wrong_credentials(self):
         APIClient.pweb.auth = ('?????', 'XXXXXX')
 
-        with identity_client.tests.vcr.use_cassette('update_association_data/wrong_credentials'):
+        with identity_client.tests.use_cassette('update_association_data/wrong_credentials'):
             response = APIClient.update_association_data(self.association_data, self.user_data['services']['identity_client'])
             status_code, content, error = response
 
@@ -1077,7 +1077,7 @@ class UpdateAssociationData(TestCase):
         association_url =  self.user_data['services']['identity_client']
         association_url = association_url.replace('identity_client', 'ecommerce')
 
-        with identity_client.tests.vcr.use_cassette('update_association_data/application_without_permissions'):
+        with identity_client.tests.use_cassette('update_association_data/application_without_permissions'):
             response = APIClient.update_association_data(self.association_data, association_url)
             status_code, content, error = response
 
@@ -1092,7 +1092,7 @@ class UpdateAssociationData(TestCase):
         association_url =  self.user_data['services']['identity_client']
         association_url = association_url.replace('identity_client', 'gFXrVmzDXXZm')
 
-        with identity_client.tests.vcr.use_cassette('update_association_data/association_which_does_not_exist'):
+        with identity_client.tests.use_cassette('update_association_data/association_which_does_not_exist'):
             response = APIClient.update_association_data(self.association_data, association_url)
             status_code, content, error = response
 
@@ -1104,7 +1104,7 @@ class UpdateAssociationData(TestCase):
         })
 
     def test_success_with_data(self):
-        with identity_client.tests.vcr.use_cassette('update_association_data/success_with_data'):
+        with identity_client.tests.use_cassette('update_association_data/success_with_data'):
             response = APIClient.update_association_data(self.association_data, self.user_data['services']['identity_client'])
             status_code, content, error = response
 
@@ -1119,7 +1119,7 @@ class UpdateAssociationData(TestCase):
         self.assertEquals(error, None)
 
     def test_success_without_data(self):
-        with identity_client.tests.vcr.use_cassette('update_association_data/success_without_data'):
+        with identity_client.tests.use_cassette('update_association_data/success_without_data'):
             response = APIClient.update_association_data({}, self.user_data['services']['identity_client'])
             status_code, content, error = response
 
@@ -1134,7 +1134,7 @@ class UpdateAssociationData(TestCase):
             'body': u'<?xml version="1.0" encoding="UTF-8" ?> <俄语>данные</俄语>'
         }
 
-        with identity_client.tests.vcr.use_cassette('update_association_data/success_with_xml_payload'):
+        with identity_client.tests.use_cassette('update_association_data/success_with_xml_payload'):
             response = APIClient.update_association_data(data_with_xml, self.user_data['services']['identity_client'])
             status_code, content, error = response
 
@@ -1167,7 +1167,7 @@ class FetchUserAccounts(TestCase):
     def test_request_with_wrong_credentials(self):
         APIClient.pweb.auth = ('?????', 'XXXXXX')
 
-        with identity_client.tests.vcr.use_cassette('fetch_user_accounts/wrong_credentials'):
+        with identity_client.tests.use_cassette('fetch_user_accounts/wrong_credentials'):
             response = APIClient.fetch_user_accounts(uuid=test_user_uuid)
             status_code, accounts, error = response
 
@@ -1181,7 +1181,7 @@ class FetchUserAccounts(TestCase):
         })
 
     def test_request_with_application_without_permissions(self):
-        with identity_client.tests.vcr.use_cassette('fetch_user_accounts/application_without_permissions'):
+        with identity_client.tests.use_cassette('fetch_user_accounts/application_without_permissions'):
             response = APIClient.fetch_user_accounts(uuid=test_user_uuid)
             status_code, accounts, error = response
 
@@ -1193,7 +1193,7 @@ class FetchUserAccounts(TestCase):
         })
 
     def test_request_with_uuid_which_does_not_exist(self):
-        with identity_client.tests.vcr.use_cassette('fetch_user_accounts/uuid_which_does_not_exist'):
+        with identity_client.tests.use_cassette('fetch_user_accounts/uuid_which_does_not_exist'):
             response = APIClient.fetch_user_accounts(uuid='00000000-0000-0000-0000-000000000000')
             status_code, accounts, error = response
 
@@ -1205,7 +1205,7 @@ class FetchUserAccounts(TestCase):
         })
 
     def test_success_without_accounts(self):
-        with identity_client.tests.vcr.use_cassette('fetch_user_accounts/success_without_accounts'):
+        with identity_client.tests.use_cassette('fetch_user_accounts/success_without_accounts'):
             response = APIClient.fetch_user_accounts(test_user_uuid)
             status_code, accounts, error = response
 
@@ -1214,7 +1214,7 @@ class FetchUserAccounts(TestCase):
         self.assertEquals(error, None)
 
     def test_success_with_accounts(self):
-        with identity_client.tests.vcr.use_cassette('fetch_user_accounts/success_with_accounts'):
+        with identity_client.tests.use_cassette('fetch_user_accounts/success_with_accounts'):
             response = APIClient.fetch_user_accounts(test_user_uuid)
             status_code, accounts, error = response
 
@@ -1232,7 +1232,7 @@ class FetchUserAccounts(TestCase):
         self.assertEquals(error, None)
 
     def test_success_with_expired_accounts(self):
-        with identity_client.tests.vcr.use_cassette('fetch_user_accounts/success_with_expired_accounts'):
+        with identity_client.tests.use_cassette('fetch_user_accounts/success_with_expired_accounts'):
             response = APIClient.fetch_user_accounts(test_user_uuid, include_expired_accounts=True)
             status_code, accounts, error = response
 
@@ -1261,7 +1261,7 @@ class FetchUserAccounts(TestCase):
         self.assertEquals(error, None)
 
     def test_success_with_expired_accounts_from_other_services(self):
-        with identity_client.tests.vcr.use_cassette('fetch_user_accounts/success_with_expired_accounts_from_other_services'):
+        with identity_client.tests.use_cassette('fetch_user_accounts/success_with_expired_accounts_from_other_services'):
             response = APIClient.fetch_user_accounts(test_user_uuid, include_other_services=1, include_expired_accounts=1)
             status_code, accounts, error = response
 
@@ -1327,7 +1327,7 @@ class FetchUserAccounts(TestCase):
         self.assertEquals(error, None)
 
     def test_success_with_accounts_from_other_services(self):
-        with identity_client.tests.vcr.use_cassette('fetch_user_accounts/success_with_accounts_from_other_services'):
+        with identity_client.tests.use_cassette('fetch_user_accounts/success_with_accounts_from_other_services'):
             response = APIClient.fetch_user_accounts(test_user_uuid, include_other_services=True)
             status_code, accounts, error = response
 
@@ -1376,7 +1376,7 @@ class FetchUserAccounts(TestCase):
         self.assertEquals(error, None)
 
     def test_success_with_only_accounts_with_a_given_role(self):
-        with identity_client.tests.vcr.use_cassette('fetch_user_accounts/success_with_only_accounts_with_a_given_role'):
+        with identity_client.tests.use_cassette('fetch_user_accounts/success_with_only_accounts_with_a_given_role'):
             response = APIClient.fetch_user_accounts(test_user_uuid, role='admin')
             status_code, accounts, error = response
 
@@ -1396,7 +1396,7 @@ class FetchUserAccounts(TestCase):
         self.assertEquals(error, None)
 
     def test_success_with_only_accounts_with_a_given_role_in_all_services(self):
-        with identity_client.tests.vcr.use_cassette('fetch_user_accounts/success_with_only_accounts_with_a_given_role_in_all_services'):
+        with identity_client.tests.use_cassette('fetch_user_accounts/success_with_only_accounts_with_a_given_role_in_all_services'):
             response = APIClient.fetch_user_accounts(test_user_uuid, role='admin', include_other_services=1)
             status_code, accounts, error = response
 
@@ -1420,7 +1420,7 @@ class FetchUserAccounts(TestCase):
         self.assertEquals(error, None)
 
     def test_success_with_only_accounts_with_a_given_role_in_all_services_including_expired(self):
-        with identity_client.tests.vcr.use_cassette('fetch_user_accounts/success_with_only_accounts_with_a_given_role_in_all_services_including_expired'):
+        with identity_client.tests.use_cassette('fetch_user_accounts/success_with_only_accounts_with_a_given_role_in_all_services_including_expired'):
             response = APIClient.fetch_user_accounts(test_user_uuid,
                 role='admin', include_other_services=1, include_expired_accounts=1
             )
@@ -1460,7 +1460,7 @@ class CreateUserAccount(TestCase):
     def test_request_with_wrong_credentials(self):
         APIClient.pweb.auth = ('?????', 'XXXXXX')
 
-        with identity_client.tests.vcr.use_cassette('create_user_account/wrong_credentials'):
+        with identity_client.tests.use_cassette('create_user_account/wrong_credentials'):
             response = APIClient.create_user_account(uuid=test_user_uuid, account_name='Test Account', plan_slug='unittest')
             status_code, accounts, error = response
 
@@ -1474,7 +1474,7 @@ class CreateUserAccount(TestCase):
         })
 
     def test_request_with_application_without_permissions(self):
-        with identity_client.tests.vcr.use_cassette('create_user_account/application_without_permissions'):
+        with identity_client.tests.use_cassette('create_user_account/application_without_permissions'):
             response = APIClient.create_user_account(uuid=test_user_uuid, account_name='Test Account', plan_slug='unittest')
             status_code, accounts, error = response
 
@@ -1486,7 +1486,7 @@ class CreateUserAccount(TestCase):
         })
 
     def test_request_with_uuid_which_does_not_exist(self):
-        with identity_client.tests.vcr.use_cassette('create_user_account/uuid_which_does_not_exist'):
+        with identity_client.tests.use_cassette('create_user_account/uuid_which_does_not_exist'):
             response = APIClient.create_user_account(
                 uuid='00000000-0000-0000-0000-000000000000', account_name='Test Account', plan_slug='unittest'
             )
@@ -1501,7 +1501,7 @@ class CreateUserAccount(TestCase):
 
     def test_request_with_empty_name(self):
         # Este teste não faz mais requisição para a api, porem se fizer esta será a resposta
-        with identity_client.tests.vcr.use_cassette('create_user_account/with_empty_name'):
+        with identity_client.tests.use_cassette('create_user_account/with_empty_name'):
             response = APIClient.create_user_account(
                 uuid=test_user_uuid, account_name='', plan_slug='unittest'
             )
@@ -1515,7 +1515,7 @@ class CreateUserAccount(TestCase):
         })
 
     def test_request_with_invalid_expiration(self):
-        with identity_client.tests.vcr.use_cassette('create_user_account/with_invalid_expiration'):
+        with identity_client.tests.use_cassette('create_user_account/with_invalid_expiration'):
             response = APIClient.create_user_account(
                 uuid=test_user_uuid, account_name='Test Account', plan_slug='unittest', expiration='ABC'
             )
@@ -1529,7 +1529,7 @@ class CreateUserAccount(TestCase):
         })
 
     def test_request_with_expiration_in_the_past(self):
-        with identity_client.tests.vcr.use_cassette('create_user_account/with_expiration_in_the_past'):
+        with identity_client.tests.use_cassette('create_user_account/with_expiration_in_the_past'):
             response = APIClient.create_user_account(
                 uuid=test_user_uuid, account_name='Test Account', plan_slug='unittest', expiration='0000-01-01'
             )
@@ -1543,7 +1543,7 @@ class CreateUserAccount(TestCase):
         })
 
     def test_request_with_expiration_after_max_date(self):
-        with identity_client.tests.vcr.use_cassette('create_user_account/with_expiration_after_max_date'):
+        with identity_client.tests.use_cassette('create_user_account/with_expiration_after_max_date'):
             response = APIClient.create_user_account(
                 uuid=test_user_uuid, account_name='Test Account', plan_slug='unittest', expiration='10000-01-01'
             )
@@ -1557,7 +1557,7 @@ class CreateUserAccount(TestCase):
         })
 
     def test_success_request(self):
-        with identity_client.tests.vcr.use_cassette('create_user_account/success'):
+        with identity_client.tests.use_cassette('create_user_account/success'):
             response = APIClient.create_user_account(
                 uuid=test_user_uuid, account_name='Test Account', plan_slug='unittest'
             )
@@ -1577,7 +1577,7 @@ class CreateUserAccount(TestCase):
         self.assertEquals(error, None)
 
     def test_duplicated_account(self):
-        with identity_client.tests.vcr.use_cassette('create_user_account/duplicated_account'):
+        with identity_client.tests.use_cassette('create_user_account/duplicated_account'):
             response = APIClient.create_user_account(
                 uuid=test_user_uuid, account_name='Test Account', plan_slug='unittest'
             )
@@ -1605,7 +1605,7 @@ class CreateUserAccountWithUUID(TestCase):
     def test_request_with_wrong_credentials(self):
         APIClient.pweb.auth = ('?????', 'XXXXXX')
 
-        with identity_client.tests.vcr.use_cassette('create_user_account_with_uuid/wrong_credentials'):
+        with identity_client.tests.use_cassette('create_user_account_with_uuid/wrong_credentials'):
             response = APIClient.create_user_account(uuid=test_user_uuid, account_uuid=test_account_uuid, plan_slug='unittest')
             status_code, accounts, error = response
 
@@ -1619,7 +1619,7 @@ class CreateUserAccountWithUUID(TestCase):
         })
 
     def test_request_with_application_without_permissions(self):
-        with identity_client.tests.vcr.use_cassette('create_user_account_with_uuid/application_without_permissions'):
+        with identity_client.tests.use_cassette('create_user_account_with_uuid/application_without_permissions'):
             response = APIClient.create_user_account(uuid=test_user_uuid, account_uuid=test_account_uuid, plan_slug='unittest')
             status_code, accounts, error = response
 
@@ -1631,7 +1631,7 @@ class CreateUserAccountWithUUID(TestCase):
         })
 
     def test_request_with_user_uuid_which_does_not_exist(self):
-        with identity_client.tests.vcr.use_cassette('create_user_account_with_uuid/uuid_which_does_not_exist'):
+        with identity_client.tests.use_cassette('create_user_account_with_uuid/uuid_which_does_not_exist'):
             response = APIClient.create_user_account(
                 uuid='00000000-0000-0000-0000-000000000000', account_name='Test Account', plan_slug='unittest'
             )
@@ -1645,7 +1645,7 @@ class CreateUserAccountWithUUID(TestCase):
         })
 
     def test_request_with_account_uuid_which_does_not_exist(self):
-        with identity_client.tests.vcr.use_cassette('create_user_account_with_uuid/account_uuid_which_does_not_exist'):
+        with identity_client.tests.use_cassette('create_user_account_with_uuid/account_uuid_which_does_not_exist'):
             response = APIClient.create_user_account(
                 uuid=test_user_uuid, account_uuid='00000000-0000-0000-0000-000000000000', plan_slug='unittest'
             )
@@ -1660,7 +1660,7 @@ class CreateUserAccountWithUUID(TestCase):
 
     def test_request_with_empty_account_uuid(self):
         # Este teste não faz mais requisição para a api, porem se fizer esta será a resposta
-        with identity_client.tests.vcr.use_cassette('create_user_account_with_uuid/with_empty_name'):
+        with identity_client.tests.use_cassette('create_user_account_with_uuid/with_empty_name'):
             response = APIClient.create_user_account(
                 uuid=test_user_uuid, account_uuid='', plan_slug='unittest'
             )
@@ -1674,7 +1674,7 @@ class CreateUserAccountWithUUID(TestCase):
         })
 
     def test_request_with_invalid_expiration(self):
-        with identity_client.tests.vcr.use_cassette('create_user_account_with_uuid/with_invalid_expiration'):
+        with identity_client.tests.use_cassette('create_user_account_with_uuid/with_invalid_expiration'):
             response = APIClient.create_user_account(uuid=test_user_uuid, account_uuid=test_account_uuid, plan_slug='unittest', expiration='ABC')
             status_code, accounts, error = response
 
@@ -1686,7 +1686,7 @@ class CreateUserAccountWithUUID(TestCase):
         })
 
     def test_request_with_expiration_in_the_past(self):
-        with identity_client.tests.vcr.use_cassette('create_user_account_with_uuid/with_expiration_in_the_past'):
+        with identity_client.tests.use_cassette('create_user_account_with_uuid/with_expiration_in_the_past'):
             response = APIClient.create_user_account(uuid=test_user_uuid, account_uuid=test_account_uuid, plan_slug='unittest', expiration='0000-01-01')
             status_code, accounts, error = response
 
@@ -1698,7 +1698,7 @@ class CreateUserAccountWithUUID(TestCase):
         })
 
     def test_request_with_expiration_after_max_date(self):
-        with identity_client.tests.vcr.use_cassette('create_user_account_with_uuid/with_expiration_after_max_date'):
+        with identity_client.tests.use_cassette('create_user_account_with_uuid/with_expiration_after_max_date'):
             response = APIClient.create_user_account(uuid=test_user_uuid, account_uuid=test_account_uuid, plan_slug='unittest', expiration='10000-01-01')
             status_code, accounts, error = response
 
@@ -1710,7 +1710,7 @@ class CreateUserAccountWithUUID(TestCase):
         })
 
     def test_success_request(self):
-        with identity_client.tests.vcr.use_cassette('create_user_account_with_uuid/success'):
+        with identity_client.tests.use_cassette('create_user_account_with_uuid/success'):
             response = APIClient.create_user_account(
                 uuid=test_user_uuid,
                 account_uuid=second_account_uuid,
@@ -1734,7 +1734,7 @@ class CreateUserAccountWithUUID(TestCase):
         self.assertEquals(error, None)
 
     def test_duplicated_account(self):
-        with identity_client.tests.vcr.use_cassette('create_user_account_with_uuid/duplicated_account'):
+        with identity_client.tests.use_cassette('create_user_account_with_uuid/duplicated_account'):
             response = APIClient.create_user_account(uuid=test_user_uuid, account_uuid=test_account_uuid, plan_slug='unittest')
             status_code, accounts, error = response
 
@@ -1746,7 +1746,7 @@ class CreateUserAccountWithUUID(TestCase):
         })
 
     def test_creating_user_account_with_uuid_of_expired_account(self):
-        with identity_client.tests.vcr.use_cassette('create_user_account_with_uuid/with_uuid_of_expired_account'):
+        with identity_client.tests.use_cassette('create_user_account_with_uuid/with_uuid_of_expired_account'):
             response = APIClient.create_user_account(
                 uuid=test_user_uuid,
                 account_uuid=test_account_uuid,
@@ -1782,7 +1782,7 @@ class FetchAccountData(TestCase):
     def test_request_with_wrong_credentials(self):
         APIClient.pweb.auth = ('?????', 'XXXXXX')
 
-        with identity_client.tests.vcr.use_cassette('fetch_account_data/wrong_credentials'):
+        with identity_client.tests.use_cassette('fetch_account_data/wrong_credentials'):
             response = APIClient.fetch_account_data(account_uuid=test_account_uuid)
             status_code, account, error = response
 
@@ -1796,7 +1796,7 @@ class FetchAccountData(TestCase):
         })
 
     def test_request_with_application_without_permissions(self):
-        with identity_client.tests.vcr.use_cassette('fetch_account_data/application_without_permissions'):
+        with identity_client.tests.use_cassette('fetch_account_data/application_without_permissions'):
             response = APIClient.fetch_account_data(account_uuid=test_account_uuid)
             status_code, account, error = response
 
@@ -1808,7 +1808,7 @@ class FetchAccountData(TestCase):
         })
 
     def test_request_with_uuid_which_does_not_exist(self):
-        with identity_client.tests.vcr.use_cassette('fetch_account_data/uuid_which_does_not_exist'):
+        with identity_client.tests.use_cassette('fetch_account_data/uuid_which_does_not_exist'):
             response = APIClient.fetch_account_data(account_uuid='00000000-0000-0000-0000-000000000000')
             status_code, account, error = response
 
@@ -1820,7 +1820,7 @@ class FetchAccountData(TestCase):
         })
 
     def test_success(self):
-        with identity_client.tests.vcr.use_cassette('fetch_account_data/success'):
+        with identity_client.tests.use_cassette('fetch_account_data/success'):
             response = APIClient.fetch_account_data(account_uuid=test_account_uuid)
             status_code, account, error = response
 
@@ -1844,7 +1844,7 @@ class FetchAccountData(TestCase):
         self.assertEquals(error, None)
 
     def test_reading_expired_accounts_fails(self):
-        with identity_client.tests.vcr.use_cassette('fetch_account_data/expired_accounts'):
+        with identity_client.tests.use_cassette('fetch_account_data/expired_accounts'):
             response = APIClient.fetch_account_data(test_user_uuid)
             status_code, account, error = response
 
@@ -1859,7 +1859,7 @@ class FetchAccountData(TestCase):
 class UpdateAccountData(TestCase):
 
     def setUp(self):
-        with identity_client.tests.vcr.use_cassette('fetch_account_data/success'):
+        with identity_client.tests.use_cassette('fetch_account_data/success'):
             response = APIClient.fetch_account_data(account_uuid=test_account_uuid)
             status_code, account, error = response
 
@@ -1881,7 +1881,7 @@ class UpdateAccountData(TestCase):
     def test_request_with_wrong_credentials(self):
         APIClient.pweb.auth = ('?????', 'XXXXXX')
 
-        with identity_client.tests.vcr.use_cassette('update_account_data/wrong_credentials'):
+        with identity_client.tests.use_cassette('update_account_data/wrong_credentials'):
             response = APIClient.update_account_data(
                 plan_slug=self.new_plan, expiration=self.new_expiration, api_path=self.account_data['url']
             )
@@ -1897,7 +1897,7 @@ class UpdateAccountData(TestCase):
         })
 
     def test_request_with_application_without_permissions(self):
-        with identity_client.tests.vcr.use_cassette('update_account_data/application_without_permissions'):
+        with identity_client.tests.use_cassette('update_account_data/application_without_permissions'):
             response = APIClient.update_account_data(
                 plan_slug=self.new_plan, expiration=self.new_expiration, api_path=self.account_data['url']
             )
@@ -1911,7 +1911,7 @@ class UpdateAccountData(TestCase):
         })
 
     def test_request_with_uuid_which_does_not_exist(self):
-        with identity_client.tests.vcr.use_cassette('update_account_data/uuid_which_does_not_exist'):
+        with identity_client.tests.use_cassette('update_account_data/uuid_which_does_not_exist'):
             response = APIClient.update_account_data(
                 plan_slug=self.new_plan, expiration=self.new_expiration,
                 api_path=self.account_data['url'].replace(test_account_uuid, '00000000-0000-0000-0000-000000000000')
@@ -1926,7 +1926,7 @@ class UpdateAccountData(TestCase):
         })
 
     def test_expiration_cannot_be_a_string(self):
-        with identity_client.tests.vcr.use_cassette('update_account_data/expiration_cannot_be_a_string'):
+        with identity_client.tests.use_cassette('update_account_data/expiration_cannot_be_a_string'):
             response = APIClient.update_account_data(
                 plan_slug=self.new_plan, expiration='9999-12-31', api_path=self.account_data['url']
             )
@@ -1940,7 +1940,7 @@ class UpdateAccountData(TestCase):
         )
 
     def test_expiration_cannot_be_a_datetime(self):
-        with identity_client.tests.vcr.use_cassette('update_account_data/expiration_cannot_be_a_datetime'):
+        with identity_client.tests.use_cassette('update_account_data/expiration_cannot_be_a_datetime'):
             response = APIClient.update_account_data(
                 plan_slug=self.new_plan, expiration=datetime.max, api_path=self.account_data['url']
             )
@@ -1954,7 +1954,7 @@ class UpdateAccountData(TestCase):
         )
 
     def test_expiration_cannot_be_a_float(self):
-        with identity_client.tests.vcr.use_cassette('update_account_data/expiration_cannot_be_a_float'):
+        with identity_client.tests.use_cassette('update_account_data/expiration_cannot_be_a_float'):
             response = APIClient.update_account_data(
                 plan_slug=self.new_plan, expiration=time.time(), api_path=self.account_data['url']
             )
@@ -1968,7 +1968,7 @@ class UpdateAccountData(TestCase):
         )
 
     def test_expiration_cannot_be_an_int(self):
-        with identity_client.tests.vcr.use_cassette('update_account_data/expiration_cannot_be_an_int'):
+        with identity_client.tests.use_cassette('update_account_data/expiration_cannot_be_an_int'):
             response = APIClient.update_account_data(
                 plan_slug=self.new_plan, expiration=int(time.time()), api_path=self.account_data['url']
             )
@@ -1982,7 +1982,7 @@ class UpdateAccountData(TestCase):
         )
 
     def test_expiration_can_be_None(self):
-        with identity_client.tests.vcr.use_cassette('update_account_data/expiration_can_be_none'):
+        with identity_client.tests.use_cassette('update_account_data/expiration_can_be_none'):
             response = APIClient.update_account_data(
                 plan_slug=self.new_plan, expiration=None, api_path=self.account_data['url']
             )
@@ -2008,7 +2008,7 @@ class UpdateAccountData(TestCase):
         self.assertEquals(error, None)
 
     def test_expiration_can_be_set_to_the_past(self):
-        with identity_client.tests.vcr.use_cassette('update_account_data/expiration_can_be_set_to_the_past'):
+        with identity_client.tests.use_cassette('update_account_data/expiration_can_be_set_to_the_past'):
             response = APIClient.update_account_data(
                 plan_slug=self.new_plan, expiration=date.min, api_path=self.account_data['url']
             )
@@ -2035,7 +2035,7 @@ class UpdateAccountData(TestCase):
         self.assertEquals(error, None)
 
     def test_success(self):
-        with identity_client.tests.vcr.use_cassette('update_account_data/success'):
+        with identity_client.tests.use_cassette('update_account_data/success'):
             response = APIClient.update_account_data(
                 plan_slug=self.new_plan, expiration=self.new_expiration, api_path=self.account_data['url']
             )
@@ -2061,7 +2061,7 @@ class UpdateAccountData(TestCase):
         self.assertEquals(error, None)
 
     def test_expired_accounts_can_have_plan_changed(self):
-        with identity_client.tests.vcr.use_cassette('update_account_data/expired_accounts_can_have_plan_changed'):
+        with identity_client.tests.use_cassette('update_account_data/expired_accounts_can_have_plan_changed'):
             response = APIClient.update_account_data(
                 plan_slug='expired-service', expiration=date.min, api_path=self.account_data['url']
             )
@@ -2084,7 +2084,7 @@ class UpdateAccountData(TestCase):
         self.assertEquals(error, None)
 
     def test_expired_accounts_can_have_expiration_changed(self):
-        with identity_client.tests.vcr.use_cassette('update_account_data/expired_accounts_can_have_expiration_changed'):
+        with identity_client.tests.use_cassette('update_account_data/expired_accounts_can_have_expiration_changed'):
             response = APIClient.update_account_data(
                 plan_slug=self.new_plan, expiration=date(1900, 1, 1), api_path=self.account_data['url']
             )
@@ -2111,7 +2111,7 @@ class UpdateAccountData(TestCase):
 class AddAccountMember(TestCase):
 
     def setUp(self):
-        with identity_client.tests.vcr.use_cassette('fetch_account_data/success'):
+        with identity_client.tests.use_cassette('fetch_account_data/success'):
             response = APIClient.fetch_account_data(account_uuid=test_account_uuid)
             _, account, _ = response
 
@@ -2131,7 +2131,7 @@ class AddAccountMember(TestCase):
     def test_request_with_wrong_credentials(self):
         APIClient.pweb.auth = ('?????', 'XXXXXX')
 
-        with identity_client.tests.vcr.use_cassette('add_account_member/wrong_credentials'):
+        with identity_client.tests.use_cassette('add_account_member/wrong_credentials'):
             response = APIClient.add_account_member(
                 user_uuid=test_user_uuid, roles=['user'], api_path=self.account_data['add_member_url']
             )
@@ -2147,7 +2147,7 @@ class AddAccountMember(TestCase):
         })
 
     def test_request_with_application_without_permissions(self):
-        with identity_client.tests.vcr.use_cassette('add_account_member/application_without_permissions'):
+        with identity_client.tests.use_cassette('add_account_member/application_without_permissions'):
             response = APIClient.add_account_member(
                 user_uuid=test_user_uuid, roles=['user'], api_path=self.account_data['add_member_url']
             )
@@ -2161,7 +2161,7 @@ class AddAccountMember(TestCase):
         })
 
     def test_request_with_uuid_which_does_not_exist(self):
-        with identity_client.tests.vcr.use_cassette('add_account_member/uuid_which_does_not_exist'):
+        with identity_client.tests.use_cassette('add_account_member/uuid_which_does_not_exist'):
             response = APIClient.add_account_member(
                 user_uuid='00000000-0000-0000-0000-000000000000', roles=['user'], api_path=self.account_data['add_member_url']
             )
@@ -2175,7 +2175,7 @@ class AddAccountMember(TestCase):
         })
 
     def test_request_with_user_which_is_already_a_member(self):
-        with identity_client.tests.vcr.use_cassette('add_account_member/already_a_member'):
+        with identity_client.tests.use_cassette('add_account_member/already_a_member'):
             response = APIClient.add_account_member(
                 user_uuid=test_user_uuid, roles=['user'], api_path=self.account_data['add_member_url']
             )
@@ -2189,7 +2189,7 @@ class AddAccountMember(TestCase):
         })
 
     def test_request_with_empty_roles_list_gives_user_role(self):
-        with identity_client.tests.vcr.use_cassette('add_account_member/empty_roles_list'):
+        with identity_client.tests.use_cassette('add_account_member/empty_roles_list'):
             response = APIClient.add_account_member(
                 user_uuid=second_user_uuid, roles=[], api_path=self.account_data['add_member_url']
             )
@@ -2212,7 +2212,7 @@ class AddAccountMember(TestCase):
         self.assertEquals(error, None)
 
     def test_success_with_user_role(self):
-        with identity_client.tests.vcr.use_cassette('add_account_member/success_with_user_role'):
+        with identity_client.tests.use_cassette('add_account_member/success_with_user_role'):
             response = APIClient.add_account_member(
                 user_uuid=second_user_uuid, roles=['user'], api_path=self.account_data['add_member_url']
             )
@@ -2235,7 +2235,7 @@ class AddAccountMember(TestCase):
         self.assertEquals(error, None)
 
     def test_success_with_owner_role(self):
-        with identity_client.tests.vcr.use_cassette('add_account_member/success_with_owner_role'):
+        with identity_client.tests.use_cassette('add_account_member/success_with_owner_role'):
             response = APIClient.add_account_member(
                 user_uuid=second_user_uuid, roles=['owner'], api_path=self.account_data['add_member_url']
             )
@@ -2258,7 +2258,7 @@ class AddAccountMember(TestCase):
         self.assertEquals(error, None)
 
     def test_success_with_list_of_roles(self):
-        with identity_client.tests.vcr.use_cassette('add_account_member/success_with_list_of_roles'):
+        with identity_client.tests.use_cassette('add_account_member/success_with_list_of_roles'):
             response = APIClient.add_account_member(
                 user_uuid=second_user_uuid,
                 roles=['owner', 'user', range(5), 12345, 01234, {'a': 'A'}, 'test-user', u'çãéê®©þ«»'],
@@ -2284,7 +2284,7 @@ class AddAccountMember(TestCase):
         self.assertEquals(error, None)
 
     def test_adding_members_to_an_expired_account_fails(self):
-        with identity_client.tests.vcr.use_cassette('add_account_member/expired_account'):
+        with identity_client.tests.use_cassette('add_account_member/expired_account'):
             response = APIClient.add_account_member(
                 user_uuid=test_user_uuid, roles=[], api_path=self.account_data['add_member_url']
             )
@@ -2301,11 +2301,11 @@ class AddAccountMember(TestCase):
 class UpdateMemberRoles(TestCase):
 
     def setUp(self):
-        with identity_client.tests.vcr.use_cassette('fetch_account_data/success'):
+        with identity_client.tests.use_cassette('fetch_account_data/success'):
             response = APIClient.fetch_account_data(account_uuid=test_account_uuid)
             _, account_data, _ = response
 
-            with identity_client.tests.vcr.use_cassette('add_account_member/success_with_user_role'):
+            with identity_client.tests.use_cassette('add_account_member/success_with_user_role'):
                 response = APIClient.add_account_member(
                     user_uuid=second_user_uuid, roles=['user'], api_path=account_data['add_member_url']
                 )
@@ -2327,7 +2327,7 @@ class UpdateMemberRoles(TestCase):
     def test_request_with_wrong_credentials(self):
         APIClient.pweb.auth = ('?????', 'XXXXXX')
 
-        with identity_client.tests.vcr.use_cassette('update_member_roles/wrong_credentials'):
+        with identity_client.tests.use_cassette('update_member_roles/wrong_credentials'):
             response = APIClient.update_member_roles(
                 roles=['user'], api_path=self.member_data['membership_details_url']
             )
@@ -2343,7 +2343,7 @@ class UpdateMemberRoles(TestCase):
         })
 
     def test_request_with_application_without_permissions(self):
-        with identity_client.tests.vcr.use_cassette('update_member_roles/application_without_permissions'):
+        with identity_client.tests.use_cassette('update_member_roles/application_without_permissions'):
             response = APIClient.update_member_roles(
                 roles=['user'], api_path=self.member_data['membership_details_url']
             )
@@ -2357,7 +2357,7 @@ class UpdateMemberRoles(TestCase):
         })
 
     def test_request_with_empty_roles_list_gives_user_role(self):
-        with identity_client.tests.vcr.use_cassette('update_member_roles/empty_roles_list'):
+        with identity_client.tests.use_cassette('update_member_roles/empty_roles_list'):
             response = APIClient.update_member_roles(
                 roles=[], api_path=self.member_data['membership_details_url']
             )
@@ -2379,7 +2379,7 @@ class UpdateMemberRoles(TestCase):
         self.assertEquals(error, None)
 
     def test_success_with_user_role(self):
-        with identity_client.tests.vcr.use_cassette('update_member_roles/success_with_user_role'):
+        with identity_client.tests.use_cassette('update_member_roles/success_with_user_role'):
             response = APIClient.update_member_roles(
                 roles=['user'], api_path=self.member_data['membership_details_url']
             )
@@ -2401,7 +2401,7 @@ class UpdateMemberRoles(TestCase):
         self.assertEquals(error, None)
 
     def test_success_with_owner_role(self):
-        with identity_client.tests.vcr.use_cassette('update_member_roles/success_with_owner_role'):
+        with identity_client.tests.use_cassette('update_member_roles/success_with_owner_role'):
             response = APIClient.update_member_roles(
                 roles=['owner'], api_path=self.member_data['membership_details_url']
             )
@@ -2423,7 +2423,7 @@ class UpdateMemberRoles(TestCase):
         self.assertEquals(error, None)
 
     def test_success_with_list_of_roles(self):
-        with identity_client.tests.vcr.use_cassette('update_member_roles/success_with_list_of_roles'):
+        with identity_client.tests.use_cassette('update_member_roles/success_with_list_of_roles'):
             response = APIClient.update_member_roles(
                 roles=['owner', 'user', range(5), 12345, 01234, {'a': 'A'}, 'test-user', u'çãéê®©þ«»'],
                 api_path=self.member_data['membership_details_url']
@@ -2447,7 +2447,7 @@ class UpdateMemberRoles(TestCase):
         self.assertEquals(error, None)
 
     def test_request_with_user_uuid_which_is_not_a_member(self):
-        with identity_client.tests.vcr.use_cassette('update_member_roles/user_uuid_not_a_member'):
+        with identity_client.tests.use_cassette('update_member_roles/user_uuid_not_a_member'):
             response = APIClient.remove_account_member(
                 api_path=self.member_data['membership_details_url']
             )
@@ -2461,7 +2461,7 @@ class UpdateMemberRoles(TestCase):
         })
 
     def test_request_with_account_uuid_which_does_not_exist(self):
-        with identity_client.tests.vcr.use_cassette('update_member_roles/account_uuid_which_does_not_exist'):
+        with identity_client.tests.use_cassette('update_member_roles/account_uuid_which_does_not_exist'):
             response = APIClient.update_member_roles(
                 roles=[],
                 api_path=self.member_data['membership_details_url'].replace(test_account_uuid, '00000000-0000-0000-0000-000000000000')
@@ -2475,7 +2475,7 @@ class UpdateMemberRoles(TestCase):
         })
 
     def test_request_with_user_uuid_which_does_not_exist(self):
-        with identity_client.tests.vcr.use_cassette('update_member_roles/user_uuid_which_does_not_exist'):
+        with identity_client.tests.use_cassette('update_member_roles/user_uuid_which_does_not_exist'):
             response = APIClient.update_member_roles(
                 roles=[],
                 api_path=self.member_data['membership_details_url'].replace(second_user_uuid, '00000000-0000-0000-0000-000000000000')
@@ -2489,7 +2489,7 @@ class UpdateMemberRoles(TestCase):
         })
 
     def test_updating_members_of_an_expired_account_fails(self):
-        with identity_client.tests.vcr.use_cassette('update_member_roles/expired_account'):
+        with identity_client.tests.use_cassette('update_member_roles/expired_account'):
             response = APIClient.update_member_roles(
                 roles=['owner'], api_path=self.member_data['membership_details_url']
             )
@@ -2506,11 +2506,11 @@ class UpdateMemberRoles(TestCase):
 class RemoveAccountMember(TestCase):
 
     def setUp(self):
-        with identity_client.tests.vcr.use_cassette('fetch_account_data/success'):
+        with identity_client.tests.use_cassette('fetch_account_data/success'):
             response = APIClient.fetch_account_data(account_uuid=test_account_uuid)
             _, account_data, _ = response
 
-            with identity_client.tests.vcr.use_cassette('add_account_member/success_with_user_role'):
+            with identity_client.tests.use_cassette('add_account_member/success_with_user_role'):
                 response = APIClient.add_account_member(
                     user_uuid=second_user_uuid, roles=['user'], api_path=account_data['add_member_url']
                 )
@@ -2532,7 +2532,7 @@ class RemoveAccountMember(TestCase):
     def test_request_with_wrong_credentials(self):
         APIClient.pweb.auth = ('?????', 'XXXXXX')
 
-        with identity_client.tests.vcr.use_cassette('remove_account_member/wrong_credentials'):
+        with identity_client.tests.use_cassette('remove_account_member/wrong_credentials'):
             response = APIClient.remove_account_member(
                 api_path=self.member_data['membership_details_url']
             )
@@ -2548,7 +2548,7 @@ class RemoveAccountMember(TestCase):
         })
 
     def test_request_with_application_without_permissions(self):
-        with identity_client.tests.vcr.use_cassette('remove_account_member/application_without_permissions'):
+        with identity_client.tests.use_cassette('remove_account_member/application_without_permissions'):
             response = APIClient.remove_account_member(
                 api_path=self.member_data['membership_details_url']
             )
@@ -2562,7 +2562,7 @@ class RemoveAccountMember(TestCase):
         })
 
     def test_success(self):
-        with identity_client.tests.vcr.use_cassette('remove_account_member/success'):
+        with identity_client.tests.use_cassette('remove_account_member/success'):
             response = APIClient.remove_account_member(
                 api_path=self.member_data['membership_details_url']
             )
@@ -2573,7 +2573,7 @@ class RemoveAccountMember(TestCase):
         self.assertEquals(error, None)
 
     def test_removing_user_with_owner_role(self):
-        with identity_client.tests.vcr.use_cassette('remove_account_member/remove_owner'):
+        with identity_client.tests.use_cassette('remove_account_member/remove_owner'):
             response = APIClient.remove_account_member(
                 api_path=self.member_data['membership_details_url']
             )
@@ -2584,7 +2584,7 @@ class RemoveAccountMember(TestCase):
         self.assertEquals(error, {'status': 406, 'message': u'"Service owner cannot be removed from members list"'})
 
     def test_request_with_user_uuid_which_is_not_a_member(self):
-        with identity_client.tests.vcr.use_cassette('remove_account_member/user_uuid_not_a_member'):
+        with identity_client.tests.use_cassette('remove_account_member/user_uuid_not_a_member'):
             response = APIClient.remove_account_member(
                 api_path=self.member_data['membership_details_url']
             )
@@ -2598,7 +2598,7 @@ class RemoveAccountMember(TestCase):
         })
 
     def test_request_with_account_uuid_which_does_not_exist(self):
-        with identity_client.tests.vcr.use_cassette('remove_account_member/account_uuid_which_does_not_exist'):
+        with identity_client.tests.use_cassette('remove_account_member/account_uuid_which_does_not_exist'):
             response = APIClient.remove_account_member(
                 api_path=self.member_data['membership_details_url'].replace(test_account_uuid, '00000000-0000-0000-0000-000000000000')
             )
@@ -2611,7 +2611,7 @@ class RemoveAccountMember(TestCase):
         })
 
     def test_request_with_user_uuid_which_does_not_exist(self):
-        with identity_client.tests.vcr.use_cassette('remove_account_member/user_uuid_which_does_not_exist'):
+        with identity_client.tests.use_cassette('remove_account_member/user_uuid_which_does_not_exist'):
             response = APIClient.remove_account_member(
                 api_path=self.member_data['membership_details_url'].replace(second_user_uuid, '00000000-0000-0000-0000-000000000000')
             )
@@ -2624,7 +2624,7 @@ class RemoveAccountMember(TestCase):
         })
 
     def test_removing_members_of_an_expired_account_fails(self):
-        with identity_client.tests.vcr.use_cassette('remove_account_member/expired_account'):
+        with identity_client.tests.use_cassette('remove_account_member/expired_account'):
             response = APIClient.remove_account_member(
                 api_path=self.member_data['membership_details_url']
             )

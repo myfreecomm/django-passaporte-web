@@ -13,13 +13,16 @@ from identity_client import PERSISTENCE_MODULE
 
 
 __all__ = [
-    'MyfcIDTestClient', 'MyfcIDTestCase', 'MyfcIDAPITestCase', 'vcr'
+    'MyfcIDTestClient', 'MyfcIDTestCase', 'MyfcIDAPITestCase', 'use_cassette'
 ]
 
-cassettes = os.path.join(os.path.dirname(__file__), 'cassettes', 'api_client')
-vcr = VCR(
-    cassette_library_dir=cassettes, match_on = ['url', 'method', 'headers', 'body']
-)
+
+def use_cassette(*args, **kwargs):
+    return VCR(
+        cassette_library_dir = os.path.join(os.path.dirname(__file__), 'cassettes', 'api_client'),
+        match_on = ['url', 'method', 'headers', 'body'],
+        record_mode = 'none',
+    ).use_cassette(*args, **kwargs)
 
 
 class MyfcIDTestClient(Client):

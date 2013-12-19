@@ -24,7 +24,7 @@ class TestMyfcidApiBackend(TestCase):
 
     def test_successful_auth(self):
         # Autenticar um usuário
-        with identity_client.tests.vcr.use_cassette('myfcid_api_backend/success'):
+        with identity_client.tests.use_cassette('myfcid_api_backend/success'):
             identity = MyfcidAPIBackend().authenticate(test_user_email, test_user_password)
 
         # Checar se o usuário foi autenticado corretamente
@@ -56,7 +56,7 @@ class TestMyfcidApiBackend(TestCase):
 
     def test_failed_auth(self):
         # Autenticar um usuário
-        with identity_client.tests.vcr.use_cassette('myfcid_api_backend/wrong_password'):
+        with identity_client.tests.use_cassette('myfcid_api_backend/wrong_password'):
             identity = MyfcidAPIBackend().authenticate(test_user_email, 'senha errada')
 
         # Garantir que o usuario não foi autenticado
@@ -68,7 +68,7 @@ class TestMyfcidApiBackend(TestCase):
         user = Identity.objects.create(uuid=test_user_uuid, email='vai_mudar@email.com')
 
         # Autenticar um usuário
-        with identity_client.tests.vcr.use_cassette('myfcid_api_backend/success'):
+        with identity_client.tests.use_cassette('myfcid_api_backend/success'):
             identity = MyfcidAPIBackend().authenticate(test_user_email, test_user_password)
 
         # Checar se os dados do usuário foram atualizados
@@ -81,7 +81,7 @@ class TestMyfcidApiBackend(TestCase):
     @patch.object(settings, 'SERVICE_ACCOUNT_MODULE', 'identity_client.ServiceAccount')
     def test_create_local_identity_creates_user_accounts(self):
         # Obter dados do usuário
-        with identity_client.tests.vcr.use_cassette('fetch_identity_data/success_with_accounts'):
+        with identity_client.tests.use_cassette('fetch_identity_data/success_with_accounts'):
             response = APIClient.fetch_identity_data(uuid=test_user_uuid)
             status_code, content, error = response
 
@@ -97,7 +97,7 @@ class TestMyfcidApiBackend(TestCase):
     @patch.object(settings, 'SERVICE_ACCOUNT_MODULE', 'identity_client.ServiceAccount')
     def test_create_local_identity_removes_user_from_old_accounts(self):
         # Obter dados do usuário
-        with identity_client.tests.vcr.use_cassette('fetch_identity_data/success_with_accounts'):
+        with identity_client.tests.use_cassette('fetch_identity_data/success_with_accounts'):
             response = APIClient.fetch_identity_data(uuid=test_user_uuid)
             status_code, content, error = response
 
@@ -110,7 +110,7 @@ class TestMyfcidApiBackend(TestCase):
         self.assertEquals(accounts.count(), 1)
 
         # Obter os dados do usuário, desta vez sem accounts
-        with identity_client.tests.vcr.use_cassette('fetch_identity_data/success'):
+        with identity_client.tests.use_cassette('fetch_identity_data/success'):
             response = APIClient.fetch_identity_data(uuid=test_user_uuid)
             status_code, content, error = response
 
@@ -125,7 +125,7 @@ class TestMyfcidApiBackend(TestCase):
 
     def test_accounts_creation_fails_if_settings_are_wrong(self):
         # Obter dados do usuário
-        with identity_client.tests.vcr.use_cassette('fetch_identity_data/success_with_accounts'):
+        with identity_client.tests.use_cassette('fetch_identity_data/success_with_accounts'):
             response = APIClient.fetch_identity_data(uuid=test_user_uuid)
             status_code, content, error = response
 
@@ -143,7 +143,7 @@ class TestMyfcidApiBackend(TestCase):
 
     def test_auth_user_accounts_creation_fails_if_settings_are_missing(self):
         # Obter dados do usuário
-        with identity_client.tests.vcr.use_cassette('fetch_identity_data/success_with_accounts'):
+        with identity_client.tests.use_cassette('fetch_identity_data/success_with_accounts'):
             response = APIClient.fetch_identity_data(uuid=test_user_uuid)
             status_code, content, error = response
 
@@ -162,7 +162,7 @@ class TestMyfcidApiBackend(TestCase):
     @patch.object(settings, 'SERVICE_ACCOUNT_MODULE', 'identity_client.ServiceAccount')
     def test_authentication_should_not_remove_user_accounts(self):
         # Obter dados do usuário
-        with identity_client.tests.vcr.use_cassette('fetch_identity_data/success_with_accounts'):
+        with identity_client.tests.use_cassette('fetch_identity_data/success_with_accounts'):
             response = APIClient.fetch_identity_data(uuid=test_user_uuid)
             status_code, content, error = response
 
@@ -175,7 +175,7 @@ class TestMyfcidApiBackend(TestCase):
         self.assertEquals(accounts.count(), 1)
 
         # Autenticar o usuário
-        with identity_client.tests.vcr.use_cassette('myfcid_api_backend/success'):
+        with identity_client.tests.use_cassette('myfcid_api_backend/success'):
             identity = MyfcidAPIBackend().authenticate(test_user_email, test_user_password)
 
         # A conta deve continuar existindo
@@ -188,7 +188,7 @@ class TestGetUser(TestCase):
 
     def _create_user(self):
         # Autenticar um usuário
-        with identity_client.tests.vcr.use_cassette('myfcid_api_backend/success'):
+        with identity_client.tests.use_cassette('myfcid_api_backend/success'):
             return MyfcidAPIBackend().authenticate(test_user_email, test_user_password)
 
 
@@ -211,7 +211,7 @@ class TestGetUser(TestCase):
 class TestFetchUserData(TestCase):
 
     def test_fetch_user_data_with_success(self):
-        with identity_client.tests.vcr.use_cassette('myfcid_api_backend/success'):
+        with identity_client.tests.use_cassette('myfcid_api_backend/success'):
             _, user_data, _ = MyfcidAPIBackend().fetch_user_data(test_user_email, test_user_password)
 
         self.assertEquals(user_data, {
@@ -230,7 +230,7 @@ class TestFetchUserData(TestCase):
         })
 
     def test_fetch_user_data_failure(self):
-        with identity_client.tests.vcr.use_cassette('myfcid_api_backend/wrong_password'):
+        with identity_client.tests.use_cassette('myfcid_api_backend/wrong_password'):
             _, user_data, error = MyfcidAPIBackend().fetch_user_data(test_user_email, 'senha errada')
 
         self.assertEquals(user_data, None)

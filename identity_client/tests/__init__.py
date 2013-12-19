@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from helpers import vcr
+from helpers import use_cassette
 
 from test_backend import *
 from test_forms import *
