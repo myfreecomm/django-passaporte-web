@@ -12,7 +12,7 @@ from django.template import RequestContext
 from identity_client.sso.client import SSOClient
 from identity_client.sso.decorators import oauth_callback
 from identity_client.backend import MyfcidAPIBackend
-from identity_client.views.client_views import login_user
+from identity_client.views import login_user
 
 
 __all__ = ['initiate', 'fetch_user_data']
