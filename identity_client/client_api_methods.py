@@ -48,33 +48,17 @@ class APIClient(object):
     @classmethod
     @handle_api_exceptions
     def fetch_identity_data(cls, uuid=None, email=None, **kwargs):
-        params = {}
-        if not any((uuid, email)):
-            raise ValueError("Either 'uuid' or 'email' must be given")
-        elif uuid:
-            url = "{0}/{1}/{2}/".format(cls.api_host, cls.profile_api, uuid)
-        else:
-            url = "{0}/{1}/".format(cls.api_host, cls.profile_api)
+        current_app = Application(host=cls.api_host, token=cls.api_user, secret=cls.api_password)
+
+        params = kwargs
+        if uuid:
+            params['uuid'] = uuid
+        elif email:
             params['email'] = email
 
-        if kwargs.get('include_expired_accounts', False):
-            params['include_expired_accounts'] = True
-
-        if kwargs.get('include_other_services', False):
-            params['include_other_services'] = True
-
-        logging.info(
-            'fetch_identity_data: Making request to %s with params %s',
-            url, params
-        )
-
-        response = cls.pweb.get(url, params=params)
-
-        if response.status_code != 200:
-            response.raise_for_status()
-            raise requests.exceptions.HTTPError('Unexpected response', response=response)
-
-        return response.status_code, response.json()
+        logging.info(u'Trying to fetch user with params "{0}"'.format(params))
+        user = current_app.users.get(**params)
+        return user.response.status_code, user.response.json()
 
 
     @classmethod
