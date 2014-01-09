@@ -436,7 +436,6 @@ class FetchIdentityData(TestCase):
             status_code, content, error = response
 
         self.assertEquals(status_code, 200)
-        self.maxDiff = None
         self.assertEquals(content, {
             u'accounts': [{
                 u'expiration': None,
@@ -541,7 +540,6 @@ class FetchIdentityData(TestCase):
             status_code, content, error = response
 
         self.assertEquals(status_code, 200)
-        self.maxDiff = None
         self.assertEquals(content, {
             u'accounts': [{
                 u'name': u'Minhas aplica\xe7\xf5es',
@@ -618,7 +616,6 @@ class FetchIdentityData(TestCase):
             status_code, content, error = response
 
         self.assertEquals(status_code, 200)
-        self.maxDiff = None
         self.assertEquals(content, {
             u'accounts': [{
                 u'name': u'Minhas aplica\xe7\xf5es',
@@ -744,7 +741,10 @@ class FetchIdentityDataWithEmail(TestCase):
 
         self.assertEquals(status_code, 401)
         self.assertEquals(content, None)
-        self.assertEquals(error, {'status': 401, 'message': '401 Client Error: UNAUTHORIZED'})
+        self.assertEquals(error, {
+            'message': u'{"detail": "You need to login or otherwise authenticate the request."}',
+            'status': 401
+        })
 
     def test_request_with_application_without_permissions(self):
 
@@ -764,10 +764,88 @@ class FetchIdentityDataWithEmail(TestCase):
 
         self.assertEquals(status_code, 404)
         self.assertEquals(content, None)
-        self.assertEquals(error['status'], 404)
-        self.assertTrue(error['message'].startswith('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1/'))
+        self.assertEquals(error, {
+            'message': u'"Identity with email=nao_registrado@email.test does not exist"',
+            'status': 404
+        })
 
     def test_success_request(self):
+        with identity_client.tests.use_cassette('fetch_identity_data_with_email/success'):
+            response = APIClient.fetch_identity_data(email=test_user_email)
+            status_code, content, error = response
+
+        self.assertEquals(status_code, 200)
+        self.assertEquals(content, {
+            u'accounts': [{
+                u'expiration': None,
+                u'external_id': None,
+                u'name': u'Ecommerce Account',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/5f15f7b5-a7f6-4a35-8573-0da53d303e18/',
+                u'plan_slug': u'seller',
+                u'roles': [u'owner'],
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/5f15f7b5-a7f6-4a35-8573-0da53d303e18/',
+                u'uuid': u'5f15f7b5-a7f6-4a35-8573-0da53d303e18'
+            },
+            {
+                u'expiration': None,
+                u'external_id': None,
+                u'name': u'Ecommerce account',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/48aeff34-20c9-4039-bd97-d815020e8b44/',
+                u'plan_slug': u'customer',
+                u'roles': [u'user'],
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/48aeff34-20c9-4039-bd97-d815020e8b44/',
+                u'uuid': u'48aeff34-20c9-4039-bd97-d815020e8b44'
+            },
+            {
+                u'expiration': None,
+                u'external_id': None,
+                u'name': u'My Other Applications',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/',
+                u'plan_slug': u'unittest',
+                u'roles': [u'admin'],
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/',
+                u'uuid': u'e5ab6f2f-a4eb-431b-8c12-9411fd8a872d'
+            },
+            {
+                u'expiration': None,
+                u'external_id': None,
+                u'name': u'No account with this name exists',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/d4ad006d-f61d-4adf-b6e6-849dd15fb419/',
+                u'plan_slug': u'unittest',
+                u'roles': [u'owner'],
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/d4ad006d-f61d-4adf-b6e6-849dd15fb419/',
+                u'uuid': u'd4ad006d-f61d-4adf-b6e6-849dd15fb419'
+            },
+            {
+                u'expiration': None,
+                u'external_id': None,
+                u'name': u'Test Account',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
+                u'plan_slug': u'unittest-updated',
+                u'roles': [u'owner'],
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
+                u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'
+            }],
+            u'email': u'identity_client@disposableinbox.com',
+            u'first_name': u'Identity',
+            u'is_active': True,
+            u'last_name': u'Client',
+            u'notifications': {
+                u'count': 19,
+                u'list': u'http://sandbox.app.passaporteweb.com.br/notifications/api/'
+            },
+            u'profile_url': u'http://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/profile/',
+            u'send_myfreecomm_news': True,
+            u'send_partner_news': True,
+            u'services': {
+                u'identity_client': u'http://sandbox.app.passaporteweb.com.br/accounts/api/service-info/c3769912-baa9-4a0c-9856-395a706c7d57/identity_client/'
+            },
+            u'update_info_url': u'http://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/',
+            u'uuid': u'c3769912-baa9-4a0c-9856-395a706c7d57'
+        })
+        self.assertEquals(error, None)
+
+    def test_success_request_with_accounts(self):
 
         with identity_client.tests.use_cassette('fetch_identity_data_with_email/success'):
             response = APIClient.fetch_identity_data(email=test_user_email)
@@ -775,55 +853,72 @@ class FetchIdentityDataWithEmail(TestCase):
 
         self.assertEquals(status_code, 200)
         self.assertEquals(content, {
-            u'accounts': [],
-            u'email': u'identity_client@disposableinbox.com',
-            u'first_name': u'Myfc ID',
-            u'is_active': False,
-            u'last_name': u'Clients',
-            u'notifications': {u'count': 0, u'list': u'/notifications/api/'},
-            u'profile_url': u'/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/profile/',
-            u'send_myfreecomm_news': False,
-            u'send_partner_news': False,
-            u'services': {u'identity_client': u'/accounts/api/service-info/c3769912-baa9-4a0c-9856-395a706c7d57/identity_client/'},
-            u'update_info_url': u'/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/',
-            u'uuid': u'c3769912-baa9-4a0c-9856-395a706c7d57'
-        })
-        self.assertEquals(error, None)
-
-    def test_success_request_with_accounts(self):
-
-        with identity_client.tests.use_cassette('fetch_identity_data_with_email/success_with_accounts'):
-            response = APIClient.fetch_identity_data(email=test_user_email)
-            status_code, content, error = response
-
-        self.assertEquals(status_code, 200)
-        self.assertEquals(content, {
+            u'accounts': [{
+                u'expiration': None,
+                u'external_id': None,
+                u'name': u'Ecommerce Account',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/5f15f7b5-a7f6-4a35-8573-0da53d303e18/',
+                u'plan_slug': u'seller',
+                u'roles': [u'owner'],
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/5f15f7b5-a7f6-4a35-8573-0da53d303e18/',
+                u'uuid': u'5f15f7b5-a7f6-4a35-8573-0da53d303e18'
+            },
+            {
+                u'expiration': None,
+                u'external_id': None,
+                u'name': u'Ecommerce account',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/48aeff34-20c9-4039-bd97-d815020e8b44/',
+                u'plan_slug': u'customer',
+                u'roles': [u'user'],
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/48aeff34-20c9-4039-bd97-d815020e8b44/',
+                u'uuid': u'48aeff34-20c9-4039-bd97-d815020e8b44'
+            },
+            {
+                u'expiration': None,
+                u'external_id': None,
+                u'name': u'My Other Applications',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/',
+                u'plan_slug': u'unittest',
+                u'roles': [u'admin'],
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/',
+                u'uuid': u'e5ab6f2f-a4eb-431b-8c12-9411fd8a872d'
+            },
+            {
+                u'expiration': None,
+                u'external_id': None,
+                u'name': u'No account with this name exists',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/d4ad006d-f61d-4adf-b6e6-849dd15fb419/',
+                u'plan_slug': u'unittest',
+                u'roles': [u'owner'],
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/d4ad006d-f61d-4adf-b6e6-849dd15fb419/',
+                u'uuid': u'd4ad006d-f61d-4adf-b6e6-849dd15fb419'
+            },
+            {
+                u'expiration': None,
+                u'external_id': None,
+                u'name': u'Test Account',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
+                u'plan_slug': u'unittest-updated',
+                u'roles': [u'owner'],
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
+                u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'
+            }],
             u'email': u'identity_client@disposableinbox.com',
             u'first_name': u'Identity',
             u'is_active': True,
             u'last_name': u'Client',
-            u'notifications': {u'count': 0, u'list': u'/notifications/api/'},
-            u'profile_url': u'/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/profile/',
+            u'notifications': {
+                u'count': 19,
+                u'list': u'http://sandbox.app.passaporteweb.com.br/notifications/api/'
+            },
+            u'profile_url': u'http://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/profile/',
             u'send_myfreecomm_news': True,
             u'send_partner_news': True,
-            u'services': {u'identity_client': u'/accounts/api/service-info/c3769912-baa9-4a0c-9856-395a706c7d57/identity_client/'},
-            u'update_info_url': u'/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/',
-            u'uuid': u'c3769912-baa9-4a0c-9856-395a706c7d57',
-            u'accounts': [{
-                u'expiration': None,
-                u'external_id': None,
-                u'name': u'Test Account',
-                u'plan_slug': u'unittest',
-                u'roles': [u'owner'],
-                u'url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
-                u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'}],u'accounts': [{u'expiration': None,
-                u'external_id': None,
-                u'name': u'Test Account',
-                u'plan_slug': u'unittest',
-                u'roles': [u'owner'],
-                u'url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
-                u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'
-            }],
+            u'services': {
+                u'identity_client': u'http://sandbox.app.passaporteweb.com.br/accounts/api/service-info/c3769912-baa9-4a0c-9856-395a706c7d57/identity_client/'
+            },
+            u'update_info_url': u'http://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/',
+            u'uuid': u'c3769912-baa9-4a0c-9856-395a706c7d57'
         })
         self.assertEquals(error, None)
 
@@ -835,34 +930,99 @@ class FetchIdentityDataWithEmail(TestCase):
 
         self.assertEquals(status_code, 200)
         self.assertEquals(content, {
+            u'accounts': [{
+                u'expiration': None,
+                u'external_id': None,
+                u'name': u'Ecommerce Account',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/5f15f7b5-a7f6-4a35-8573-0da53d303e18/',
+                u'plan_slug': u'seller',
+                u'roles': [u'owner'],
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/5f15f7b5-a7f6-4a35-8573-0da53d303e18/',
+                u'uuid': u'5f15f7b5-a7f6-4a35-8573-0da53d303e18'
+            },
+            {
+                u'expiration': None,
+                u'external_id': None,
+                u'name': u'Ecommerce account',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/48aeff34-20c9-4039-bd97-d815020e8b44/',
+                u'plan_slug': u'customer',
+                u'roles': [u'user'],
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/48aeff34-20c9-4039-bd97-d815020e8b44/',
+                u'uuid': u'48aeff34-20c9-4039-bd97-d815020e8b44'
+            },
+            {
+                u'expiration': None,
+                u'external_id': None,
+                u'name': u'My Other Applications',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/',
+                u'plan_slug': u'unittest',
+                u'roles': [u'admin'],
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/',
+                u'uuid': u'e5ab6f2f-a4eb-431b-8c12-9411fd8a872d'
+            },
+            {
+                u'expiration': None,
+                u'external_id': None,
+                u'name': u'No account with this name exists',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/d4ad006d-f61d-4adf-b6e6-849dd15fb419/',
+                u'plan_slug': u'unittest',
+                u'roles': [u'owner'],
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/d4ad006d-f61d-4adf-b6e6-849dd15fb419/',
+                u'uuid': u'd4ad006d-f61d-4adf-b6e6-849dd15fb419'
+            },
+            {
+                u'expiration': None,
+                u'external_id': None,
+                u'name': u'Test Account',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
+                u'plan_slug': u'unittest-updated',
+                u'roles': [u'owner'],
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
+                u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'
+            }, {
+                u'expiration': u'2010-05-01 00:00:00',
+                u'external_id': None,
+                u'name': u'Back to the future',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/4b4fcd00-ccb3-4e7b-a1ff-414337963ab1/',
+                u'plan_slug': u'unittest',
+                u'roles': [u'owner'],
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/4b4fcd00-ccb3-4e7b-a1ff-414337963ab1/',
+                u'uuid': u'4b4fcd00-ccb3-4e7b-a1ff-414337963ab1'
+            }, {
+                u'expiration': u'2013-03-01 00:00:00',
+                u'external_id': None,
+                u'name': u'Grupo de testes',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/678abf63-eb1e-433d-9f0d-f46b44ab741d/',
+                u'plan_slug': u'customer',
+                u'roles': [u'owner'],
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/678abf63-eb1e-433d-9f0d-f46b44ab741d/',
+                u'uuid': u'678abf63-eb1e-433d-9f0d-f46b44ab741d'
+            }, {
+                u'expiration': u'2013-03-01 00:00:00',
+                u'external_id': None,
+                u'name': u'Test Acount',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/7002ca9a-1d15-4005-b4e3-81adada2bc68/',
+                u'plan_slug': u'customer',
+                u'roles': [u'owner'],
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/7002ca9a-1d15-4005-b4e3-81adada2bc68/',
+                u'uuid': u'7002ca9a-1d15-4005-b4e3-81adada2bc68'
+            }],
             u'email': u'identity_client@disposableinbox.com',
             u'first_name': u'Identity',
             u'is_active': True,
             u'last_name': u'Client',
-            u'notifications': {u'count': 0, u'list': u'/notifications/api/'},
-            u'profile_url': u'/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/profile/',
+            u'notifications': {
+                u'count': 19,
+                u'list': u'http://sandbox.app.passaporteweb.com.br/notifications/api/'
+            },
+            u'profile_url': u'http://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/profile/',
             u'send_myfreecomm_news': True,
             u'send_partner_news': True,
-            u'services': {u'identity_client': u'/accounts/api/service-info/c3769912-baa9-4a0c-9856-395a706c7d57/identity_client/'},
-            u'update_info_url': u'/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/',
-            u'uuid': u'c3769912-baa9-4a0c-9856-395a706c7d57',
-            u'accounts': [{
-                u'expiration': None,
-                u'external_id': None,
-                u'name': u'My Other Applications',
-                u'plan_slug': u'unittest',
-                u'roles': [u'owner'],
-                u'url': u'/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/',
-                u'uuid': u'e5ab6f2f-a4eb-431b-8c12-9411fd8a872d'
-            }, {
-                u'expiration': u'1900-01-01 00:00:00',
-                u'external_id': None,
-                u'name': u'Test Account',
-                u'plan_slug': u'unittest-updated',
-                u'roles': [u'owner'],
-                u'url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
-                u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'
-            }],
+            u'services': {
+                u'identity_client': u'http://sandbox.app.passaporteweb.com.br/accounts/api/service-info/c3769912-baa9-4a0c-9856-395a706c7d57/identity_client/'
+            },
+            u'update_info_url': u'http://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/',
+            u'uuid': u'c3769912-baa9-4a0c-9856-395a706c7d57'
         })
         self.assertEquals(error, None)
 
@@ -875,51 +1035,69 @@ class FetchIdentityDataWithEmail(TestCase):
         self.assertEquals(status_code, 200)
         self.assertEquals(content, {
             u'accounts': [{
-                u'name': u'Minhas aplicações',
+                u'name': u'Minhas aplica\xe7\xf5es',
                 u'uuid': u'1bcde52d-7da8-4800-bd59-dfea96933ce4'
             }, {
                 u'expiration': None,
                 u'external_id': None,
                 u'name': u'Ecommerce Account',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/5f15f7b5-a7f6-4a35-8573-0da53d303e18/',
                 u'plan_slug': u'seller',
                 u'roles': [u'owner'],
-                u'url': u'/organizations/api/accounts/5f15f7b5-a7f6-4a35-8573-0da53d303e18/',
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/5f15f7b5-a7f6-4a35-8573-0da53d303e18/',
                 u'uuid': u'5f15f7b5-a7f6-4a35-8573-0da53d303e18'
             }, {
                 u'expiration': None,
                 u'external_id': None,
                 u'name': u'Ecommerce account',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/48aeff34-20c9-4039-bd97-d815020e8b44/',
                 u'plan_slug': u'customer',
-                u'roles': [u'owner'],
-                u'url': u'/organizations/api/accounts/48aeff34-20c9-4039-bd97-d815020e8b44/',
+                u'roles': [u'user'],
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/48aeff34-20c9-4039-bd97-d815020e8b44/',
                 u'uuid': u'48aeff34-20c9-4039-bd97-d815020e8b44'
             }, {
                 u'expiration': None,
                 u'external_id': None,
                 u'name': u'My Other Applications',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/',
                 u'plan_slug': u'unittest',
-                u'roles': [u'owner'],
-                u'url': u'/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/',
+                u'roles': [u'admin'],
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/',
                 u'uuid': u'e5ab6f2f-a4eb-431b-8c12-9411fd8a872d'
             }, {
                 u'expiration': None,
                 u'external_id': None,
-                u'name': u'Test Account',
+                u'name': u'No account with this name exists',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/d4ad006d-f61d-4adf-b6e6-849dd15fb419/',
                 u'plan_slug': u'unittest',
                 u'roles': [u'owner'],
-                u'url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/d4ad006d-f61d-4adf-b6e6-849dd15fb419/',
+                u'uuid': u'd4ad006d-f61d-4adf-b6e6-849dd15fb419'
+            }, {
+                u'expiration': None,
+                u'external_id': None,
+                u'name': u'Test Account',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
+                u'plan_slug': u'unittest-updated',
+                u'roles': [u'owner'],
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
                 u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'
             }],
             u'email': u'identity_client@disposableinbox.com',
-            u'first_name': u'',
+            u'first_name': u'Identity',
             u'is_active': True,
-            u'last_name': u'',
-            u'notifications': {u'count': 0, u'list': u'/notifications/api/'},
-            u'profile_url': u'/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/profile/',
-            u'send_myfreecomm_news': False,
-            u'send_partner_news': False,
-            u'services': {u'identity_client': u'/accounts/api/service-info/c3769912-baa9-4a0c-9856-395a706c7d57/identity_client/'},
-            u'update_info_url': u'/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/',
+            u'last_name': u'Client',
+            u'notifications': {
+                u'count': 19,
+                u'list': u'http://sandbox.app.passaporteweb.com.br/notifications/api/'
+            },
+            u'profile_url': u'http://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/profile/',
+            u'send_myfreecomm_news': True,
+            u'send_partner_news': True,
+            u'services': {
+                u'identity_client': u'http://sandbox.app.passaporteweb.com.br/accounts/api/service-info/c3769912-baa9-4a0c-9856-395a706c7d57/identity_client/'
+            },
+            u'update_info_url': u'http://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/',
             u'uuid': u'c3769912-baa9-4a0c-9856-395a706c7d57'
         })
         self.assertEquals(error, None)
@@ -933,67 +1111,100 @@ class FetchIdentityDataWithEmail(TestCase):
         self.assertEquals(status_code, 200)
         self.assertEquals(content, {
             u'accounts': [{
-                u'name': u'Minhas aplicações',
+                u'name': u'Minhas aplica\xe7\xf5es',
                 u'uuid': u'1bcde52d-7da8-4800-bd59-dfea96933ce4'
             }, {
                 u'expiration': None,
                 u'external_id': None,
                 u'name': u'Ecommerce Account',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/5f15f7b5-a7f6-4a35-8573-0da53d303e18/',
                 u'plan_slug': u'seller',
                 u'roles': [u'owner'],
-                u'url': u'/organizations/api/accounts/5f15f7b5-a7f6-4a35-8573-0da53d303e18/',
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/5f15f7b5-a7f6-4a35-8573-0da53d303e18/',
                 u'uuid': u'5f15f7b5-a7f6-4a35-8573-0da53d303e18'
-            }, {
+            },
+            {
                 u'expiration': None,
                 u'external_id': None,
                 u'name': u'Ecommerce account',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/48aeff34-20c9-4039-bd97-d815020e8b44/',
                 u'plan_slug': u'customer',
-                u'roles': [u'owner'],
-                u'url': u'/organizations/api/accounts/48aeff34-20c9-4039-bd97-d815020e8b44/',
+                u'roles': [u'user'],
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/48aeff34-20c9-4039-bd97-d815020e8b44/',
                 u'uuid': u'48aeff34-20c9-4039-bd97-d815020e8b44'
-            }, {
+            },
+            {
                 u'expiration': None,
                 u'external_id': None,
                 u'name': u'My Other Applications',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/',
+                u'plan_slug': u'unittest',
+                u'roles': [u'admin'],
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/',
+                u'uuid': u'e5ab6f2f-a4eb-431b-8c12-9411fd8a872d'
+            },
+            {
+                u'expiration': None,
+                u'external_id': None,
+                u'name': u'No account with this name exists',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/d4ad006d-f61d-4adf-b6e6-849dd15fb419/',
                 u'plan_slug': u'unittest',
                 u'roles': [u'owner'],
-                u'url': u'/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/',
-                u'uuid': u'e5ab6f2f-a4eb-431b-8c12-9411fd8a872d'
-            }, {
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/d4ad006d-f61d-4adf-b6e6-849dd15fb419/',
+                u'uuid': u'd4ad006d-f61d-4adf-b6e6-849dd15fb419'
+            },
+            {
                 u'expiration': None,
                 u'external_id': None,
                 u'name': u'Test Account',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
+                u'plan_slug': u'unittest-updated',
+                u'roles': [u'owner'],
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
+                u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'
+            }, {
+                u'expiration': u'2010-05-01 00:00:00',
+                u'external_id': None,
+                u'name': u'Back to the future',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/4b4fcd00-ccb3-4e7b-a1ff-414337963ab1/',
                 u'plan_slug': u'unittest',
                 u'roles': [u'owner'],
-                u'url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
-                u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/4b4fcd00-ccb3-4e7b-a1ff-414337963ab1/',
+                u'uuid': u'4b4fcd00-ccb3-4e7b-a1ff-414337963ab1'
             }, {
                 u'expiration': u'2013-03-01 00:00:00',
                 u'external_id': None,
-                u'name': u' ',
+                u'name': u'Grupo de testes',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/678abf63-eb1e-433d-9f0d-f46b44ab741d/',
                 u'plan_slug': u'customer',
                 u'roles': [u'owner'],
-                u'url': u'/organizations/api/accounts/678abf63-eb1e-433d-9f0d-f46b44ab741d/',
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/678abf63-eb1e-433d-9f0d-f46b44ab741d/',
                 u'uuid': u'678abf63-eb1e-433d-9f0d-f46b44ab741d'
             }, {
                 u'expiration': u'2013-03-01 00:00:00',
                 u'external_id': None,
                 u'name': u'Test Acount',
+                u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/7002ca9a-1d15-4005-b4e3-81adada2bc68/',
                 u'plan_slug': u'customer',
                 u'roles': [u'owner'],
-                u'url': u'/organizations/api/accounts/7002ca9a-1d15-4005-b4e3-81adada2bc68/',
+                u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/7002ca9a-1d15-4005-b4e3-81adada2bc68/',
                 u'uuid': u'7002ca9a-1d15-4005-b4e3-81adada2bc68'
             }],
             u'email': u'identity_client@disposableinbox.com',
-            u'first_name': u'',
+            u'first_name': u'Identity',
             u'is_active': True,
-            u'last_name': u'',
-            u'notifications': {u'count': 0, u'list': u'/notifications/api/'},
-            u'profile_url': u'/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/profile/',
-            u'send_myfreecomm_news': False,
-            u'send_partner_news': False,
-            u'services': {u'identity_client': u'/accounts/api/service-info/c3769912-baa9-4a0c-9856-395a706c7d57/identity_client/'},
-            u'update_info_url': u'/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/',
+            u'last_name': u'Client',
+            u'notifications': {
+                u'count': 19,
+                u'list': u'http://sandbox.app.passaporteweb.com.br/notifications/api/'
+            },
+            u'profile_url': u'http://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/profile/',
+            u'send_myfreecomm_news': True,
+            u'send_partner_news': True,
+            u'services': {
+                u'identity_client': u'http://sandbox.app.passaporteweb.com.br/accounts/api/service-info/c3769912-baa9-4a0c-9856-395a706c7d57/identity_client/'
+            },
+            u'update_info_url': u'http://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/',
             u'uuid': u'c3769912-baa9-4a0c-9856-395a706c7d57'
         })
         self.assertEquals(error, None)
