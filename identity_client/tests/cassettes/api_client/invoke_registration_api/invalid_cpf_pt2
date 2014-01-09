@@ -4,7 +4,7 @@
       "email": "identity_client+1@disposableinbox.com"}'
     headers: !!python/object/apply:__builtin__.frozenset
     - - !!python/tuple [cache-control, no-cache]
-      - !!python/tuple [user-agent, myfc_id client]
+      - !!python/tuple [user-agent, api_toolkit]
       - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
       - !!python/tuple [accept, application/json]
       - !!python/tuple [content-type, application/json]
