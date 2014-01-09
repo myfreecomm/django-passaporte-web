@@ -2,13 +2,13 @@
     body: '{"first_name": "Myfc ID", "last_name": "Clients", "tos": true, "password2":
       "*SudN7%r$MiYRa!E", "cpf": "", "password": "*SudN7%r$MiYRa!E", "email": "identity_client@disposableinbox.com"}'
     headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [cache-control, no-cache]
-      - !!python/tuple [user-agent, api_toolkit]
-      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
-      - !!python/tuple [accept, application/json]
-      - !!python/tuple [content-type, application/json]
-      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+    - - !!python/tuple [Cache-Control, no-cache]
       - !!python/tuple [Content-Length, !!python/unicode '186']
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      - !!python/tuple [Content-Type, application/json]
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [User-Agent, api_toolkit]
     host: sandbox.app.passaporteweb.com.br
     method: POST
     path: /accounts/api/create/
@@ -22,3 +22,58 @@
       content-type: text/html; charset=utf-8, date: 'Fri, 21 Jun 2013 21:44:13 GMT',
       p3p: CP="NON DSP COR CURa TIA", server: nginx/0.7.67}
     status: {code: 403, message: FORBIDDEN}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Cache-Control, no-cache]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [Content-Type, application/json]
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [User-Agent, api_toolkit]
+      - !!python/tuple [Content-Length, '0']
+    host: sandbox.app.passaporteweb.com.br
+    method: OPTIONS
+    path: /organizations/api/accounts/
+    port: 80
+    protocol: http
+  response:
+    body:
+      string: !!binary |
+        H4sIACQPz1IC/42QwWrDMAyGXyXovJD7bqOlD9DuNsYQtpJq2I6R7SVQ8u61UlLKeunJ5vukX0gX
+        6JmcTfDeXKAUtvUDRxpoPiiHtwaiw/CTXBlUnep7NzRHFsw8BlV7zPTJnu46oCcVuzPKDS4ah5JI
+        530BxujYrAHdb6opVT+yuZ2mqe1H8W0RR8GMltZkX1zmGpS7VVrM+NTrHXxXJhQsyYvzas8/pGVt
+        VJppzl29BYc1d1vuRPLHhpoPY8YSslZaSkY4bneB5QqXYCtUZQEAAA==
+    headers: {allow: 'GET, HEAD, OPTIONS', connection: keep-alive, content-encoding: gzip,
+      content-length: '211', content-type: application/json, date: 'Thu, 09 Jan 2014
+        21:05:40 GMT', p3p: CP="NON DSP COR CURa TIA", server: nginx/1.4.4, vary: 'Authenticate,
+        Accept, Accept-Encoding', x-throttle: status=SUCCESS; next=1.00 sec}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Cache-Control, no-cache]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [Content-Type, application/json]
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [User-Agent, api_toolkit]
+      - !!python/tuple [Content-Length, '0']
+    host: sandbox.app.passaporteweb.com.br
+    method: OPTIONS
+    path: /accounts/api/create/
+    port: 80
+    protocol: http
+  response:
+    body:
+      string: !!binary |
+        H4sIACUPz1IC/41RTWvDMAz9K8HnhcCOO66ssNvodYyg2Uqi4S9kdWkp/e+zvbV0awq7SU/vPenZ
+        BzUQWpPUQ3PIJSfpPTjMrVpNwOsyVHeNsnBrktCbPgKLR+49zsVKPYZgEfyZJGERjpDSHNjcX7nq
+        OFTBZvWyPoPkJ3on6UELfYJQ8L3DlGDEJXO3zSfrCfyI/WnREq8GcPuBEXVw7maGS49ft6IDsgV9
+        KsU3fKwCTlisXhXEaEnXk7uPFHyRXWK7dp7ndgjs2i1b9DoY/AlhhcrrdnVoQOBK66x6yxjnHMj/
+        3Jc1f6BCa2P9LNxJFy2Qr76nX3826IVk32xwpCRcZYVvMGmmWNvMU8cvJEvyplUCAAA=
+    headers: {allow: 'POST, HEAD, OPTIONS', connection: keep-alive, content-encoding: gzip,
+      content-length: '278', content-type: application/json, date: 'Thu, 09 Jan 2014
+        21:05:41 GMT', p3p: CP="NON DSP COR CURa TIA", server: nginx/1.4.4, vary: 'Authenticate,
+        Accept, Accept-Encoding'}
+    status: {code: 200, message: OK}

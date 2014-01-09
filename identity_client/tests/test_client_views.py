@@ -62,6 +62,7 @@ class IdentityRegistrationTest(TestCase):
 
         form = response.context['form']
         self.assertEquals(form.errors, {
+            u'field_errors': [u'email'],
             u'email': [u'Este email já está cadastrado. Por favor insira outro email']
         })
 

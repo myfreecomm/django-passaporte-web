@@ -4,6 +4,7 @@ import json
 from datetime import datetime, date
 
 import requests
+from passaporte_web.main import Application
 from django.conf import settings
 
 from identity_client.decorators import handle_api_exceptions, handle_api_exceptions_with_form
@@ -38,23 +39,10 @@ class APIClient(object):
     @classmethod
     @handle_api_exceptions_with_form
     def invoke_registration_api(cls, form):
-
-        url = "{0}/{1}".format(cls.api_host, cls.registration_api)
-
-        logging.info('invoke_registration_api: Making request to %s', url)
-
-        registration_data = json.dumps(form.cleaned_data)
-        response = cls.pweb.post(
-            url,
-            headers={'content-length': str(len(registration_data))},
-            data=registration_data
-        )
-
-        if response.status_code not in (200, 201):
-            response.raise_for_status()
-            raise requests.exceptions.HTTPError('Unexpected response', response=response)
-
-        return response.status_code, response.json()
+        current_app = Application(host=cls.api_host, token=cls.api_user, secret=cls.api_password)
+        logging.info(u'Trying to create user "{0}"'.format(form.cleaned_data.get('email', 'no email set')))
+        user = current_app.users.create(**form.cleaned_data)
+        return user.response.status_code, user.response.json()
 
 
     @classmethod

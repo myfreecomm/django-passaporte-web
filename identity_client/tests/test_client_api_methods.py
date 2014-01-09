@@ -59,13 +59,15 @@ class InvokeRegistrationApi(TestCase):
     def test_request_with_wrong_credentials(self):
         form = RegistrationForm(self.registration_data)
         self.assertTrue(form.is_valid())
-        APIClient.pweb.auth = ('?????', 'XXXXXX')
+        APIClient.api_user = '?????'
+        APIClient.api_password = 'XXXXXX'
 
         with identity_client.tests.use_cassette('invoke_registration_api/wrong_credentials'):
             response = APIClient.invoke_registration_api(form)
             status_code, content, new_form = response
 
-        APIClient.pweb.auth = (settings.PASSAPORTE_WEB['CONSUMER_TOKEN'], settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
+        APIClient.api_user = settings.PASSAPORTE_WEB['CONSUMER_TOKEN']
+        APIClient.api_password = settings.PASSAPORTE_WEB['CONSUMER_SECRET']
 
         self.assertEquals(status_code, 401)
         self.assertEquals(content, None)
@@ -158,20 +160,6 @@ class InvokeRegistrationApi(TestCase):
         })
         self.assertEquals(form.errors, {})
 
-    def test_only_cleaned_data_is_sent(self):
-        form = RegistrationForm(self.registration_data)
-        self.assertTrue(form.is_valid())
-
-        with patch.object(APIClient, 'pweb'):
-            response = APIClient.invoke_registration_api(form)
-            self.assertTrue(APIClient.pweb.post.called)
-            self.assertEquals(APIClient.pweb.post.call_args, (
-                ('http://sandbox.app.passaporteweb.com.br/accounts/api/create/',), {
-                    'headers': { 'content-length': '186' },
-                    'data': '{"first_name": "Myfc ID", "last_name": "Clients", "tos": true, "password2": "*SudN7%r$MiYRa!E", "cpf": "", "password": "*SudN7%r$MiYRa!E", "email": "identity_client@disposableinbox.com"}'
-                }
-            ))
-
     def test_email_already_registered(self):
         form = RegistrationForm(self.registration_data)
         self.assertTrue(form.is_valid())
@@ -183,6 +171,7 @@ class InvokeRegistrationApi(TestCase):
         self.assertEquals(status_code, 409)
         self.assertEquals(content, None)
         self.assertEquals(form.errors, {
+            u'field_errors': [u'email'],
             u'email': [u'Este email já está cadastrado. Por favor insira outro email']
         })
 
