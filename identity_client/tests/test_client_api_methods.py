@@ -2573,8 +2573,11 @@ class AddAccountMember(TestCase):
 
     @patch.object(APIClient, 'api_host', 'http://127.0.0.1:23')
     def test_request_with_wrong_api_host(self):
+        api_path = self.account_data['add_member_url']
+        api_path = api_path.replace('sandbox.app.passaporteweb.com.br', '127.0.0.1:23')
+
         response = APIClient.add_account_member(
-            user_uuid=test_user_uuid, roles=['user'], api_path=self.account_data['add_member_url']
+            user_uuid=test_user_uuid, roles=['user'], api_path=api_path
         )
         status_code, content, error = response
 
