@@ -1231,8 +1231,12 @@ class UpdateUserApi(TestCase):
     @patch.object(APIClient, 'api_host', 'http://127.0.0.1:23')
     def test_request_with_wrong_api_host(self):
         form = IdentityInformationForm(self.updated_user_data)
-        response = APIClient.update_user_api(form, self.user_data['update_info_url'])
-        status_code, content, new_form = response
+        user_url = self.user_data['update_info_url']
+        user_url = user_url.replace('sandbox.app.passaporteweb.com.br', '127.0.0.1:23')
+
+        with identity_client.tests.use_cassette('update_user_api/wrong_api_host'):
+            response = APIClient.update_user_api(form, user_url)
+            status_code, content, new_form = response
 
         self.assertEquals(status_code, 500)
         self.assertEquals(content, None)
@@ -1242,13 +1246,15 @@ class UpdateUserApi(TestCase):
 
     def test_request_with_wrong_credentials(self):
         form = IdentityInformationForm(self.updated_user_data)
-        APIClient.pweb.auth = ('?????', 'XXXXXX')
+        APIClient.api_user = '?????'
+        APIClient.api_password = 'XXXXXX'
 
         with identity_client.tests.use_cassette('update_user_api/wrong_credentials'):
             response = APIClient.update_user_api(form, self.user_data['update_info_url'])
             status_code, content, new_form = response
 
-        APIClient.pweb.auth = (settings.PASSAPORTE_WEB['CONSUMER_TOKEN'], settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
+        APIClient.api_user = settings.PASSAPORTE_WEB['CONSUMER_TOKEN']
+        APIClient.api_password = settings.PASSAPORTE_WEB['CONSUMER_SECRET']
 
         self.assertEquals(status_code, 401)
         self.assertEquals(content, None)

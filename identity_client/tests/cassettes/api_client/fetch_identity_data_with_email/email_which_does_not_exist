@@ -1,13 +1,13 @@
 - request: !!python/object:vcr.request.Request
     body: null
     headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Cache-Control, no-cache]
-      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
-      - !!python/tuple [Accept, application/json]
+    - - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      - !!python/tuple [Cache-Control, no-cache]
+      - !!python/tuple [Content-Length, '0']
       - !!python/tuple [Content-Type, application/json]
       - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
       - !!python/tuple [User-Agent, api_toolkit]
-      - !!python/tuple [Content-Length, '0']
+      - !!python/tuple [Accept, application/json]
     host: sandbox.app.passaporteweb.com.br
     method: OPTIONS
     path: /organizations/api/accounts/
@@ -28,13 +28,13 @@
 - request: !!python/object:vcr.request.Request
     body: null
     headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Cache-Control, no-cache]
-      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
-      - !!python/tuple [Accept, application/json]
+    - - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      - !!python/tuple [Cache-Control, no-cache]
+      - !!python/tuple [Content-Length, '0']
       - !!python/tuple [Content-Type, application/json]
       - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
       - !!python/tuple [User-Agent, api_toolkit]
-      - !!python/tuple [Content-Length, '0']
+      - !!python/tuple [Accept, application/json]
     host: sandbox.app.passaporteweb.com.br
     method: OPTIONS
     path: /accounts/api/create/
@@ -65,12 +65,12 @@
       - !!python/tuple [Content-Length, '0']
     host: sandbox.app.passaporteweb.com.br
     method: GET
-    path: /accounts/api/identities/?email=nao_registrado@email.test
+    path: /accounts/api/identities/?email=nao_registrado%40email.test
     port: 80
     protocol: http
   response:
     body: {string: '"Identity with email=nao_registrado@email.test does not exist"'}
     headers: {allow: 'GET, HEAD, OPTIONS', connection: keep-alive, content-length: '62',
-      content-type: application/json, date: 'Thu, 09 Jan 2014 23:42:01 GMT', p3p: CP="NON
+      content-type: application/json, date: 'Fri, 10 Jan 2014 19:17:51 GMT', p3p: CP="NON
         DSP COR CURa TIA", server: nginx/1.4.4, vary: 'Authenticate, Accept'}
     status: {code: 404, message: NOT FOUND}

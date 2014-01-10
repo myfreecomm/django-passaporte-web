@@ -2,8 +2,8 @@
     body: null
     headers: !!python/object/apply:__builtin__.frozenset
     - - !!python/tuple [Cache-Control, no-cache]
-      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
       - !!python/tuple [Accept, application/json]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
       - !!python/tuple [Content-Type, application/json]
       - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
       - !!python/tuple [User-Agent, api_toolkit]
@@ -29,8 +29,8 @@
     body: null
     headers: !!python/object/apply:__builtin__.frozenset
     - - !!python/tuple [Cache-Control, no-cache]
-      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
       - !!python/tuple [Accept, application/json]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
       - !!python/tuple [Content-Type, application/json]
       - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
       - !!python/tuple [User-Agent, api_toolkit]
@@ -57,15 +57,15 @@
     body: null
     headers: !!python/object/apply:__builtin__.frozenset
     - - !!python/tuple [Cache-Control, no-cache]
-      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
       - !!python/tuple [Accept, application/json]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
       - !!python/tuple [Content-Type, application/json]
       - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
       - !!python/tuple [User-Agent, api_toolkit]
       - !!python/tuple [Content-Length, '0']
     host: sandbox.app.passaporteweb.com.br
     method: GET
-    path: /accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/?include_expired_accounts=true&include_other_services=true
+    path: /accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/?include_expired_accounts=1&include_other_services=1
     port: 80
     protocol: http
   response:
@@ -98,6 +98,45 @@
     - - !!python/tuple [Cache-Control, no-cache]
       - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
       - !!python/tuple [Accept, application/json]
+      - !!python/tuple [Content-Type, application/json]
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [User-Agent, api_toolkit]
+      - !!python/tuple [Content-Length, '0']
+    host: sandbox.app.passaporteweb.com.br
+    method: GET
+    path: /accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/?include_other_services=1&include_expired_accounts=1
+    port: 80
+    protocol: http
+  response:
+    body:
+      string: !!binary |
+        H4sIAGUyz1IC/72XTY/bNhCG/4qgc7kmReqDe2paFEUPaS+9tYExJIcxUVkSRCq720X+e0nZDpxd
+        15CDjWDDMDzWy5d8yBnOc27d6MO2gz3m91n+m8EuuPCU/5DlLZwFfm5djKSfPXZmO8AYOhy3HT74
+        GA7jhDE0Tc6kP2teV1KygigASQRQTWRTVoTLEmpa6dqUdZJyfgs6uE94JjEYCLh1ne2309gmtV0I
+        w/1m46Ezqn+8g2G4G8B7GPox4AOqO93v79S4Aa37qQt+A4PbuMNEHPrNEjebZKfrg7NOQ3B9l2b1
+        nM+C8RuTaT2cD7f4+UpuNpV/jjInm1Hqr+f8tL7vXbcDn8HQxif+nijFOn3aEn1+trJMaYNlYUht
+        oCGioZQoU0piLIKsJOcaRRrlOR9a6La+nT6mxzy2LY7zHI/j/RJN7nHUmL07+EnBsW9x9pX3D5Fu
+        /iGNfBuEfvwInfv3bNJfsJSWlbZWJYHaVpEDL0lT1pxQAyU3nHJkzcwBHwc3zgpx5G5q25dsbt0Z
+        r0l8i6mAYwftdgZxdHXCskTlAhY9+dDv/w8MXAIz+TfnIhpAa7kgBdXxfFAu456SNTENK2lBsVFC
+        rM7lBlNXuCxRucBl6lwI6MM5l/dP2R9hh2P2bpjP6CFJfMUGzN51bwwHS1CVLSwBgYoIzhRpdMxl
+        UjBmTQNNXZjV4dxg6gqcJSoL4fzen05L9uDCLgs757MUzPAxZm3//ZObEWAorQyxFTMxAxhLVIUV
+        aYQ0JiYHJZhcndMNpq5wWqJyhRM5lHRzzuvP+Pt6hQeElioWRlJAo4ko05ZDFrMzUFVJY41QsDqb
+        G0xdYbNEZeEZ+gn0P1no49nBzE5hGvH7kxFKWB03F9FacSKwVgSYtUQwwXktKw6KvSaTF5RRQktC
+        WUbp/fx+dX97y1q03OW1WrRAZeEd4ddxGvrMYJYY4grZraobULbiBBXDmKq5IdLSmBFEFSsoqFqw
+        C1UocYpbka/F6QaXVzgtUVnI6Zjm1slyNaWFBgmExaQc7zrxfCiBnDQMTHwVSlcXrtdrM7rB5RVG
+        S1Tyzx9O3er+yY6I6WL9omGNl+lPTuOh2Tu2jE9bfeh1v7X1PIqS1MMuaz5fjHzoE3EPbl71F9Ef
+        jfND70G16LrkKnpICzaMvXUtrto1H8eMhv8DdNg2P0kQAAA=
+    headers: {allow: 'GET, PUT, HEAD, OPTIONS', connection: keep-alive, content-encoding: gzip,
+      content-length: '890', content-type: application/json, date: 'Thu, 09 Jan 2014
+        23:36:05 GMT', p3p: CP="NON DSP COR CURa TIA", server: nginx/1.4.4, vary: 'Authenticate,
+        Accept, Accept-Encoding'}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Cache-Control, no-cache]
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
       - !!python/tuple [Content-Type, application/json]
       - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
       - !!python/tuple [User-Agent, api_toolkit]

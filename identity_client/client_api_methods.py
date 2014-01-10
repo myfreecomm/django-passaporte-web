@@ -4,7 +4,7 @@ import json
 from datetime import datetime, date
 
 import requests
-from passaporte_web.main import Application
+from passaporte_web.main import Application, Identity as RemoteIdentity
 from django.conf import settings
 
 from identity_client.decorators import handle_api_exceptions, handle_api_exceptions_with_form
@@ -44,7 +44,6 @@ class APIClient(object):
         user = current_app.users.create(**form.cleaned_data)
         return user.response.status_code, user.response.json()
 
-
     @classmethod
     @handle_api_exceptions
     def fetch_identity_data(cls, **kwargs):
@@ -53,31 +52,21 @@ class APIClient(object):
         user = current_app.users.get(**kwargs)
         return user.response.status_code, user.response.json()
 
-
     @classmethod
     @handle_api_exceptions_with_form
     def update_user_api(cls, form, api_path):
-
         if api_path.startswith(cls.api_host):
             url = api_path
         else:
             url = "{0}{1}".format(cls.api_host, api_path)
 
-        logging.info('update_user_api: Making request to %s', url)
+        logging.info(u'Loading information for user identified by "{0}"'.format(url))
+        remote_user = RemoteIdentity.load(url, token=cls.api_user, secret=cls.api_password)
 
-        user_data = json.dumps(form.data)
-        response = cls.pweb.put(
-            url,
-            headers={'content-length': str(len(user_data))},
-            data=user_data
-        )
-
-        if response.status_code != 200:
-            response.raise_for_status()
-            raise requests.exceptions.HTTPError('Unexpected response', response=response)
-
-        return response.status_code, response.json()
-
+        remote_user.resource_data.update(form.cleaned_data)
+        logging.info(u'Updating information for user identified by "{0}"'.format(url))
+        remote_user = remote_user.save()
+        return remote_user.response.status_code, remote_user.response.json()
 
     @classmethod
     @handle_api_exceptions
