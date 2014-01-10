@@ -1278,12 +1278,13 @@ class UpdateUserApi(TestCase):
     def test_cpf_already_registered(self):
         form = IdentityInformationForm(self.updated_user_data)
         form.data['cpf'] = '11111111111'
+        self.assertTrue(form.is_valid())
 
         with identity_client.tests.use_cassette('update_user_api/cpf_already_registered'):
             response = APIClient.update_user_api(form, self.user_data['update_info_url'])
             status_code, content, new_form = response
 
-        self.assertEquals(status_code, 409)
+        self.assertEquals(status_code, 400)
         self.assertEquals(content, None)
         self.assertEquals(form.errors, {
             u'cpf': [u'Esse número de CPF já está cadastrado.']
@@ -1293,11 +1294,14 @@ class UpdateUserApi(TestCase):
         form = IdentityInformationForm(self.updated_user_data)
         form.data['cpf'] = '1111111111122222222'
 
+        # This form will not validate, create cleaned_data
+        form.cleaned_data = form.data
+
         with identity_client.tests.use_cassette('update_user_api/invalid_cpf_pt1'):
             response = APIClient.update_user_api(form, self.user_data['update_info_url'])
             status_code, content, new_form = response
 
-        self.assertEquals(status_code, 409)
+        self.assertEquals(status_code, 400)
         self.assertEquals(content, None)
         self.assertEquals(form.errors, {
             u'cpf': [u'Certifique-se de que o valor tenha no máximo 14 caracteres (ele possui 19).']
@@ -1307,11 +1311,14 @@ class UpdateUserApi(TestCase):
         form = IdentityInformationForm(self.updated_user_data)
         form.data['cpf'] = 'asdfgqwertzxcvb'
 
+        # This form will not validate, create cleaned_data
+        form.cleaned_data = form.data
+
         with identity_client.tests.use_cassette('update_user_api/invalid_cpf_pt2'):
             response = APIClient.update_user_api(form, self.user_data['update_info_url'])
             status_code, content, new_form = response
 
-        self.assertEquals(status_code, 409)
+        self.assertEquals(status_code, 400)
         self.assertEquals(content, None)
         self.assertEquals(form.errors, {
             u'cpf': [u'Certifique-se de que o valor tenha no máximo 14 caracteres (ele possui 15).']
@@ -1319,6 +1326,7 @@ class UpdateUserApi(TestCase):
 
     def test_success_request(self):
         form = IdentityInformationForm(self.updated_user_data)
+        self.assertTrue(form.is_valid())
 
         with identity_client.tests.use_cassette('update_user_api/success'):
             response = APIClient.update_user_api(form, self.user_data['update_info_url'])
@@ -1344,6 +1352,7 @@ class UpdateUserApi(TestCase):
     def test_success_request_with_cpf(self):
         form = IdentityInformationForm(self.updated_user_data)
         form.data['cpf'] = '99999999999'
+        self.assertTrue(form.is_valid())
 
         with identity_client.tests.use_cassette('update_user_api/success_with_cpf'):
             response = APIClient.update_user_api(form, self.user_data['update_info_url'])
