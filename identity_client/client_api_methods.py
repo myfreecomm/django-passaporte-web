@@ -47,17 +47,10 @@ class APIClient(object):
 
     @classmethod
     @handle_api_exceptions
-    def fetch_identity_data(cls, uuid=None, email=None, **kwargs):
+    def fetch_identity_data(cls, **kwargs):
         current_app = Application(host=cls.api_host, token=cls.api_user, secret=cls.api_password)
-
-        params = kwargs
-        if uuid:
-            params['uuid'] = uuid
-        elif email:
-            params['email'] = email
-
-        logging.info(u'Trying to fetch user with params "{0}"'.format(params))
-        user = current_app.users.get(**params)
+        logging.info(u'Trying to fetch user with params "{0}"'.format(kwargs))
+        user = current_app.users.get(**kwargs)
         return user.response.status_code, user.response.json()
 
 
