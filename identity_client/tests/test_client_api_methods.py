@@ -1886,6 +1886,108 @@ class FetchUserAccounts(TestCase):
         self.assertEquals(error, None)
 
 
+class FetchAccountData(TestCase):
+
+    @patch.object(APIClient, 'api_host', 'http://127.0.0.1:23')
+    def test_request_with_wrong_api_host(self):
+        response = APIClient.fetch_account_data(account_uuid=test_account_uuid)
+        status_code, account, error = response
+
+        self.assertEquals(status_code, 500)
+        self.assertEquals(account, None)
+        self.assertEquals(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
+
+    def test_request_with_wrong_credentials(self):
+        APIClient.api_user = '?????'
+        APIClient.api_password = 'XXXXXX'
+
+        with identity_client.tests.use_cassette('fetch_account_data/wrong_credentials'):
+            response = APIClient.fetch_account_data(account_uuid=test_account_uuid)
+            status_code, account, error = response
+
+        APIClient.api_user = settings.PASSAPORTE_WEB['CONSUMER_TOKEN']
+        APIClient.api_password = settings.PASSAPORTE_WEB['CONSUMER_SECRET']
+
+        self.assertEquals(status_code, 401)
+        self.assertEquals(account, None)
+        self.assertEquals(error, {
+            'status': 401,
+            'message': u'{"detail": "You need to login or otherwise authenticate the request."}'
+        })
+
+    def test_request_with_application_without_permissions(self):
+        with identity_client.tests.use_cassette('fetch_account_data/application_without_permissions'):
+            response = APIClient.fetch_account_data(account_uuid=test_account_uuid)
+            status_code, account, error = response
+
+        self.assertEquals(status_code, 403)
+        self.assertEquals(account, None)
+        self.assertEquals(error, {
+            'status': 403,
+            'message': u'{"detail": "You do not have permission to access this resource. You may need to login or otherwise authenticate the request."}'
+        })
+
+    def test_request_with_uuid_which_does_not_exist(self):
+        with identity_client.tests.use_cassette('fetch_account_data/uuid_which_does_not_exist'):
+            response = APIClient.fetch_account_data(account_uuid='00000000-0000-0000-0000-000000000000')
+            status_code, account, error = response
+
+        self.assertEquals(status_code, 404)
+        self.assertEquals(account, None)
+        self.assertEquals(error, {
+            'status': 404,
+            'message': u'"Account 00000000-0000-0000-0000-000000000000 has no relation with service identity_client"'
+        })
+
+    def test_success(self):
+        with identity_client.tests.use_cassette('fetch_account_data/success'):
+            response = APIClient.fetch_account_data(account_uuid=test_account_uuid)
+            status_code, account, error = response
+
+        self.assertEquals(status_code, 200)
+        self.assertEquals(account, {
+            u'account_data': {
+                    u'name': u'Test Account', u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'
+            },
+            u'add_member_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/',
+            u'expiration': None,
+            u'history_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/history/',
+            u'members_data': [{
+                u'identity': u'c3769912-baa9-4a0c-9856-395a706c7d57',
+                u'membership_details_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/c3769912-baa9-4a0c-9856-395a706c7d57/',
+                u'roles': [u'owner']
+            }, {
+                u'identity': u'bedcd531-c741-4d32-90d7-a7f7432f3f15',
+                u'membership_details_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/bedcd531-c741-4d32-90d7-a7f7432f3f15/',
+                u'roles': [u'user']
+            }, {
+                u'identity': u'1cf30b5f-e78c-4eb9-a7b2-294a1d024e6d',
+                u'membership_details_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/1cf30b5f-e78c-4eb9-a7b2-294a1d024e6d/',
+                u'roles': [u'owner']
+            }],
+            u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
+            u'plan_slug': u'unittest-updated',
+            u'service_data': {u'name': u'Identity Client', u'slug': u'identity_client'},
+            u'updated_at': u'2014-01-09 20:18:28',
+            u'updated_by': u'http://sandbox.app.passaporteweb.com.br/admin/applications/identity_client/',
+            u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/'
+        })
+
+        self.assertEquals(error, None)
+
+    def test_reading_expired_accounts_fails(self):
+        with identity_client.tests.use_cassette('fetch_account_data/expired_accounts'):
+            response = APIClient.fetch_account_data(test_user_uuid)
+            status_code, account, error = response
+
+        self.assertEquals(status_code, 404)
+        self.assertEquals(account, None)
+        self.assertEquals(error, {
+            'status': 404,
+            'message': u'"Account c3769912-baa9-4a0c-9856-395a706c7d57 has no relation with service identity_client"'
+        })
+
+
 class CreateUserAccount(TestCase):
 
     @patch.object(APIClient, 'api_host', 'http://127.0.0.1:23')
@@ -2206,94 +2308,6 @@ class CreateUserAccountWithUUID(TestCase):
             u'url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/'
         })
         self.assertEquals(error, None)
-
-
-class FetchAccountData(TestCase):
-
-    @patch.object(APIClient, 'api_host', 'http://127.0.0.1:23')
-    def test_request_with_wrong_api_host(self):
-        response = APIClient.fetch_account_data(account_uuid=test_account_uuid)
-        status_code, account, error = response
-
-        self.assertEquals(status_code, 500)
-        self.assertEquals(account, None)
-        self.assertEquals(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
-
-    def test_request_with_wrong_credentials(self):
-        APIClient.pweb.auth = ('?????', 'XXXXXX')
-
-        with identity_client.tests.use_cassette('fetch_account_data/wrong_credentials'):
-            response = APIClient.fetch_account_data(account_uuid=test_account_uuid)
-            status_code, account, error = response
-
-        APIClient.pweb.auth = (settings.PASSAPORTE_WEB['CONSUMER_TOKEN'], settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
-
-        self.assertEquals(status_code, 401)
-        self.assertEquals(account, None)
-        self.assertEquals(error, {
-            'status': 401,
-            'message': u'{"detail": "You need to login or otherwise authenticate the request."}'
-        })
-
-    def test_request_with_application_without_permissions(self):
-        with identity_client.tests.use_cassette('fetch_account_data/application_without_permissions'):
-            response = APIClient.fetch_account_data(account_uuid=test_account_uuid)
-            status_code, account, error = response
-
-        self.assertEquals(status_code, 403)
-        self.assertEquals(account, None)
-        self.assertEquals(error, {
-            'status': 403,
-            'message': u'{"detail": "You do not have permission to access this resource. You may need to login or otherwise authenticate the request."}'
-        })
-
-    def test_request_with_uuid_which_does_not_exist(self):
-        with identity_client.tests.use_cassette('fetch_account_data/uuid_which_does_not_exist'):
-            response = APIClient.fetch_account_data(account_uuid='00000000-0000-0000-0000-000000000000')
-            status_code, account, error = response
-
-        self.assertEquals(status_code, 404)
-        self.assertEquals(account, None)
-        self.assertEquals(error, {
-            'status': 404,
-            'message': u'"Account 00000000-0000-0000-0000-000000000000 has no relation with service identity_client"'
-        })
-
-    def test_success(self):
-        with identity_client.tests.use_cassette('fetch_account_data/success'):
-            response = APIClient.fetch_account_data(account_uuid=test_account_uuid)
-            status_code, account, error = response
-
-        self.assertEquals(status_code, 200)
-        self.assertEquals(account, {
-            u'account_data': {
-                u'name': u'Test Account',
-                u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'
-            },
-            u'members_data': [{
-                u'membership_details_url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/c3769912-baa9-4a0c-9856-395a706c7d57/',
-                u'roles': [u'owner'],
-                u'identity': u'c3769912-baa9-4a0c-9856-395a706c7d57'
-            }],
-            u'url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
-            u'expiration': None,
-            u'service_data': {u'name': u'Identity Client', u'slug': u'identity_client'},
-            u'plan_slug': u'unittest',
-            u'add_member_url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/',
-        })
-        self.assertEquals(error, None)
-
-    def test_reading_expired_accounts_fails(self):
-        with identity_client.tests.use_cassette('fetch_account_data/expired_accounts'):
-            response = APIClient.fetch_account_data(test_user_uuid)
-            status_code, account, error = response
-
-        self.assertEquals(status_code, 404)
-        self.assertEquals(account, None)
-        self.assertEquals(error, {
-            'status': 404,
-            'message': u'"Account c3769912-baa9-4a0c-9856-395a706c7d57 has no relation with service identity_client"'
-        })
 
 
 class UpdateAccountData(TestCase):

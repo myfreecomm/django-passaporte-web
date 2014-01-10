@@ -156,18 +156,10 @@ class APIClient(object):
     @classmethod
     @handle_api_exceptions
     def fetch_account_data(cls, account_uuid):
-
-        url = '{0}/organizations/api/accounts/{1}/'.format(cls.api_host, account_uuid)
-
-        logging.info('fetch_account_data: Making request to %s', url)
-        response = cls.pweb.get(url)
-
-        if response.status_code != 200:
-            response.raise_for_status()
-            raise requests.exceptions.HTTPError('Unexpected response', response=response)
-
-        return response.status_code, response.json()
-
+        current_app = Application(host=cls.api_host, token=cls.api_user, secret=cls.api_password)
+        logging.info(u'Trying to account with uuid "{0}"'.format(account_uuid))
+        account = current_app.accounts.get(account_uuid)
+        return account.response.status_code, account.response.json()
 
     @classmethod
     @handle_api_exceptions
