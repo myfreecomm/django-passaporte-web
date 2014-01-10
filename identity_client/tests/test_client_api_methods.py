@@ -1604,13 +1604,15 @@ class FetchUserAccounts(TestCase):
         self.assertEquals(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
 
     def test_request_with_wrong_credentials(self):
-        APIClient.pweb.auth = ('?????', 'XXXXXX')
+        APIClient.api_user = '?????'
+        APIClient.api_password = 'XXXXXX'
 
         with identity_client.tests.use_cassette('fetch_user_accounts/wrong_credentials'):
             response = APIClient.fetch_user_accounts(uuid=test_user_uuid)
             status_code, accounts, error = response
 
-        APIClient.pweb.auth = (settings.PASSAPORTE_WEB['CONSUMER_TOKEN'], settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
+        APIClient.api_user = settings.PASSAPORTE_WEB['CONSUMER_TOKEN']
+        APIClient.api_password = settings.PASSAPORTE_WEB['CONSUMER_SECRET']
 
         self.assertEquals(status_code, 401)
         self.assertEquals(accounts, None)
@@ -1690,7 +1692,7 @@ class FetchUserAccounts(TestCase):
             u'account_data': {u'name': u'Test Account',
             u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'},
             u'add_member_url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/',
-            u'expiration': u'0001-01-01 00:00:00',
+            u'expiration': u'0001-01-01',
             u'membership_details_url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/c3769912-baa9-4a0c-9856-395a706c7d57/',
             u'plan_slug': u'unittest-updated',
             u'roles': [u'owner'],
@@ -1709,7 +1711,7 @@ class FetchUserAccounts(TestCase):
             {
                 u'account_data': {u'name': u'Test Acount', u'uuid': u'7002ca9a-1d15-4005-b4e3-81adada2bc68'},
                 u'add_member_url': u'/organizations/api/accounts/7002ca9a-1d15-4005-b4e3-81adada2bc68/members/',
-                u'expiration': u'2013-03-01 00:00:00',
+                u'expiration': u'2013-03-01',
                 u'membership_details_url': u'/organizations/api/accounts/7002ca9a-1d15-4005-b4e3-81adada2bc68/members/c3769912-baa9-4a0c-9856-395a706c7d57/',
                 u'plan_slug': u'customer',
                 u'roles': [u'owner'],
@@ -1753,14 +1755,14 @@ class FetchUserAccounts(TestCase):
             }, {
                 u'account_data': {u'name': u' ', u'uuid': u'678abf63-eb1e-433d-9f0d-f46b44ab741d'},
                 u'add_member_url': u'/organizations/api/accounts/678abf63-eb1e-433d-9f0d-f46b44ab741d/members/',
-                u'expiration': u'2013-03-01 00:00:00',
+                u'expiration': u'2013-03-01',
                 u'membership_details_url': u'/organizations/api/accounts/678abf63-eb1e-433d-9f0d-f46b44ab741d/members/c3769912-baa9-4a0c-9856-395a706c7d57/',
                 u'plan_slug': u'customer',
                 u'roles': [u'owner'],
                 u'service_data': {u'name': u'Identity Client', u'slug': u'identity_client'},
                 u'url': u'/organizations/api/accounts/678abf63-eb1e-433d-9f0d-f46b44ab741d/'
             }, {
-                u'account_data': {u'name': u'Minhas aplicações', u'uuid': u'1bcde52d-7da8-4800-bd59-dfea96933ce4'}
+                u'name': u'Minhas aplicações', u'uuid': u'1bcde52d-7da8-4800-bd59-dfea96933ce4'
             }
         ])
         self.assertEquals(error, None)
@@ -1809,7 +1811,7 @@ class FetchUserAccounts(TestCase):
                 u'url': u'/organizations/api/accounts/5f15f7b5-a7f6-4a35-8573-0da53d303e18/'
             },
             {
-                u'account_data': {u'name': u'Minhas aplicações', u'uuid': u'1bcde52d-7da8-4800-bd59-dfea96933ce4'}
+                u'name': u'Minhas aplicações', u'uuid': u'1bcde52d-7da8-4800-bd59-dfea96933ce4'
             }
         ])
         self.assertEquals(error, None)
@@ -1840,7 +1842,6 @@ class FetchUserAccounts(TestCase):
             status_code, accounts, error = response
 
         self.assertEquals(status_code, 200)
-        self.maxDiff = None
         self.assertEquals(accounts, [
             {
                 u'account_data': {u'name': u'My Other Applications',
@@ -1853,7 +1854,7 @@ class FetchUserAccounts(TestCase):
                 u'service_data': {u'name': u'Identity Client', u'slug': u'identity_client'},
                 u'url': u'/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/'
             }, {
-                u'account_data': {u'name': u'Minhas aplicações', 'uuid': u'1bcde52d-7da8-4800-bd59-dfea96933ce4'}
+                u'name': u'Minhas aplicações', 'uuid': u'1bcde52d-7da8-4800-bd59-dfea96933ce4'
             }
         ])
         self.assertEquals(error, None)
@@ -1879,7 +1880,7 @@ class FetchUserAccounts(TestCase):
                 u'service_data': {u'name': u'Identity Client', u'slug': u'identity_client'},
                 u'url': u'/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/'
             }, {
-                u'account_data': {u'name': u'Minhas aplicações', 'uuid': u'1bcde52d-7da8-4800-bd59-dfea96933ce4'}
+                u'name': u'Minhas aplicações', 'uuid': u'1bcde52d-7da8-4800-bd59-dfea96933ce4'
             }
         ])
         self.assertEquals(error, None)
