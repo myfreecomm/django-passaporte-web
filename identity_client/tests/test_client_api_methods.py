@@ -2000,13 +2000,15 @@ class CreateUserAccount(TestCase):
         self.assertEquals(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
 
     def test_request_with_wrong_credentials(self):
-        APIClient.pweb.auth = ('?????', 'XXXXXX')
+        APIClient.api_user = '?????'
+        APIClient.api_password = 'XXXXXX'
 
         with identity_client.tests.use_cassette('create_user_account/wrong_credentials'):
             response = APIClient.create_user_account(uuid=test_user_uuid, account_name='Test Account', plan_slug='unittest')
             status_code, accounts, error = response
 
-        APIClient.pweb.auth = (settings.PASSAPORTE_WEB['CONSUMER_TOKEN'], settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
+        APIClient.api_user = settings.PASSAPORTE_WEB['CONSUMER_TOKEN']
+        APIClient.api_password = settings.PASSAPORTE_WEB['CONSUMER_SECRET']
 
         self.assertEquals(status_code, 401)
         self.assertEquals(accounts, None)
@@ -2107,14 +2109,14 @@ class CreateUserAccount(TestCase):
 
         self.assertEquals(status_code, 201)
         self.assertEquals(accounts, {
-            u'membership_details_url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/c3769912-baa9-4a0c-9856-395a706c7d57/',
+            u'membership_details_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/c3769912-baa9-4a0c-9856-395a706c7d57/',
             u'plan_slug': u'unittest',
             u'roles': [u'owner'],
-            u'url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
+            u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
             u'expiration': None,
             u'service_data': {u'name': u'Identity Client', u'slug': u'identity_client'},
             u'account_data': {u'name': u'Test Account', u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'},
-            u'add_member_url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/'
+            u'add_member_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/'
         })
         self.assertEquals(error, None)
 
@@ -2145,13 +2147,15 @@ class CreateUserAccountWithUUID(TestCase):
         self.assertEquals(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
 
     def test_request_with_wrong_credentials(self):
-        APIClient.pweb.auth = ('?????', 'XXXXXX')
+        APIClient.api_user = '?????'
+        APIClient.api_password = 'XXXXXX'
 
         with identity_client.tests.use_cassette('create_user_account_with_uuid/wrong_credentials'):
             response = APIClient.create_user_account(uuid=test_user_uuid, account_uuid=test_account_uuid, plan_slug='unittest')
             status_code, accounts, error = response
 
-        APIClient.pweb.auth = (settings.PASSAPORTE_WEB['CONSUMER_TOKEN'], settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
+        APIClient.api_user = settings.PASSAPORTE_WEB['CONSUMER_TOKEN']
+        APIClient.api_password = settings.PASSAPORTE_WEB['CONSUMER_SECRET']
 
         self.assertEquals(status_code, 401)
         self.assertEquals(accounts, None)
@@ -2262,16 +2266,16 @@ class CreateUserAccountWithUUID(TestCase):
 
         self.assertEquals(status_code, 201)
         self.assertEquals(accounts, {
-            u'membership_details_url': u'/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/members/c3769912-baa9-4a0c-9856-395a706c7d57/',
+            u'membership_details_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/members/c3769912-baa9-4a0c-9856-395a706c7d57/',
             u'plan_slug': u'unittest',
             u'roles': [u'owner'],
-            u'url': u'/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/',
+            u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/',
             u'expiration': None,
             u'service_data': {u'name': u'Identity Client',
             u'slug': u'identity_client'},
             u'account_data': {u'name': u'My Other Applications',
             u'uuid': u'e5ab6f2f-a4eb-431b-8c12-9411fd8a872d'},
-            u'add_member_url': u'/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/members/'
+            u'add_member_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/members/'
         })
         self.assertEquals(error, None)
 
@@ -2299,13 +2303,13 @@ class CreateUserAccountWithUUID(TestCase):
         self.assertEquals(status_code, 201)
         self.assertEquals(accounts, {
             u'account_data': {u'name': u'Test Account', u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'},
-            u'add_member_url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/',
+            u'add_member_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/',
             u'expiration': None,
-        u'membership_details_url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/c3769912-baa9-4a0c-9856-395a706c7d57/',
+        u'membership_details_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/c3769912-baa9-4a0c-9856-395a706c7d57/',
             u'plan_slug': u'unittest-expired',
             u'roles': [u'owner'],
             u'service_data': {u'name': u'Identity Client', u'slug': u'identity_client'},
-            u'url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/'
+            u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/'
         })
         self.assertEquals(error, None)
 

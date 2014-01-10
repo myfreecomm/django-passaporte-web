@@ -114,7 +114,7 @@ class APIClient(object):
     @handle_api_exceptions
     def fetch_user_accounts(cls, uuid, **kwargs):
         current_app = Application(host=cls.api_host, token=cls.api_user, secret=cls.api_password)
-        logging.info(u'Trying to fetch user with params "{0}"'.format(kwargs))
+        logging.info(u'Trying to fetch user with uuid "{0}"'.format(uuid))
         user = current_app.users.get(uuid=uuid)
 
         logging.info(u'Fetching all accounts for user "{0}"'.format(user.uuid))
@@ -125,8 +125,15 @@ class APIClient(object):
 
     @classmethod
     @handle_api_exceptions
-    def create_user_account(cls, uuid, plan_slug, account_uuid=None, account_name=None, expiration=None):
+    def fetch_account_data(cls, account_uuid):
+        current_app = Application(host=cls.api_host, token=cls.api_user, secret=cls.api_password)
+        logging.info(u'Trying to account with uuid "{0}"'.format(account_uuid))
+        account = current_app.accounts.get(account_uuid)
+        return account.response.status_code, account.response.json()
 
+    @classmethod
+    @handle_api_exceptions
+    def create_user_account(cls, uuid, plan_slug, account_uuid=None, account_name=None, expiration=None):
         account_data = {'plan_slug': plan_slug, 'expiration': expiration}
         if account_uuid:
             account_data['uuid'] = account_uuid
@@ -135,31 +142,15 @@ class APIClient(object):
         else:
             raise ValueError("Either 'account_uuid' or 'account_name' must be given")
 
-        account_data = json.dumps(account_data)
-
-        url = '{0}/organizations/api/identities/{1}/accounts/'.format(cls.api_host, uuid)
-        logging.info('create_user_account: Making request to %s', url)
-
-        response = cls.pweb.post(
-            url,
-            headers={'content-length': str(len(account_data))},
-            data=account_data
-        )
-
-        if response.status_code not in (200, 201):
-            response.raise_for_status()
-            raise requests.exceptions.HTTPError('Unexpected response', response=response)
-
-        return response.status_code, response.json()
-
-
-    @classmethod
-    @handle_api_exceptions
-    def fetch_account_data(cls, account_uuid):
         current_app = Application(host=cls.api_host, token=cls.api_user, secret=cls.api_password)
-        logging.info(u'Trying to account with uuid "{0}"'.format(account_uuid))
-        account = current_app.accounts.get(account_uuid)
-        return account.response.status_code, account.response.json()
+        logging.info(u'Trying to fetch user with uuid "{0}"'.format(uuid))
+        user = current_app.users.get(uuid=uuid)
+
+        logging.info(u'Creating account for user "{0}" with "{1}"'.format(uuid, account_data))
+        new_account = user.accounts.create(**account_data)
+
+        return new_account.response.status_code, new_account.response.json()
+
 
     @classmethod
     @handle_api_exceptions
