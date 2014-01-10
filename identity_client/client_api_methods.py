@@ -86,7 +86,6 @@ class APIClient(object):
 
         return response.status_code, response.json()
 
-
     @classmethod
     @handle_api_exceptions
     def update_association_data(cls, new_data, api_path):

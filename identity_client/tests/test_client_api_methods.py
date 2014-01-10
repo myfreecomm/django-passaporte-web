@@ -1389,7 +1389,9 @@ class FetchAssociationData(TestCase):
 
     @patch.object(APIClient, 'api_host', 'http://127.0.0.1:23')
     def test_request_with_wrong_api_host(self):
-        response = APIClient.fetch_association_data(self.user_data['services']['identity_client'])
+        association_url = self.user_data['services']['identity_client']
+        association_url = association_url.replace('sandbox.app.passaporteweb.com.br', '127.0.0.1:23')
+        response = APIClient.fetch_association_data(association_url)
         status_code, content, error = response
 
         self.assertEquals(status_code, 500)
@@ -1485,7 +1487,9 @@ class UpdateAssociationData(TestCase):
 
     @patch.object(APIClient, 'api_host', 'http://127.0.0.1:23')
     def test_request_with_wrong_api_host(self):
-        response = APIClient.update_association_data(self.association_data, self.user_data['services']['identity_client'])
+        association_url = self.user_data['services']['identity_client']
+        association_url = association_url.replace('sandbox.app.passaporteweb.com.br', '127.0.0.1:23')
+        response = APIClient.update_association_data(self.association_data, association_url)
         status_code, content, error = response
 
         self.assertEquals(status_code, 500)
