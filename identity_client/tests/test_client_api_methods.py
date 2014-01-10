@@ -16,8 +16,10 @@ __all__ = [
     'FetchIdentityData', 'FetchIdentityDataWithEmail',
     'UpdateUserApi',
     'FetchAssociationData', 'UpdateAssociationData',
-    'FetchUserAccounts', 'FetchAccountData',
-    'CreateUserAccount', 'CreateUserAccountWithUUID', 'UpdateAccountData',
+    'FetchUserAccounts',
+    'FetchAccountData',
+    'CreateUserAccount', 'CreateUserAccountWithUUID',
+    'UpdateAccountData',
     'AddAccountMember', 'UpdateMemberRoles', 'RemoveAccountMember'
 ]
 
@@ -1822,7 +1824,6 @@ class FetchUserAccounts(TestCase):
             status_code, accounts, error = response
 
         self.assertEquals(status_code, 200)
-        self.maxDiff = None
         self.assertEquals(accounts, [{
             u'account_data': {u'name': u'My Other Applications',
             u'uuid': u'e5ab6f2f-a4eb-431b-8c12-9411fd8a872d'},
@@ -1867,7 +1868,6 @@ class FetchUserAccounts(TestCase):
             status_code, accounts, error = response
 
         self.assertEquals(status_code, 200)
-        self.maxDiff = None
         self.assertEquals(accounts, [
             {
                 u'account_data': {u'name': u'My Other Applications',
@@ -2327,9 +2327,10 @@ class UpdateAccountData(TestCase):
 
     @patch.object(APIClient, 'api_host', 'http://127.0.0.1:23')
     def test_request_with_wrong_api_host(self):
-        response = APIClient.update_account_data(
-            plan_slug=self.new_plan, expiration=self.new_expiration, api_path=self.account_data['url']
-        )
+        api_path = self.account_data['url']
+        api_path = api_path.replace('sandbox.app.passaporteweb.com.br', '127.0.0.1:23')
+
+        response = APIClient.update_account_data(plan_slug=self.new_plan, expiration=self.new_expiration, api_path=api_path)
         status_code, account, error = response
 
         self.assertEquals(status_code, 500)
@@ -2337,7 +2338,8 @@ class UpdateAccountData(TestCase):
         self.assertEquals(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
 
     def test_request_with_wrong_credentials(self):
-        APIClient.pweb.auth = ('?????', 'XXXXXX')
+        APIClient.api_user = '?????'
+        APIClient.api_password = 'XXXXXX'
 
         with identity_client.tests.use_cassette('update_account_data/wrong_credentials'):
             response = APIClient.update_account_data(
@@ -2345,7 +2347,8 @@ class UpdateAccountData(TestCase):
             )
             status_code, account, error = response
 
-        APIClient.pweb.auth = (settings.PASSAPORTE_WEB['CONSUMER_TOKEN'], settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
+        APIClient.api_user = settings.PASSAPORTE_WEB['CONSUMER_TOKEN']
+        APIClient.api_password = settings.PASSAPORTE_WEB['CONSUMER_SECRET']
 
         self.assertEquals(status_code, 401)
         self.assertEquals(account, None)
@@ -2468,27 +2471,38 @@ class UpdateAccountData(TestCase):
     def test_expiration_can_be_set_to_the_past(self):
         with identity_client.tests.use_cassette('update_account_data/expiration_can_be_set_to_the_past'):
             response = APIClient.update_account_data(
-                plan_slug=self.new_plan, expiration=date.min, api_path=self.account_data['url']
+                plan_slug=self.new_plan, expiration=date(1900, 1, 1), api_path=self.account_data['url']
             )
             status_code, account, error = response
 
         self.assertEquals(status_code, 200)
-        self.maxDiff = None
         self.assertEquals(account, {
             u'account_data': {
                 u'name': u'Test Account',
                 u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'
             },
             u'members_data': [{
-                u'membership_details_url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/c3769912-baa9-4a0c-9856-395a706c7d57/',
+                u'membership_details_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/c3769912-baa9-4a0c-9856-395a706c7d57/',
                 u'roles': [u'owner'],
                 u'identity': u'c3769912-baa9-4a0c-9856-395a706c7d57'
+            }, {
+                u'identity': u'bedcd531-c741-4d32-90d7-a7f7432f3f15',
+                u'membership_details_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/bedcd531-c741-4d32-90d7-a7f7432f3f15/',
+                u'roles': [u'user']
+            }, {
+                u'identity': u'1cf30b5f-e78c-4eb9-a7b2-294a1d024e6d',
+                u'membership_details_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/1cf30b5f-e78c-4eb9-a7b2-294a1d024e6d/',
+                u'roles': [u'owner']
             }],
-            u'url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
-            u'expiration': '0001-01-01 00:00:00',
+            u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
+            u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
+            u'updated_at': u'2014-01-10 20:25:25',
+            u'updated_by': u'http://sandbox.app.passaporteweb.com.br/admin/applications/identity_client/',
+            u'history_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/history/',
+            u'expiration': '1900-01-01 00:00:00',
             u'service_data': {u'name': u'Identity Client', u'slug': u'identity_client'},
             u'plan_slug': u'unittest-updated',
-            u'add_member_url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/',
+            u'add_member_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/',
         })
         self.assertEquals(error, None)
 
@@ -2506,62 +2520,103 @@ class UpdateAccountData(TestCase):
                 u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'
             },
             u'members_data': [{
-                u'membership_details_url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/c3769912-baa9-4a0c-9856-395a706c7d57/',
+                u'membership_details_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/c3769912-baa9-4a0c-9856-395a706c7d57/',
                 u'roles': [u'owner'],
                 u'identity': u'c3769912-baa9-4a0c-9856-395a706c7d57'
+            }, {
+                u'identity': u'bedcd531-c741-4d32-90d7-a7f7432f3f15',
+                u'membership_details_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/bedcd531-c741-4d32-90d7-a7f7432f3f15/',
+                u'roles': [u'user']
+            }, {
+                u'identity': u'1cf30b5f-e78c-4eb9-a7b2-294a1d024e6d',
+                u'membership_details_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/1cf30b5f-e78c-4eb9-a7b2-294a1d024e6d/',
+                u'roles': [u'owner']
             }],
-            u'url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
+            u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
+            u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
+            u'updated_at': u'2014-01-10 20:46:24',
+            u'updated_by': u'http://sandbox.app.passaporteweb.com.br/admin/applications/identity_client/',
+            u'history_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/history/',
             u'expiration': '9999-12-31 00:00:00',
             u'service_data': {u'name': u'Identity Client', u'slug': u'identity_client'},
             u'plan_slug': u'unittest-updated',
-            u'add_member_url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/',
+            u'add_member_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/',
         })
         self.assertEquals(error, None)
 
     def test_expired_accounts_can_have_plan_changed(self):
         with identity_client.tests.use_cassette('update_account_data/expired_accounts_can_have_plan_changed'):
             response = APIClient.update_account_data(
-                plan_slug='expired-service', expiration=date.min, api_path=self.account_data['url']
+                plan_slug='expired-service', expiration=date(1900, 1, 1), api_path=self.account_data['url']
             )
             status_code, account, error = response
 
         self.assertEquals(status_code, 200)
         self.assertEquals(account, {
-            u'account_data': {u'name': u'Test Account', u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'},
+            u'account_data': {
+                u'name': u'Test Account',
+                u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'
+            },
             u'members_data': [{
-                u'membership_details_url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/c3769912-baa9-4a0c-9856-395a706c7d57/',
+                u'membership_details_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/c3769912-baa9-4a0c-9856-395a706c7d57/',
                 u'roles': [u'owner'],
                 u'identity': u'c3769912-baa9-4a0c-9856-395a706c7d57'
+            }, {
+                u'identity': u'bedcd531-c741-4d32-90d7-a7f7432f3f15',
+                u'membership_details_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/bedcd531-c741-4d32-90d7-a7f7432f3f15/',
+                u'roles': [u'user']
+            }, {
+                u'identity': u'1cf30b5f-e78c-4eb9-a7b2-294a1d024e6d',
+                u'membership_details_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/1cf30b5f-e78c-4eb9-a7b2-294a1d024e6d/',
+                u'roles': [u'owner']
             }],
-            u'url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
-            u'expiration': u'0001-01-01 00:00:00',
+            u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
+            u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
+            u'updated_at': u'2014-01-10 20:40:14',
+            u'updated_by': u'http://sandbox.app.passaporteweb.com.br/admin/applications/identity_client/',
+            u'history_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/history/',
+            u'expiration': '1900-01-01 00:00:00',
             u'service_data': {u'name': u'Identity Client', u'slug': u'identity_client'},
             u'plan_slug': u'expired-service',
-            u'add_member_url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/'
+            u'add_member_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/',
         })
         self.assertEquals(error, None)
 
     def test_expired_accounts_can_have_expiration_changed(self):
         with identity_client.tests.use_cassette('update_account_data/expired_accounts_can_have_expiration_changed'):
             response = APIClient.update_account_data(
-                plan_slug=self.new_plan, expiration=date(1900, 1, 1), api_path=self.account_data['url']
+                plan_slug=self.new_plan, expiration=date(1903, 1, 1), api_path=self.account_data['url']
             )
             status_code, account, error = response
 
         self.assertEquals(status_code, 200)
-        self.maxDiff = None
         self.assertEquals(account, {
-            u'account_data': {u'name': u'Test Account', u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'},
+            u'account_data': {
+                u'name': u'Test Account',
+                u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'
+            },
             u'members_data': [{
-                u'membership_details_url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/c3769912-baa9-4a0c-9856-395a706c7d57/',
+                u'membership_details_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/c3769912-baa9-4a0c-9856-395a706c7d57/',
                 u'roles': [u'owner'],
                 u'identity': u'c3769912-baa9-4a0c-9856-395a706c7d57'
+            }, {
+                u'identity': u'bedcd531-c741-4d32-90d7-a7f7432f3f15',
+                u'membership_details_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/bedcd531-c741-4d32-90d7-a7f7432f3f15/',
+                u'roles': [u'user']
+            }, {
+                u'identity': u'1cf30b5f-e78c-4eb9-a7b2-294a1d024e6d',
+                u'membership_details_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/1cf30b5f-e78c-4eb9-a7b2-294a1d024e6d/',
+                u'roles': [u'owner']
             }],
-            u'url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
-            u'expiration': '1900-01-01 00:00:00',
+            u'url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
+            u'notifications_url': u'http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
+            u'updated_at': u'2014-01-10 20:49:03',
+            u'updated_by': u'http://sandbox.app.passaporteweb.com.br/admin/applications/identity_client/',
+            u'history_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/history/',
+            u'expiration': '1903-01-01 00:00:00',
             u'service_data': {u'name': u'Identity Client', u'slug': u'identity_client'},
             u'plan_slug': u'unittest-updated',
-            u'add_member_url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/'
+            u'add_member_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/',
         })
         self.assertEquals(error, None)
 
@@ -2728,7 +2783,6 @@ class AddAccountMember(TestCase):
             status_code, content, error = response
 
         self.assertEquals(status_code, 200)
-        self.maxDiff =None
         self.assertEquals(content, {
             u'membership_details_url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/bedcd531-c741-4d32-90d7-a7f7432f3f15/',
             u'identity': {
@@ -2892,7 +2946,6 @@ class UpdateMemberRoles(TestCase):
             status_code, content, error = response
 
         self.assertEquals(status_code, 200)
-        self.maxDiff =None
         self.assertEquals(content, {
             u'identity': {
                 u'first_name': u'Identity',

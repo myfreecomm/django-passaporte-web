@@ -1,15 +1,15 @@
 - request: !!python/object:vcr.request.Request
-    body: '{"plan_slug": "unittest-updated", "expiration": "9999-12-31"}'
+    body: null
     headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [cache-control, no-cache]
-      - !!python/tuple [user-agent, myfc_id client]
+    - - !!python/tuple [Cache-Control, no-cache]
       - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
-      - !!python/tuple [accept, application/json]
-      - !!python/tuple [content-type, application/json]
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [Content-Type, application/json]
       - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [Content-Length, !!python/unicode '61']
+      - !!python/tuple [User-Agent, api_toolkit]
+      - !!python/tuple [Content-Length, '0']
     host: sandbox.app.passaporteweb.com.br
-    method: PUT
+    method: GET
     path: /organizations/api/accounts/00000000-0000-0000-0000-000000000000/
     port: 80
     protocol: http
@@ -17,6 +17,6 @@
     body: {string: '"Account 00000000-0000-0000-0000-000000000000 has no relation
         with service identity_client"'}
     headers: {allow: 'GET, PUT, HEAD, OPTIONS', connection: keep-alive, content-length: '91',
-      content-type: application/json, date: 'Thu, 27 Jun 2013 22:59:01 GMT', p3p: CP="NON
-        DSP COR CURa TIA", server: nginx/0.7.67, vary: 'Authenticate, Accept'}
+      content-type: application/json, date: 'Fri, 10 Jan 2014 22:15:15 GMT', p3p: CP="NON
+        DSP COR CURa TIA", server: nginx/1.4.4, vary: 'Authenticate, Accept'}
     status: {code: 404, message: NOT FOUND}

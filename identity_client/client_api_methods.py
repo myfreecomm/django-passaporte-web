@@ -4,7 +4,7 @@ import json
 from datetime import datetime, date
 
 import requests
-from passaporte_web.main import Application, Identity as RemoteIdentity
+from passaporte_web.main import Application, Identity as RemoteIdentity, ServiceAccount as RemoteServiceAccount
 from django.conf import settings
 
 from identity_client.decorators import handle_api_exceptions, handle_api_exceptions_with_form
@@ -151,16 +151,9 @@ class APIClient(object):
 
         return new_account.response.status_code, new_account.response.json()
 
-
     @classmethod
     @handle_api_exceptions
     def update_account_data(cls, plan_slug, expiration, api_path):
-
-        if api_path.startswith(cls.api_host):
-            url = api_path
-        else:
-            url = "{0}{1}".format(cls.api_host, api_path)
-
         if isinstance(expiration, datetime):
             raise TypeError(u'expiration must be a date instance or None')
         elif isinstance(expiration, date):
@@ -168,20 +161,19 @@ class APIClient(object):
         elif expiration is not None:
             raise TypeError(u'expiration must be a date instance or None')
 
-        account_data = json.dumps({'plan_slug': plan_slug, 'expiration': expiration})
+        if api_path.startswith(cls.api_host):
+            url = api_path
+        else:
+            url = "{0}{1}".format(cls.api_host, api_path)
 
-        logging.info('update_account_data: Making request to %s', url)
-        response = cls.pweb.put(
-            url,
-            headers={'content-length': str(len(account_data))},
-            data=account_data
-        )
+        logging.info(u'Loading information for service account identified by "{0}"'.format(url))
+        remote_account = RemoteServiceAccount.load(url, token=cls.api_user, secret=cls.api_password)
+        remote_account.resource_data.update({'plan_slug': plan_slug, 'expiration': expiration})
 
-        if response.status_code != 200:
-            response.raise_for_status()
-            raise requests.exceptions.HTTPError('Unexpected response', response=response)
+        logging.info(u'Updating information for service account identified by "{0}"'.format(url))
+        remote_account = remote_account.save()
 
-        return response.status_code, response.json()
+        return remote_account.response.status_code, remote_account.response.json()
 
 
     @classmethod
