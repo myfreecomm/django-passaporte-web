@@ -4,7 +4,7 @@ import json
 from datetime import datetime, date
 
 import requests
-from passaporte_web.main import Application, Identity as RemoteIdentity, ServiceAccount as RemoteServiceAccount
+from passaporte_web.main import Application, Identity as RemoteIdentity, ServiceAccount as RemoteServiceAccount, AccountMembers
 from django.conf import settings
 
 from identity_client.decorators import handle_api_exceptions, handle_api_exceptions_with_form
@@ -183,26 +183,17 @@ class APIClient(object):
         if not isinstance(roles, list):
             raise TypeError(u"roles must be a list")
 
-        member_data = json.dumps({'identity': user_uuid, 'roles': roles})
-
         if api_path.startswith(cls.api_host):
             url = api_path
         else:
             url = "{0}{1}".format(cls.api_host, api_path)
 
-        logging.info('add_account_member: Making request to %s', url)
+        account_members = AccountMembers(url, token=cls.api_user, secret=cls.api_password)
+        
+        logging.info(u'Adding user with uuid "{0}" to account members identified by url "{1}"'.format(user_uuid, url))
+        member = account_members.create(identity=user_uuid, roles=roles)
 
-        response = cls.pweb.post(
-            url,
-            headers={'content-length': str(len(member_data))},
-            data=member_data
-        )
-
-        if response.status_code not in (200, 201):
-            response.raise_for_status()
-            raise requests.exceptions.HTTPError('Unexpected response', response=response)
-
-        return response.status_code, response.json()
+        return member.response.status_code, member.response.json()
 
 
     @classmethod
