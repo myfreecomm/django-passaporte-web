@@ -21,7 +21,7 @@ def use_cassette(*args, **kwargs):
     return VCR(
         cassette_library_dir = os.path.join(os.path.dirname(__file__), 'cassettes', 'api_client'),
         match_on = ['url', 'method', 'headers', 'body'],
-        record_mode = 'none',
+        record_mode = 'once',
     ).use_cassette(*args, **kwargs)
 
 
