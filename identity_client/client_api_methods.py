@@ -221,12 +221,8 @@ class APIClient(object):
         else:
             url = "{0}{1}".format(cls.api_host, api_path)
 
-        logging.info('remove_account_member: Making request to %s', url)
+        account_member = AccountMember.load(url, token=cls.api_user, secret=cls.api_password)
+        logging.info(u'Removing account member identified by "{0}"'.format(url))
+        account_member.delete()
 
-        response = cls.pweb.delete(url)
-
-        if response.status_code != 204:
-            response.raise_for_status()
-            raise requests.exceptions.HTTPError('Unexpected response', response=response)
-
-        return response.status_code, response.text
+        return 204, ''
