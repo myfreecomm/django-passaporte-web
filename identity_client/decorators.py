@@ -221,6 +221,33 @@ def handle_api_exceptions_with_form(method):
     return handler
 
 
+def asyncmethod(method):
+
+    def callback(future):
+        try:
+            result = future.result()
+            return result
+        except Exception as e:
+            logging.error(
+                'asyncmethod: Future "%s" raised an exception: "%s" (%s)',
+                future, e, type(e)
+            )
+        
+    @wraps(method)
+    def handler(self, *args, **kwargs):
+        logging.info(
+            'asyncmethod: Method "%s" invoked with args "%s" and kwargs "%s"',
+            method.__name__, *args, **kwargs
+        )
+        with futures.ThreadPoolExecutor(max_workers=1) as executor:
+            future_result = executor.submit(method, *args, **kwargs)
+            future_result.add_done_callback(callback)
+
+        return future_result
+
+    return handler
+
+
 error_messages = {
     401: u"Esta aplicação não está autorizada a utilizar o PassaporteWeb. Entre em contato com o suporte.",
     400: u"Erro na transmissão dos dados. Tente novamente.",

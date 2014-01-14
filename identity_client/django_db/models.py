@@ -9,6 +9,7 @@ from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 
 from identity_client.client_api_methods import APIClient
+from identity_client.decorators import asyncmethod
 
 
 class Identity(models.Model):
@@ -137,17 +138,14 @@ class ServiceAccount(models.Model):
         verbose_name = 'conta do passaporte web'
         verbose_name_plural = u'contas do passaporte web'
 
-
     def __unicode__(self):
         return self.name
-
 
     @classmethod
     def active(cls):
         return cls.objects.filter(
             Q(expiration=None)|Q(expiration__gte=datetime.now())
         )
-
 
     @classmethod
     def for_identity(cls, identity, include_expired=False):
@@ -158,14 +156,12 @@ class ServiceAccount(models.Model):
 
         return qset.filter(accountmember__identity=identity)
 
-
     @classmethod
     def refresh_accounts(cls, identity, **kwargs):
 
         accounts = cls.pull_remote_accounts(identity, **kwargs)
         cls.update_user_accounts(identity, accounts)
         cls.remove_stale_accounts(identity, accounts)
-
 
     @classmethod
     def pull_remote_accounts(cls, identity, **kwargs):
@@ -186,7 +182,6 @@ class ServiceAccount(models.Model):
                 url = item.get('url'),
                 roles = item.get('roles', default_roles),
             ) for item in accounts]
-
 
     @classmethod
     def update_user_accounts(cls, identity, accounts):
@@ -223,7 +218,6 @@ class ServiceAccount(models.Model):
             message = 'Identity %s (%s) at account %s (%s) members list'
             logging.info(message, identity.email, identity.uuid, account.name, account.uuid)
 
-
     @classmethod
     def remove_stale_accounts(cls, identity, accounts):
         current_uuids = [item['uuid'] for item in accounts]
@@ -237,16 +231,13 @@ class ServiceAccount(models.Model):
             message = 'Identity %s (%s) was removed from account %s (%s) members list.'
             logging.info(message, identity.email, identity.uuid, account.name, account.uuid)
 
-
     @property
     def is_active(self):
         return (self.expiration is None) or (self.expiration >= datetime.now())
 
-
     @property
     def members_count(self):
         return self.members.count()
-
 
     def get_member(self, identity):
         member_qset = AccountMember.objects.filter(identity=identity, account=self)
@@ -254,7 +245,6 @@ class ServiceAccount(models.Model):
             return member_qset[0]
 
         return None
-
 
     def add_member(self, identity, roles):
         self.save()
@@ -264,7 +254,6 @@ class ServiceAccount(models.Model):
 
         return new_member
 
-
     def remove_member(self, identity):
         member_qset = AccountMember.objects.filter(identity=identity, account=self)
         if member_qset.exists():
@@ -272,16 +261,20 @@ class ServiceAccount(models.Model):
 
         return self
 
-
     def clear_members(self):
         if self.id is None:
             return
 
         self.members.clear()
 
-
     def update_expiration(self, new_expiration):
         self.expiration = new_expiration
+
+    @asyncmethod
+    def send_notification(self, body, **kwargs):
+        notification = RemoteServiceAccount.load(
+            self.url, token=APIClient.api_user, secret=APIClient.api_password
+        ).send_notification(body, **kwargs)
 
 
 class AccountMember(models.Model):
