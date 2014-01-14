@@ -7,3 +7,4 @@ requests==1.2.3
 pytz==2013b
 vcrpy==0.5.0
 python-passaporte-web==0.2
+futures==2.1.6
