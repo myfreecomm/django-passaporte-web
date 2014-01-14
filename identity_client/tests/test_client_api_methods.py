@@ -2645,7 +2645,8 @@ class AddAccountMember(TestCase):
         self.assertEquals(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
 
     def test_request_with_wrong_credentials(self):
-        APIClient.pweb.auth = ('?????', 'XXXXXX')
+        APIClient.api_user = '?????'
+        APIClient.api_password = 'XXXXXX'
 
         with identity_client.tests.use_cassette('add_account_member/wrong_credentials'):
             response = APIClient.add_account_member(
@@ -2653,7 +2654,8 @@ class AddAccountMember(TestCase):
             )
             status_code, content, error = response
 
-        APIClient.pweb.auth = (settings.PASSAPORTE_WEB['CONSUMER_TOKEN'], settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
+        APIClient.api_user = settings.PASSAPORTE_WEB['CONSUMER_TOKEN']
+        APIClient.api_password = settings.PASSAPORTE_WEB['CONSUMER_SECRET']
 
         self.assertEquals(status_code, 401)
         self.assertEquals(content, None)
@@ -2840,7 +2842,8 @@ class UpdateMemberRoles(TestCase):
         self.assertEquals(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
 
     def test_request_with_wrong_credentials(self):
-        APIClient.pweb.auth = ('?????', 'XXXXXX')
+        APIClient.api_user = '?????'
+        APIClient.api_password = 'XXXXXX'
 
         with identity_client.tests.use_cassette('update_member_roles/wrong_credentials'):
             response = APIClient.update_member_roles(
@@ -2848,7 +2851,8 @@ class UpdateMemberRoles(TestCase):
             )
             status_code, content, error = response
 
-        APIClient.pweb.auth = (settings.PASSAPORTE_WEB['CONSUMER_TOKEN'], settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
+        APIClient.api_user = settings.PASSAPORTE_WEB['CONSUMER_TOKEN']
+        APIClient.api_password = settings.PASSAPORTE_WEB['CONSUMER_SECRET']
 
         self.assertEquals(status_code, 401)
         self.assertEquals(content, None)
@@ -3044,7 +3048,8 @@ class RemoveAccountMember(TestCase):
         self.assertEquals(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
 
     def test_request_with_wrong_credentials(self):
-        APIClient.pweb.auth = ('?????', 'XXXXXX')
+        APIClient.api_user = '?????'
+        APIClient.api_password = 'XXXXXX'
 
         with identity_client.tests.use_cassette('remove_account_member/wrong_credentials'):
             response = APIClient.remove_account_member(
@@ -3052,7 +3057,8 @@ class RemoveAccountMember(TestCase):
             )
             status_code, content, error = response
 
-        APIClient.pweb.auth = (settings.PASSAPORTE_WEB['CONSUMER_TOKEN'], settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
+        APIClient.api_user = settings.PASSAPORTE_WEB['CONSUMER_TOKEN']
+        APIClient.api_password = settings.PASSAPORTE_WEB['CONSUMER_SECRET']
 
         self.assertEquals(status_code, 401)
         self.assertEquals(content, None)
