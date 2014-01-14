@@ -4,7 +4,7 @@ import json
 from datetime import datetime, date
 
 import requests
-from passaporte_web.main import Application, Identity as RemoteIdentity, ServiceAccount as RemoteServiceAccount, AccountMembers
+from passaporte_web.main import Application, Identity as RemoteIdentity, ServiceAccount as RemoteServiceAccount, AccountMembers, AccountMember
 from django.conf import settings
 
 from identity_client.decorators import handle_api_exceptions, handle_api_exceptions_with_form
@@ -179,7 +179,6 @@ class APIClient(object):
     @classmethod
     @handle_api_exceptions
     def add_account_member(cls, user_uuid, roles, api_path):
-
         if not isinstance(roles, list):
             raise TypeError(u"roles must be a list")
 
@@ -199,28 +198,21 @@ class APIClient(object):
     @classmethod
     @handle_api_exceptions
     def update_member_roles(cls, roles, api_path):
-
         if not isinstance(roles, list):
             raise TypeError(u"roles must be a list")
-
-        member_data = json.dumps({'roles': roles})
 
         if api_path.startswith(cls.api_host):
             url = api_path
         else:
             url = "{0}{1}".format(cls.api_host, api_path)
 
-        logging.info('update_member_roles: Making request to %s', url)
 
-        response = cls.pweb.put(
-            url,
-            headers={'content-length': str(len(member_data))},
-            data=member_data
-        )
+        logging.info(u'Loading information for account member identified by "{0}"'.format(url))
+        account_member = AccountMember.load(url, token=cls.api_user, secret=cls.api_password)
+        account_member.roles = roles
 
-        if response.status_code != 200:
-            response.raise_for_status()
-            raise requests.exceptions.HTTPError('Unexpected response', response=response)
+        logging.info(u'Updating information for account member identified by "{0}"'.format(url))
+        account_member.save()
 
         return response.status_code, response.json()
 
