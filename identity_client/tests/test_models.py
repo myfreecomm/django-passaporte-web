@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime, timedelta
 import json
+import futures
 
 from mock import patch
 
 from django.conf import settings
 
-from identity_client.tests.helpers import MyfcIDTestCase as TestCase
+import identity_client
 from identity_client import PERSISTENCE_MODULE
+from identity_client.tests.helpers import MyfcIDTestCase as TestCase
 from identity_client.models import Identity, ServiceAccount
 
 __all__ = [
@@ -333,3 +335,12 @@ class TestServiceAccountModel(TestCase):
 
         self.assertEquals(ServiceAccount.for_identity(self.identity).count(), 2)
         self.assertFalse(self.account in ServiceAccount.for_identity(self.identity))
+
+    def test_send_notification(self):
+        self.account.url = "http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/"
+        body = "Test notification for the account"
+        with identity_client.tests.use_cassette('service_account/send_notification'):
+            future = self.account.send_notification(body)
+
+        self.assertTrue(isinstance(future, futures.Future))
+        self.assertEquals(future.result().body, body)

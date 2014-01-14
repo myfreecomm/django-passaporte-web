@@ -2,6 +2,7 @@
 import logging
 
 from datetime import datetime
+from passaporte_web.main import ServiceAccount as RemoteServiceAccount
 
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models
@@ -272,7 +273,7 @@ class ServiceAccount(models.Model):
 
     @asyncmethod
     def send_notification(self, body, **kwargs):
-        notification = RemoteServiceAccount.load(
+        return RemoteServiceAccount.load(
             self.url, token=APIClient.api_user, secret=APIClient.api_password
         ).send_notification(body, **kwargs)
 

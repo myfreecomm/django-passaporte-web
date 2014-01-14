@@ -2,6 +2,7 @@
 import logging
 from functools import wraps
 
+import futures
 import requests
 from django import http
 from django.conf import settings
@@ -240,7 +241,7 @@ def asyncmethod(method):
             method.__name__, *args, **kwargs
         )
         with futures.ThreadPoolExecutor(max_workers=1) as executor:
-            future_result = executor.submit(method, *args, **kwargs)
+            future_result = executor.submit(method, self, *args, **kwargs)
             future_result.add_done_callback(callback)
 
         return future_result
