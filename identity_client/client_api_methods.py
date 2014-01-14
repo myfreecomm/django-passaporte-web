@@ -175,7 +175,6 @@ class APIClient(object):
 
         return remote_account.response.status_code, remote_account.response.json()
 
-
     @classmethod
     @handle_api_exceptions
     def add_account_member(cls, user_uuid, roles, api_path):
@@ -194,11 +193,10 @@ class APIClient(object):
 
         return member.response.status_code, member.response.json()
 
-
     @classmethod
     @handle_api_exceptions
     def update_member_roles(cls, roles, api_path):
-        if not isinstance(roles, list):
+        if not isinstance(roles, (list, set)):
             raise TypeError(u"roles must be a list")
 
         if api_path.startswith(cls.api_host):
@@ -206,21 +204,18 @@ class APIClient(object):
         else:
             url = "{0}{1}".format(cls.api_host, api_path)
 
-
         logging.info(u'Loading information for account member identified by "{0}"'.format(url))
         account_member = AccountMember.load(url, token=cls.api_user, secret=cls.api_password)
         account_member.roles = roles
 
         logging.info(u'Updating information for account member identified by "{0}"'.format(url))
-        account_member.save()
+        account_member = account_member.save()
 
-        return response.status_code, response.json()
-
+        return account_member.response.status_code, account_member.response.json()
 
     @classmethod
     @handle_api_exceptions
     def remove_account_member(cls, api_path):
-
         if api_path.startswith(cls.api_host):
             url = api_path
         else:
