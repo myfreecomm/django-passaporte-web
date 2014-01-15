@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime, timedelta
 import json
+import requests
 import futures
 
 from mock import patch
@@ -344,3 +345,14 @@ class TestServiceAccountModel(TestCase):
 
         self.assertTrue(isinstance(future, futures.Future))
         self.assertEquals(future.result().body, body)
+
+    def test_error_sending_notification(self):
+        self.account.url = "http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/"
+        body = "Test notification for the account"
+        with identity_client.tests.use_cassette('service_account/403_sending_notification'):
+            # The call won't fail
+            future = self.account.send_notification(body)
+
+        # Buy the result will contain the raised exception
+        self.assertTrue(isinstance(future, futures.Future))
+        self.assertRaises(requests.HTTPError, future.result)

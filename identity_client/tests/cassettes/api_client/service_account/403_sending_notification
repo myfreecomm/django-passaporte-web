@@ -1,0 +1,80 @@
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Cache-Control, no-cache]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [Content-Type, application/json]
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [User-Agent, api_toolkit]
+      - !!python/tuple [Content-Length, '0']
+    host: sandbox.app.passaporteweb.com.br
+    method: GET
+    path: /organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/
+    port: 80
+    protocol: http
+  response:
+    body:
+      string: !!binary |
+        H4sIADPK1VIC/81TwU7jMBD9lchn3MSOS9LeVnvaw4oPQCga2xNqKbEt2wFKxb+vE1IJlkvhwO4t
+        cubNe2/mzYkcTEwuHLspDGRfkENKfl+WEayW7mkD3m88xAjehYSPKDfKjRsZShfuwZpnSMbZWII3
+        JSjlJptiiVuQ1z3vKQiUVNRM0lYxTneCsV630DZclyttSa4K4gewXRym+1nAZE1KGNP8Y/IaEupO
+        Hj8jDfRobJbkB6NWfUajTSYdOzWY/LWwjjhKDLHLFJDb357OLwfjO40JzBC/eyqrgpKpvq7ktqfY
+        tIpmwI5CIznlOwFMV1zgtV5MnI3NIi8BzZjgBoyzY+IeLQZy93JV/E/mJWqltzWjqhGMCl3nuko3
+        2UzfiJr3dc+2H8xfAnpvfoqL97s3OYM0t+IVE7RitNoVvNqzds/FEsbvncZMiU/ehKVDZrbTMOQ3
+        65Lpz8H+7Iregb8oKo/twSg8382JWBhxFvFrXUfxczmypXY96r/uj+TEkZX5Y5/fx+ImHTAUP96c
+        8LKByei54BKprxRad6+p+ldZJi9/AGDgOjtiBQAA
+    headers: {allow: 'GET, PUT, HEAD, OPTIONS', connection: keep-alive, content-encoding: gzip,
+      content-length: '429', content-type: application/json, date: 'Tue, 14 Jan 2014
+        23:37:23 GMT', p3p: CP="NON DSP COR CURa TIA", server: nginx/1.4.4, vary: 'Authenticate,
+        Accept, Accept-Encoding'}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Cache-Control, no-cache]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [Content-Type, application/json]
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [User-Agent, api_toolkit]
+      - !!python/tuple [Content-Length, '0']
+    host: sandbox.app.passaporteweb.com.br
+    method: OPTIONS
+    path: /organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/
+    port: 80
+    protocol: http
+  response:
+    body:
+      string: !!binary |
+        H4sIADTK1VIC/42QywoCMQxFf6VkbZm9O0H8AXUlIqWNEumLPpyBYf7dtCKIblyF3JN703SGK6E1
+        GdZihmiVv2Rbb9zBnuuuMVgJwClSUoWCb2irCh7I4QsvzKNKGVvICVSMlnSfHe6ZDYw/tUmO4yiv
+        ITlZk0Wvg8G+w1VbiIPK0KFRRf14nYUzawm9wfTnPvZ8SW1MxqYWnMrAZ5PvuV457LdjepBGsdE6
+        VF/EMfJrsBkMZp0ovn8ClidyOwwsQQEAAA==
+    headers: {allow: 'GET, PUT, HEAD, OPTIONS', connection: keep-alive, content-encoding: gzip,
+      content-length: '196', content-type: application/json, date: 'Tue, 14 Jan 2014
+        23:37:24 GMT', p3p: CP="NON DSP COR CURa TIA", server: nginx/1.4.4, vary: 'Authenticate,
+        Accept, Accept-Encoding'}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: '{"body": "Test notification for the account"}'
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Cache-Control, no-cache]
+      - !!python/tuple [Content-Length, !!python/unicode '45']
+      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [Content-Type, application/json]
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [User-Agent, api_toolkit]
+    host: sandbox.app.passaporteweb.com.br
+    method: POST
+    path: /notifications/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/
+    port: 80
+    protocol: http
+  response:
+    body: {string: '{"detail": "You do not have permission to access this resource.
+        You may need to login or otherwise authenticate the request."}'}
+    headers: {allow: 'GET, POST, HEAD, OPTIONS', connection: keep-alive, content-length: '126',
+      content-type: application/json, date: 'Mon, 24 Jun 2013 19:52:19 GMT', p3p: CP="NON
+        DSP COR CURa TIA", server: nginx/0.7.67, vary: 'Authenticate, Accept'}
+    status: {code: 403, message: FORBIDDEN}
