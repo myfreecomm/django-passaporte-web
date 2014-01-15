@@ -165,8 +165,8 @@ class ServiceAccount(Document):
             return []
         else:
             return [dict(
-                uuid = item['account_data']['uuid'],
-                name = item['account_data']['name'],
+                uuid = item.get('account_data', item)['uuid'],
+                name = item.get('account_data', item)['name'],
                 expiration = item.get('expiration'),
                 plan_slug = item.get('plan_slug', 'UNKNOWN'),
                 url = item.get('url'),
@@ -193,7 +193,7 @@ class ServiceAccount(Document):
             account.url = url
 
             if expiration:
-                new_expiration = datetime.strptime(expiration, '%Y-%m-%d %H:%M:%S')
+                new_expiration = datetime.strptime(expiration, '%Y-%m-%d')
                 account.update_expiration(new_expiration)
             else:
                 account.update_expiration(None)
