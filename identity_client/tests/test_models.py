@@ -47,14 +47,18 @@ mocked_accounts_json = '''[
         "url": "%s/organizations/api/accounts/b39bad59-94af-4880-995a-04967b454c7a/",
         "expiration": "%s",
         "external_id": null
+    },
+    {
+        "name": "Quebrando os testes",
+        "uuid": "dab40435-45bc-45e1-b27e-f0a7c95739df"
     }
 ]''' % (
     settings.PASSAPORTE_WEB['HOST'],
     settings.PASSAPORTE_WEB['HOST'],
-    (datetime.today() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S'),
+    (datetime.today() + timedelta(days=1)).strftime('%Y-%m-%d'),
     settings.PASSAPORTE_WEB['HOST'],
     settings.PASSAPORTE_WEB['HOST'],
-    (datetime.today() + timedelta(days=30)).strftime('%Y-%m-%d %H:%M:%S')
+    (datetime.today() + timedelta(days=30)).strftime('%Y-%m-%d')
 )
 
 mocked_accounts_list = json.loads(mocked_accounts_json)
@@ -290,7 +294,15 @@ class TestServiceAccountModel(TestCase):
                 'url': mocked_accounts_list[1]['url'],
                 'name': mocked_accounts_list[1]['account_data']['name'],
                 'expiration': mocked_accounts_list[1]['expiration'],
-            }
+            },
+            {
+                'plan_slug': 'UNKNOWN',
+                'uuid': mocked_accounts_list[2]['uuid'],
+                'roles': [],
+                'url': None,
+                'name': mocked_accounts_list[2]['name'],
+                'expiration': None,
+            },
         ]
 
         self.assertEqual(list(accounts), expected)
@@ -305,7 +317,7 @@ class TestServiceAccountModel(TestCase):
         accounts = ServiceAccount.pull_remote_accounts(self.identity)
         ServiceAccount.update_user_accounts(self.identity, accounts)
 
-        self.assertEquals(ServiceAccount.for_identity(self.identity).count(), 2)
+        self.assertEquals(ServiceAccount.for_identity(self.identity).count(), 3)
 
 
     @patch.object(PERSISTENCE_MODULE.models.APIClient, 'fetch_user_accounts')
@@ -334,7 +346,7 @@ class TestServiceAccountModel(TestCase):
 
         ServiceAccount.refresh_accounts(self.identity)
 
-        self.assertEquals(ServiceAccount.for_identity(self.identity).count(), 2)
+        self.assertEquals(ServiceAccount.for_identity(self.identity).count(), 3)
         self.assertFalse(self.account in ServiceAccount.for_identity(self.identity))
 
     def test_send_notification(self):

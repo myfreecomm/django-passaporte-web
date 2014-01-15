@@ -53,8 +53,8 @@ mocked_user_json = """{
         }
     ]
 }""" % (
-    (datetime.today() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S'),
-    (datetime.today() + timedelta(days=30)).strftime('%Y-%m-%d %H:%M:%S'),
+    (datetime.today() + timedelta(days=1)).strftime('%Y-%m-%d'),
+    (datetime.today() + timedelta(days=30)).strftime('%Y-%m-%d'),
 )
 
 mocked_user_corrupted = """{
