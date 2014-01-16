@@ -35,11 +35,23 @@ class APIClient(object):
         'accept': 'application/json',
         'user-agent': 'myfc_id client',
     })
+    _application = None
+
+    @classmethod
+    def get_application(cls):
+        is_same_app = lambda app: (app.token == cls.api_user) and \
+             (app.secret == cls.api_password) and \
+             (app.host == cls.api_host)
+
+        if (cls._application is None) or not is_same_app(cls._application):
+            cls._application = Application(host=cls.api_host, token=cls.api_user, secret=cls.api_password)
+
+        return cls._application
 
     @classmethod
     @handle_api_exceptions_with_form
     def invoke_registration_api(cls, form):
-        current_app = Application(host=cls.api_host, token=cls.api_user, secret=cls.api_password)
+        current_app = cls.get_application()
         logging.info(u'Trying to create user "{0}"'.format(form.cleaned_data.get('email', 'no email set')))
         user = current_app.users.create(**form.cleaned_data)
         return user.response.status_code, user.response.json()
@@ -47,7 +59,7 @@ class APIClient(object):
     @classmethod
     @handle_api_exceptions
     def fetch_identity_data(cls, **kwargs):
-        current_app = Application(host=cls.api_host, token=cls.api_user, secret=cls.api_password)
+        current_app = cls.get_application()
         logging.info(u'Trying to fetch user with params "{0}"'.format(kwargs))
         user = current_app.users.get(**kwargs)
         return user.response.status_code, user.response.json()
@@ -113,7 +125,7 @@ class APIClient(object):
     @classmethod
     @handle_api_exceptions
     def fetch_user_accounts(cls, uuid, **kwargs):
-        current_app = Application(host=cls.api_host, token=cls.api_user, secret=cls.api_password)
+        current_app = cls.get_application()
         logging.info(u'Trying to fetch user with uuid "{0}"'.format(uuid))
         user = current_app.users.get(uuid=uuid)
 
@@ -126,7 +138,7 @@ class APIClient(object):
     @classmethod
     @handle_api_exceptions
     def fetch_account_data(cls, account_uuid):
-        current_app = Application(host=cls.api_host, token=cls.api_user, secret=cls.api_password)
+        current_app = cls.get_application()
         logging.info(u'Trying to account with uuid "{0}"'.format(account_uuid))
         account = current_app.accounts.get(account_uuid)
         return account.response.status_code, account.response.json()
@@ -142,7 +154,7 @@ class APIClient(object):
         else:
             raise ValueError("Either 'account_uuid' or 'account_name' must be given")
 
-        current_app = Application(host=cls.api_host, token=cls.api_user, secret=cls.api_password)
+        current_app = cls.get_application()
         logging.info(u'Trying to fetch user with uuid "{0}"'.format(uuid))
         user = current_app.users.get(uuid=uuid)
 
