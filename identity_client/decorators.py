@@ -233,15 +233,15 @@ def asyncmethod(method):
                 'asyncmethod: Future "%s" raised an exception: "%s" (%s)',
                 future, e, type(e)
             )
-        
+
     @wraps(method)
-    def handler(self, *args, **kwargs):
+    def handler(*args, **kwargs):
         logging.info(
             'asyncmethod: Method "%s" invoked with args "%s" and kwargs "%s"',
-            method.__name__, *args, **kwargs
+            method.__name__, args, kwargs
         )
         with futures.ThreadPoolExecutor(max_workers=1) as executor:
-            future_result = executor.submit(method, self, *args, **kwargs)
+            future_result = executor.submit(method, *args, **kwargs)
             future_result.add_done_callback(callback)
 
         return future_result
