@@ -14,12 +14,21 @@ from timezones import PRETTY_TIMEZONE_CHOICES
 from backend import MyfcidAPIBackend
 
 __all__ = [
+    'Html5Form',
     'RegistrationForm', 'IdentityAuthenticationForm',
     'IdentityInformationForm', 'IdentityProfileForm',
 ]
 
+class Html5Form(forms.Form):
 
-class RegistrationForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super(Html5Form, self).__init__(*args, **kwargs)
+
+        for item in self.fields.values():
+            item.widget.attrs["placeholder"] = item.label
+
+
+class RegistrationForm(Html5Form):
     """
     Form for registering a new user account.
 
@@ -80,7 +89,7 @@ class RegistrationForm(forms.Form):
         return self.cleaned_data
 
 
-class IdentityAuthenticationForm(forms.Form):
+class IdentityAuthenticationForm(Html5Form):
     """
     Base class for authenticating users. Extend this to get a form that accepts
     email/password logins.
@@ -128,7 +137,7 @@ class IdentityAuthenticationForm(forms.Form):
         return self.user_cache
 
 
-class IdentityInformationForm(forms.Form):
+class IdentityInformationForm(Html5Form):
     """
     Form for updating user's data. All fields compulsory. Email and password
     not changeable here.
@@ -161,7 +170,7 @@ class IdentityInformationForm(forms.Form):
     )
 
 
-class IdentityProfileForm(forms.Form):
+class IdentityProfileForm(Html5Form):
 
     nickname = forms.CharField(
         max_length=100,
