@@ -31,7 +31,7 @@ setuptools.setup(
     packages=["identity_client"],
     include_package_data=True,  # declarations in MANIFEST.in
     install_requires=open(join(dirname(__file__), 'requirements.txt')).readlines(),
-    tests_require=['tox', 'virtualenv==1.10.1'],
+    tests_require=['tox', 'virtualenv>=1.11.2'],
     cmdclass = {'test': Tox},
     test_suite='runtests.runtests',
     author="vitormazzi",
