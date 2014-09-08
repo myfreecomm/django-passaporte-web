@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 import os
-from vcr import VCR                                                                                               
+from vcr import VCR
 
-from django.conf import settings                                                                                  
-from django.test.client import Client                                                                             
-from django.test import TestCase                                                                                  
-from django.contrib.auth import authenticate, login                                                               
-from django.utils.importlib import import_module                                                                  
-from django.http import HttpRequest                                                                               
+from django.conf import settings
+from django.test.client import Client
+from django.test import TestCase
+from django.contrib.auth import authenticate, login
+from django.utils.importlib import import_module
+from django.http import HttpRequest
 
-from identity_client import PERSISTENCE_MODULE                                                                    
+from identity_client import PERSISTENCE_MODULE
 
 
 __all__ = [
