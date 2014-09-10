@@ -10,6 +10,7 @@ from django.utils.importlib import import_module
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.test import TestCase
+from django.contrib.auth import REDIRECT_FIELD_NAME
 
 from mock_helpers import *
 from identity_client.models import Identity
@@ -155,7 +156,7 @@ class AccessUserData(TestCase):
     @patch_httplib2(Mock(return_value=mocked_response(200, mocked_user_json)))
     def test_next_url_may_be_read_from_session(self):
         session = self._get_real_session(self.client)
-        session['next_url'] = '/oauth-protected-view/'
+        session[REDIRECT_FIELD_NAME] = '/oauth-protected-view/'
         session.save()
 
         response = self.client.get(

@@ -6,6 +6,7 @@ from django.utils.importlib import import_module
 from django.test import TestCase
 from django.http import HttpRequest
 from django.conf import settings
+from django.contrib.auth import REDIRECT_FIELD_NAME
 from mock_helpers import *
 
 from identity_client.sso.client import SSOClient
@@ -87,7 +88,7 @@ class SSOClientAuthorize(TestCase):
         self.sso_client.fetch_request_token.reset_mock()
 
         request = HttpRequest()
-        request.GET = {'next': '/oauth-protected-view/'}
+        request.GET = {REDIRECT_FIELD_NAME: '/oauth-protected-view/'}
         request.session = self._get_real_session(self.client)
         authorization_url = self.sso_client.authorize(request)
 

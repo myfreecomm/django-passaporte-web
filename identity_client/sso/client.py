@@ -1,7 +1,8 @@
-#coding: utf-8
+# -*- coding: utf-8 -*-
 import oauth2 as oauth
 
 from django.conf import settings
+from django.contrib.auth import REDIRECT_FIELD_NAME
 
 from ..utils import reverse_with_host
 
@@ -51,7 +52,7 @@ class SSOClient(oauth.Client):
         request_token = self.fetch_request_token()
 
         request.session['request_token'] = {request_token.key: request_token.secret}
-        request.session['next_url'] = request.GET.get('next', settings.LOGIN_REDIRECT_URL)
+        request.session['next_url'] = request.GET.get(REDIRECT_FIELD_NAME, settings.LOGIN_REDIRECT_URL)
         request.session.save()
 
         return '{0}?oauth_token={1}'.format(

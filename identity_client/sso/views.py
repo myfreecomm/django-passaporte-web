@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.http import HttpResponseServerError
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.contrib.auth import REDIRECT_FIELD_NAME
 
 from identity_client.sso.client import SSOClient
 from identity_client.sso.decorators import oauth_callback
@@ -108,7 +109,7 @@ def fetch_user_data(request):
         logging.error(message)
         return HttpResponseServerError(content=message)
 
-    next_url = request.session.get('next_url', settings.LOGIN_REDIRECT_URL)
+    next_url = request.session.get(REDIRECT_FIELD_NAME, settings.LOGIN_REDIRECT_URL)
 
     return HttpResponseRedirect(next_url)
 
