@@ -52,7 +52,7 @@ class SSOClient(oauth.Client):
         request_token = self.fetch_request_token()
 
         request.session['request_token'] = {request_token.key: request_token.secret}
-        request.session['next_url'] = request.GET.get(REDIRECT_FIELD_NAME, settings.LOGIN_REDIRECT_URL)
+        request.session[REDIRECT_FIELD_NAME] = request.GET.get(REDIRECT_FIELD_NAME, settings.LOGIN_REDIRECT_URL)
         request.session.save()
 
         return '{0}?oauth_token={1}'.format(

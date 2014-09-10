@@ -92,8 +92,8 @@ class SSOClientAuthorize(TestCase):
         request.session = self._get_real_session(self.client)
         authorization_url = self.sso_client.authorize(request)
 
-        self.assertTrue('next_url' in request.session.keys())
-        self.assertEquals(request.session['next_url'], '/oauth-protected-view/')
+        self.assertTrue(REDIRECT_FIELD_NAME in request.session.keys())
+        self.assertEquals(request.session[REDIRECT_FIELD_NAME], '/oauth-protected-view/')
 
 
 class SSOClientRequestToken(TestCase):
