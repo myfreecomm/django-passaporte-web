@@ -1,18 +1,16 @@
-- request: !!python/object:vcr.request.Request
+interactions:
+- request:
     body: null
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Cache-Control, no-cache]
-      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
-      - !!python/tuple [Accept, application/json]
-      - !!python/tuple [Content-Type, application/json]
-      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, api_toolkit]
-      - !!python/tuple [Content-Length, '0']
-    host: sandbox.app.passaporteweb.com.br
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
+      Cache-Control: [no-cache]
+      Content-Length: ['0']
+      Content-Type: [application/json]
+      User-Agent: [api_toolkit]
     method: OPTIONS
-    path: /organizations/api/accounts/
-    port: 80
-    protocol: http
+    uri: http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/
   response:
     body:
       string: !!binary |
@@ -20,26 +18,30 @@
         6JmcTfDeXKAUtvUDRxpoPiiHtwaiw/CTXBlUnep7NzRHFsw8BlV7zPTJnu46oCcVuzPKDS4ah5JI
         530BxujYrAHdb6opVT+yuZ2mqe1H8W0RR8GMltZkX1zmGpS7VVrM+NTrHXxXJhQsyYvzas8/pGVt
         VJppzl29BYc1d1vuRPLHhpoPY8YSslZaSkY4bneB5QqXYCtUZQEAAA==
-    headers: {allow: 'GET, HEAD, OPTIONS', connection: keep-alive, content-encoding: gzip,
-      content-length: '211', content-type: application/json, date: 'Fri, 10 Jan 2014
-        21:50:40 GMT', p3p: CP="NON DSP COR CURa TIA", server: nginx/1.4.4, vary: 'Authenticate,
-        Accept, Accept-Encoding', x-throttle: status=SUCCESS; next=1.00 sec}
+    headers:
+      allow: ['GET, HEAD, OPTIONS']
+      connection: [keep-alive]
+      content-encoding: [gzip]
+      content-length: ['211']
+      content-type: [application/json]
+      date: ['Fri, 10 Jan 2014 21:50:40 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/1.4.4]
+      vary: ['Authenticate, Accept, Accept-Encoding']
+      x-throttle: [status=SUCCESS; next=1.00 sec]
     status: {code: 200, message: OK}
-- request: !!python/object:vcr.request.Request
+- request:
     body: null
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Cache-Control, no-cache]
-      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
-      - !!python/tuple [Accept, application/json]
-      - !!python/tuple [Content-Type, application/json]
-      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, api_toolkit]
-      - !!python/tuple [Content-Length, '0']
-    host: sandbox.app.passaporteweb.com.br
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
+      Cache-Control: [no-cache]
+      Content-Length: ['0']
+      Content-Type: [application/json]
+      User-Agent: [api_toolkit]
     method: OPTIONS
-    path: /accounts/api/create/
-    port: 80
-    protocol: http
+    uri: http://sandbox.app.passaporteweb.com.br/accounts/api/create/
   response:
     body:
       string: !!binary |
@@ -48,26 +50,29 @@
         OFTBZvWyPoPkJ3on6UELfYJQ8L3DlGDEJXO3zSfrCfyI/WnREq8GcPuBEXVw7maGS49ft6IDsgV9
         KsU3fKwCTlisXhXEaEnXk7uPFHyRXWK7dp7ndgjs2i1b9DoY/AlhhcrrdnVoQOBK66x6yxjnHMj/
         3Jc1f6BCa2P9LNxJFy2Qr76nX3826IVk32xwpCRcZYVvMGmmWNvMU8cvJEvyplUCAAA=
-    headers: {allow: 'POST, HEAD, OPTIONS', connection: keep-alive, content-encoding: gzip,
-      content-length: '278', content-type: application/json, date: 'Fri, 10 Jan 2014
-        21:50:40 GMT', p3p: CP="NON DSP COR CURa TIA", server: nginx/1.4.4, vary: 'Authenticate,
-        Accept, Accept-Encoding'}
+    headers:
+      allow: ['POST, HEAD, OPTIONS']
+      connection: [keep-alive]
+      content-encoding: [gzip]
+      content-length: ['278']
+      content-type: [application/json]
+      date: ['Fri, 10 Jan 2014 21:50:40 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/1.4.4]
+      vary: ['Authenticate, Accept, Accept-Encoding']
     status: {code: 200, message: OK}
-- request: !!python/object:vcr.request.Request
+- request:
     body: null
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Cache-Control, no-cache]
-      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
-      - !!python/tuple [Accept, application/json]
-      - !!python/tuple [Content-Type, application/json]
-      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, api_toolkit]
-      - !!python/tuple [Content-Length, '0']
-    host: sandbox.app.passaporteweb.com.br
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
+      Cache-Control: [no-cache]
+      Content-Length: ['0']
+      Content-Type: [application/json]
+      User-Agent: [api_toolkit]
     method: GET
-    path: /accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/
-    port: 80
-    protocol: http
+    uri: http://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/
   response:
     body:
       string: !!binary |
@@ -82,26 +87,29 @@
         89B/tCr6m3O6wtQZTpeonOFEdsOdH/P6Hq7fbrZBxXrKMDQadIxU9VIQwCIMAMhp03PBKwo3Z3OF
         qTNsLlFJX+4PC3z9LCxiHGInOzwMrkfJcLf/9lv0eWC79f/ebbwXJXGtX7aPT07erU5cg5xTP6l+
         5NKNxgFVKHV0FTzEwEZrhFR40w+J/ZnB8C9KvKCpXAkAAA==
-    headers: {allow: 'GET, PUT, HEAD, OPTIONS', connection: keep-alive, content-encoding: gzip,
-      content-length: '604', content-type: application/json, date: 'Fri, 10 Jan 2014
-        21:50:41 GMT', p3p: CP="NON DSP COR CURa TIA", server: nginx/1.4.4, vary: 'Authenticate,
-        Accept, Accept-Encoding'}
+    headers:
+      allow: ['GET, PUT, HEAD, OPTIONS']
+      connection: [keep-alive]
+      content-encoding: [gzip]
+      content-length: ['604']
+      content-type: [application/json]
+      date: ['Fri, 10 Jan 2014 21:50:41 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/1.4.4]
+      vary: ['Authenticate, Accept, Accept-Encoding']
     status: {code: 200, message: OK}
-- request: !!python/object:vcr.request.Request
+- request:
     body: null
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Cache-Control, no-cache]
-      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
-      - !!python/tuple [Accept, application/json]
-      - !!python/tuple [Content-Type, application/json]
-      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, api_toolkit]
-      - !!python/tuple [Content-Length, '0']
-    host: sandbox.app.passaporteweb.com.br
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
+      Cache-Control: [no-cache]
+      Content-Length: ['0']
+      Content-Type: [application/json]
+      User-Agent: [api_toolkit]
     method: OPTIONS
-    path: /accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/
-    port: 80
-    protocol: http
+    uri: http://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/
   response:
     body:
       string: !!binary |
@@ -109,29 +117,40 @@
         A0VfYb26tVGqDoyJ2gqbL5StifCxgoivlErsh4KiTDIwzVYFnzlHQv5rStdRiFxO6aXPlXHBh81+
         +wPvjbb2SuY/ApYSg0MNmftzzWyhR3bp5nnuxiypmyQSu+xpaU5T1GBn9ovoUfEpmyKcGpN2LMmb
         77XMP2S2rhhVumhfIgZeen+/b+eJNejVLJ6qk1AsaBLcvwFU8XAHkQEAAA==
-    headers: {allow: 'GET, PUT, HEAD, OPTIONS', connection: keep-alive, content-encoding: gzip,
-      content-length: '214', content-type: application/json, date: 'Fri, 10 Jan 2014
-        21:50:41 GMT', p3p: CP="NON DSP COR CURa TIA", server: nginx/1.4.4, vary: 'Authenticate,
-        Accept, Accept-Encoding'}
+    headers:
+      allow: ['GET, PUT, HEAD, OPTIONS']
+      connection: [keep-alive]
+      content-encoding: [gzip]
+      content-length: ['214']
+      content-type: [application/json]
+      date: ['Fri, 10 Jan 2014 21:50:41 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/1.4.4]
+      vary: ['Authenticate, Accept, Accept-Encoding']
     status: {code: 200, message: OK}
-- request: !!python/object:vcr.request.Request
+- request:
     body: '{"plan_slug": "unittest", "expiration": "10000-01-01", "name": "Test Account"}'
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Accept, application/json]
-      - !!python/tuple [Content-Length, !!python/unicode '78']
-      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
-      - !!python/tuple [Cache-Control, no-cache]
-      - !!python/tuple [Content-Type, application/json]
-      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, api_toolkit]
-    host: sandbox.app.passaporteweb.com.br
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
+      Cache-Control: [no-cache]
+      Content-Length: ['78']
+      Content-Type: [application/json]
+      User-Agent: [api_toolkit]
     method: POST
-    path: /organizations/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/accounts/
-    port: 80
-    protocol: http
+    uri: http://sandbox.app.passaporteweb.com.br/organizations/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/accounts/
   response:
-    body: {string: '{"field_errors": {"expiration": ["Informe uma data v\u00e1lida."]}}'}
-    headers: {allow: 'GET, POST, HEAD, OPTIONS', connection: keep-alive, content-length: '67',
-      content-type: application/json, date: 'Fri, 10 Jan 2014 21:50:41 GMT', p3p: CP="NON
-        DSP COR CURa TIA", server: nginx/1.4.4, vary: 'Authenticate, Accept'}
+    body: {string: !!python/unicode '{"field_errors": {"expiration": ["Informe uma
+        data v\u00e1lida."]}}'}
+    headers:
+      allow: ['GET, POST, HEAD, OPTIONS']
+      connection: [keep-alive]
+      content-length: ['67']
+      content-type: [application/json]
+      date: ['Fri, 10 Jan 2014 21:50:41 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/1.4.4]
+      vary: ['Authenticate, Accept']
     status: {code: 400, message: BAD REQUEST}
+version: 1

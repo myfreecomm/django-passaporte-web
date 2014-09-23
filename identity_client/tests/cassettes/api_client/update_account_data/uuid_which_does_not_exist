@@ -1,22 +1,27 @@
-- request: !!python/object:vcr.request.Request
+interactions:
+- request:
     body: null
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Cache-Control, no-cache]
-      - !!python/tuple [Authorization, !!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
-      - !!python/tuple [Accept, application/json]
-      - !!python/tuple [Content-Type, application/json]
-      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, api_toolkit]
-      - !!python/tuple [Content-Length, '0']
-    host: sandbox.app.passaporteweb.com.br
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
+      Cache-Control: [no-cache]
+      Content-Length: ['0']
+      Content-Type: [application/json]
+      User-Agent: [api_toolkit]
     method: GET
-    path: /organizations/api/accounts/00000000-0000-0000-0000-000000000000/
-    port: 80
-    protocol: http
+    uri: http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/00000000-0000-0000-0000-000000000000/
   response:
-    body: {string: '"Account 00000000-0000-0000-0000-000000000000 has no relation
-        with service identity_client"'}
-    headers: {allow: 'GET, PUT, HEAD, OPTIONS', connection: keep-alive, content-length: '91',
-      content-type: application/json, date: 'Fri, 10 Jan 2014 22:15:15 GMT', p3p: CP="NON
-        DSP COR CURa TIA", server: nginx/1.4.4, vary: 'Authenticate, Accept'}
+    body: {string: !!python/unicode '"Account 00000000-0000-0000-0000-000000000000
+        has no relation with service identity_client"'}
+    headers:
+      allow: ['GET, PUT, HEAD, OPTIONS']
+      connection: [keep-alive]
+      content-length: ['91']
+      content-type: [application/json]
+      date: ['Fri, 10 Jan 2014 22:15:15 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/1.4.4]
+      vary: ['Authenticate, Accept']
     status: {code: 404, message: NOT FOUND}
+version: 1
