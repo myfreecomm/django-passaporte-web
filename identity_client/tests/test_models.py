@@ -350,7 +350,7 @@ class TestServiceAccountModel(TestCase):
         self.assertFalse(self.account in ServiceAccount.for_identity(self.identity))
 
     def test_send_notification(self):
-        self.account.url = "http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/"
+        self.account.url = "https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/"
         body = "Test notification for the account"
         with identity_client.tests.use_cassette('service_account/send_notification'):
             future = self.account.send_notification(body)
@@ -359,7 +359,7 @@ class TestServiceAccountModel(TestCase):
         self.assertEquals(future.result().body, body)
 
     def test_error_sending_notification(self):
-        self.account.url = "http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/"
+        self.account.url = "https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/"
         body = "Test notification for the account"
         with identity_client.tests.use_cassette('service_account/403_sending_notification'):
             # The call won't fail

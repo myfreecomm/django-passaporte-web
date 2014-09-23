@@ -10,7 +10,6 @@ interactions:
       Content-Length: ['294']
       accept: [application/json]
       cache-control: [no-cache]
-      Connection: [keep-alive]
       content-type: [application/json]
       user-agent: [myfc_id client]
     method: PUT

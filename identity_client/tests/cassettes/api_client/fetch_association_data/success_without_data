@@ -3,10 +3,9 @@ interactions:
     body: null
     headers:
       Accept-Encoding: ['gzip, deflate, compress']
-      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
+      Authorization: [!!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
       accept: [application/json]
       cache-control: [no-cache]
-      Connection: [keep-alive]
       content-length: ['0']
       content-type: [application/json]
       user-agent: [myfc_id client]
@@ -15,9 +14,9 @@ interactions:
   response:
     body: {string: !!python/unicode '{"is_active": true, "slug": "identity_client"}'}
     headers:
+      Connection: [keep-alive]
       allow: ['GET, PUT, HEAD, OPTIONS']
       cache-control: [no-cache]
-      Connection: [keep-alive]
       connection: [keep-alive]
       content-length: ['46']
       content-type: [application/json]

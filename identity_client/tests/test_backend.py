@@ -73,7 +73,7 @@ class TestMyfcidApiBackend(TestCase):
 
         # Checar se os dados do usuário foram atualizados
         self.assertEquals(identity.first_name, 'Identity')
-        self.assertEquals(identity.last_name, 'Client') 
+        self.assertEquals(identity.last_name, 'Client')
         self.assertEquals(identity.email, test_user_email)
         self.assertEquals(identity.uuid, test_user_uuid)
 
@@ -81,7 +81,7 @@ class TestMyfcidApiBackend(TestCase):
     @patch.object(settings, 'SERVICE_ACCOUNT_MODULE', 'identity_client.ServiceAccount')
     def test_create_local_identity_creates_user_accounts(self):
         # Obter dados do usuário
-        with identity_client.tests.use_cassette('fetch_identity_data/success_with_accounts'):
+        with identity_client.tests.use_cassette('fetch_identity_data/success'):
             response = APIClient.fetch_identity_data(uuid=test_user_uuid)
             status_code, content, error = response
 
@@ -91,7 +91,7 @@ class TestMyfcidApiBackend(TestCase):
         # 1 conta deve ter sido criada
         serviceAccountModel = get_account_module()
         accounts = serviceAccountModel.for_identity(identity)
-        self.assertEquals(accounts.count(), 3)
+        self.assertEquals(accounts.count(), 5)
 
 
     @patch.object(settings, 'SERVICE_ACCOUNT_MODULE', 'identity_client.ServiceAccount')
@@ -110,7 +110,7 @@ class TestMyfcidApiBackend(TestCase):
         self.assertEquals(accounts.count(), 5)
 
         # Obter os dados do usuário, desta vez sem accounts
-        with identity_client.tests.use_cassette('fetch_identity_data/success_with_accounts'):
+        with identity_client.tests.use_cassette('fetch_identity_data/success'):
             response = APIClient.fetch_identity_data(uuid=test_user_uuid)
             status_code, content, error = response
 
@@ -120,12 +120,12 @@ class TestMyfcidApiBackend(TestCase):
         # O usuário deve ter sido dissociado da account
         serviceAccountModel = get_account_module()
         accounts = serviceAccountModel.for_identity(identity)
-        self.assertEquals(accounts.count(), 3)
+        self.assertEquals(accounts.count(), 5)
 
 
     def test_accounts_creation_fails_if_settings_are_wrong(self):
         # Obter dados do usuário
-        with identity_client.tests.use_cassette('fetch_identity_data/success_with_accounts'):
+        with identity_client.tests.use_cassette('fetch_identity_data/success'):
             response = APIClient.fetch_identity_data(uuid=test_user_uuid)
             status_code, content, error = response
 
@@ -143,7 +143,7 @@ class TestMyfcidApiBackend(TestCase):
 
     def test_auth_user_accounts_creation_fails_if_settings_are_missing(self):
         # Obter dados do usuário
-        with identity_client.tests.use_cassette('fetch_identity_data/success_with_accounts'):
+        with identity_client.tests.use_cassette('fetch_identity_data/success'):
             response = APIClient.fetch_identity_data(uuid=test_user_uuid)
             status_code, content, error = response
 
@@ -162,7 +162,7 @@ class TestMyfcidApiBackend(TestCase):
     @patch.object(settings, 'SERVICE_ACCOUNT_MODULE', 'identity_client.ServiceAccount')
     def test_authentication_should_not_remove_user_accounts(self):
         # Obter dados do usuário
-        with identity_client.tests.use_cassette('fetch_identity_data/success_with_accounts'):
+        with identity_client.tests.use_cassette('fetch_identity_data/success'):
             response = APIClient.fetch_identity_data(uuid=test_user_uuid)
             status_code, content, error = response
 
@@ -172,7 +172,7 @@ class TestMyfcidApiBackend(TestCase):
         # 1 conta deve ter sido criada
         serviceAccountModel = get_account_module()
         accounts = serviceAccountModel.for_identity(identity)
-        self.assertEquals(accounts.count(), 3)
+        self.assertEquals(accounts.count(), 5)
 
         # Autenticar o usuário
         with identity_client.tests.use_cassette('myfcid_api_backend/success'):
@@ -181,7 +181,7 @@ class TestMyfcidApiBackend(TestCase):
         # A conta deve continuar existindo
         serviceAccountModel = get_account_module()
         accounts = serviceAccountModel.for_identity(identity)
-        self.assertEquals(accounts.count(), 3)
+        self.assertEquals(accounts.count(), 5)
 
 
 class TestGetUser(TestCase):
@@ -234,4 +234,7 @@ class TestFetchUserData(TestCase):
             _, user_data, error = MyfcidAPIBackend().fetch_user_data(test_user_email, 'senha errada')
 
         self.assertEquals(user_data, None)
-        self.assertEquals(error, {'status': 401, 'message': '401 Client Error: UNAUTHORIZED'})
+        self.assertEquals(
+            error,
+            {'status': 401, 'message': u'{"detail": "You need to login or otherwise authenticate the request."}'}
+        )
