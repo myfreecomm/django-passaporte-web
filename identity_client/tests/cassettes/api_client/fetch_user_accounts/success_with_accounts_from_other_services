@@ -172,4 +172,74 @@ interactions:
       server: [nginx/0.7.67]
       vary: ['Authenticate, Accept, Accept-Encoding']
     status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate, compress']
+      Authorization: [!!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      Cache-Control: [no-cache]
+      Connection: [keep-alive]
+      Content-Length: ['0']
+      Content-Type: [application/json]
+      User-Agent: [api_toolkit]
+    method: OPTIONS
+    uri: http://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/
+  response:
+    body:
+      string: !!binary |
+        H4sIACnAIVQC/42QTQvCMAyG/4r07Njdo4LgTbyKjNBmWGnTkkbmEP+7zUTwA8Fb8rwfpL2a3mNw
+        xSxm1zpykY4gYl3N6gi8VtHMZybAL6UguS4DCyF3hINWmWVKAYHeTXHsGdGmGH/6bO4nvFtt1w94
+        q7S2F1T/3kDOwVsQn6g9lUQaemWXZhiGpk8cmzMHJJscTs3xHMTrme0kOhD4ysbwiUao7FAh1wcg
+        /3nDd4/amqxU8CJtDuBp6n1+6cYhiZdRLQ6LZZ81qJK53QGnyxkIpQEAAA==
+    headers:
+      allow: ['GET, PUT, HEAD, OPTIONS']
+      connection: [keep-alive]
+      content-encoding: [gzip]
+      content-length: ['214']
+      content-type: [application/json]
+      date: ['Tue, 23 Sep 2014 18:47:05 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/1.6.2]
+      vary: ['Authenticate, Accept, Cookie, Accept-Encoding']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate, compress']
+      Authorization: [!!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      Cache-Control: [no-cache]
+      Connection: [keep-alive]
+      Content-Length: ['0']
+      Content-Type: [application/json]
+      User-Agent: [api_toolkit]
+    method: GET
+    uri: http://sandbox.app.passaporteweb.com.br/organizations/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/accounts/?include_other_services=True
+  response:
+    body:
+      string: !!binary |
+        H4sIAEJa6FEC/82VwWrcMBCGX8X4XGHZkiypt1ByyKH00lsazEgaZQVe21h22zTsu1fObqElLXjX
+        ge3FmBn5n388H6P753yPe4Nj3IWhcThBaGMzj23+PsuLfnyELvyAKfRdLGAIBVjbz90UC64AvWec
+        VNRqwinTxDgtiVOloBVFZTgvTtKFZbLWuqyIAUiHgVqilagJ0wIkra10Qhb5uywfWuia2M6PS3k7
+        x6nf47gkxr7FmIL3ef+tS6GHFHsrl4s+fh/C+KKQJLu5bVMs4vg1WGwcTJCiz3kHe1wq3jnspjA9
+        ZR/akN6W7395DqdUY4+pQ8qd3LzWubX9PvVnMTsdWZTmObglucb6Ud655vij33xui/6lgKAAU/vK
+        E+BoCGelIcomBDQvS+8UKFm5jYDMXZgmjNMGQFa5vBogH5+yT9MOx+xmGNpgjw38Dska+xdActbs
+        tkAC3GpjMdEIyhIulpJYMkKBmlo777iB60OyyuXVIPmcmstuXi+QNa4vYOOskW1hQ/hSeGkEAenr
+        NG4miBIyFXIgmGOUYak2shGxbTfdL6s8/gf3y1/wWGP9AjzOmtoRj3+vv9DtIGbwsvu+zJSiXJ5e
+        4B9LsDTWoagckQ4U4YrSdKUJTZxH0LVmLNGaHw4PPwGWRGUN7AgAAA==
+    headers:
+      Connection: [keep-alive]
+      allow: ['GET, POST, HEAD, OPTIONS']
+      cache-control: [no-cache]
+      connection: [keep-alive]
+      content-encoding: [gzip]
+      content-length: ['496']
+      content-type: [application/json]
+      date: ['Thu, 18 Jul 2013 21:12:34 GMT']
+      expires: ['Thu, 18 Jul 2013 21:12:33 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/0.7.67]
+      vary: ['Authenticate, Accept, Accept-Encoding']
+    status: {code: 200, message: OK}
 version: 1

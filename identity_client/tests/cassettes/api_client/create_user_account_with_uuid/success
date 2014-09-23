@@ -162,4 +162,65 @@ interactions:
       server: [nginx/0.7.67]
       vary: ['Authenticate, Accept']
     status: {code: 201, message: CREATED}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate, compress']
+      Authorization: [!!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      Cache-Control: [no-cache]
+      Connection: [keep-alive]
+      Content-Length: ['0']
+      Content-Type: [application/json]
+      User-Agent: [api_toolkit]
+    method: OPTIONS
+    uri: http://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/
+  response:
+    body:
+      string: !!binary |
+        H4sIACDAIVQC/42QTQvCMAyG/4r07Njdo4LgTbyKjNBmWGnTkkbmEP+7zUTwA8Fb8rwfpL2a3mNw
+        xSxm1zpykY4gYl3N6gi8VtHMZybAL6UguS4DCyF3hINWmWVKAYHeTXHsGdGmGH/6bO4nvFtt1w94
+        q7S2F1T/3kDOwVsQn6g9lUQaemWXZhiGpk8cmzMHJJscTs3xHMTrme0kOhD4ysbwiUao7FAh1wcg
+        /3nDd4/amqxU8CJtDuBp6n1+6cYhiZdRLQ6LZZ81qJK53QGnyxkIpQEAAA==
+    headers:
+      allow: ['GET, PUT, HEAD, OPTIONS']
+      connection: [keep-alive]
+      content-encoding: [gzip]
+      content-length: ['214']
+      content-type: [application/json]
+      date: ['Tue, 23 Sep 2014 18:46:56 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/1.6.2]
+      vary: ['Authenticate, Accept, Cookie, Accept-Encoding']
+    status: {code: 200, message: OK}
+- request:
+    body: '{"plan_slug": "unittest", "expiration": null, "uuid": "e5ab6f2f-a4eb-431b-8c12-9411fd8a872d"}'
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate, compress']
+      Authorization: [!!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      Cache-Control: [no-cache]
+      Connection: [keep-alive]
+      Content-Length: [!!python/unicode '93']
+      Content-Type: [application/json]
+      User-Agent: [api_toolkit]
+    method: POST
+    uri: http://sandbox.app.passaporteweb.com.br/organizations/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/accounts/
+  response:
+    body: {string: !!python/unicode '{"membership_details_url": "https://sandbox.app.passaporteweb.com.br:443/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/members/c3769912-baa9-4a0c-9856-395a706c7d57/",
+        "plan_slug": "unittest", "roles": ["owner"], "url": "https://sandbox.app.passaporteweb.com.br:443/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/",
+        "expiration": null, "service_data": {"name": "Identity Client", "slug": "identity_client"},
+        "account_data": {"name": "My Other Applications", "uuid": "e5ab6f2f-a4eb-431b-8c12-9411fd8a872d"},
+        "add_member_url": "https://sandbox.app.passaporteweb.com.br:443/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/members/"}'}
+    headers:
+      allow: ['GET, POST, HEAD, OPTIONS']
+      connection: [keep-alive]
+      content-length: ['547']
+      content-type: [application/json]
+      date: ['Tue, 25 Jun 2013 23:39:14 GMT']
+      location: ['https://sandbox.app.passaporteweb.com.br:443/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/0.7.67]
+      vary: ['Authenticate, Accept']
+    status: {code: 201, message: CREATED}
 version: 1

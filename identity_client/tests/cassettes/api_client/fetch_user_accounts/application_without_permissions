@@ -237,4 +237,61 @@ interactions:
       server: [nginx/1.6.2]
       vary: ['Authenticate, Accept, Cookie']
     status: {code: 401, message: UNAUTHORIZED}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate, compress']
+      Authorization: [!!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      Cache-Control: [no-cache]
+      Connection: [keep-alive]
+      Content-Length: ['0']
+      Content-Type: [application/json]
+      User-Agent: [api_toolkit]
+    method: OPTIONS
+    uri: http://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/
+  response:
+    body:
+      string: !!binary |
+        H4sIACfAIVQC/42QTQvCMAyG/4r07Njdo4LgTbyKjNBmWGnTkkbmEP+7zUTwA8Fb8rwfpL2a3mNw
+        xSxm1zpykY4gYl3N6gi8VtHMZybAL6UguS4DCyF3hINWmWVKAYHeTXHsGdGmGH/6bO4nvFtt1w94
+        q7S2F1T/3kDOwVsQn6g9lUQaemWXZhiGpk8cmzMHJJscTs3xHMTrme0kOhD4ysbwiUao7FAh1wcg
+        /3nDd4/amqxU8CJtDuBp6n1+6cYhiZdRLQ6LZZ81qJK53QGnyxkIpQEAAA==
+    headers:
+      allow: ['GET, PUT, HEAD, OPTIONS']
+      connection: [keep-alive]
+      content-encoding: [gzip]
+      content-length: ['214']
+      content-type: [application/json]
+      date: ['Tue, 23 Sep 2014 18:47:03 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/1.6.2]
+      vary: ['Authenticate, Accept, Cookie, Accept-Encoding']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate, compress']
+      Authorization: [!!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      Cache-Control: [no-cache]
+      Connection: [keep-alive]
+      Content-Length: ['0']
+      Content-Type: [application/json]
+      User-Agent: [api_toolkit]
+    method: GET
+    uri: http://sandbox.app.passaporteweb.com.br/organizations/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/accounts/
+  response:
+    body: {string: !!python/unicode '{"detail": "You do not have permission to access
+        this resource. You may need to login or otherwise authenticate the request."}'}
+    headers:
+      allow: ['GET, POST, HEAD, OPTIONS']
+      connection: [keep-alive]
+      content-length: ['126']
+      content-type: [application/json]
+      date: ['Mon, 24 Jun 2013 18:45:27 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/0.7.67]
+      vary: ['Authenticate, Accept']
+    status: {code: 403, message: FORBIDDEN}
 version: 1
