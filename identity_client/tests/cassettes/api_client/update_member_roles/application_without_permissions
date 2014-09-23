@@ -2,13 +2,14 @@ interactions:
 - request:
     body: '{"roles": ["user"]}'
     headers:
-      Accept-Encoding: ['gzip, deflate']
+      Accept-Encoding: ['gzip, deflate, compress']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Content-Length: ['19']
       accept: [application/json]
       cache-control: [no-cache]
+      Connection: [keep-alive]
       content-type: [application/json]
-      user-agent: [myfc_id client]
+      user-agent: [api_toolkit]
     method: PUT
     uri: https://sandbox.app.passaporteweb.com.br:443/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/bedcd531-c741-4d32-90d7-a7f7432f3f15/
   response:
@@ -28,9 +29,10 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
+      Accept-Encoding: ['gzip, deflate, compress']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
+      Connection: [keep-alive]
       Content-Length: ['0']
       Content-Type: [application/json]
       User-Agent: [api_toolkit]

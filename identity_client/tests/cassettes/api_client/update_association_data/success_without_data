@@ -2,11 +2,12 @@ interactions:
 - request:
     body: '{}'
     headers:
-      Accept-Encoding: ['gzip, deflate']
+      Accept-Encoding: ['gzip, deflate, compress']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Content-Length: ['2']
       accept: [application/json]
       cache-control: [no-cache]
+      Connection: [keep-alive]
       content-type: [application/json]
       user-agent: [myfc_id client]
     method: PUT
@@ -16,6 +17,7 @@ interactions:
     headers:
       allow: ['GET, PUT, HEAD, OPTIONS']
       cache-control: [no-cache]
+      Connection: [keep-alive]
       connection: [keep-alive]
       content-length: ['46']
       content-type: [application/json]

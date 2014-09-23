@@ -3,9 +3,10 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
+      Accept-Encoding: ['gzip, deflate, compress']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
+      Connection: [keep-alive]
       Content-Length: ['0']
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
@@ -38,9 +39,10 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
+      Accept-Encoding: ['gzip, deflate, compress']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
+      Connection: [keep-alive]
       Content-Length: ['0']
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
@@ -68,9 +70,10 @@ interactions:
     body: '{"plan_slug": "unittest-updated", "expiration": null}'
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
+      Accept-Encoding: ['gzip, deflate, compress']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
+      Connection: [keep-alive]
       Content-Length: ['53']
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
@@ -87,6 +90,7 @@ interactions:
     headers:
       allow: ['GET, PUT, HEAD, OPTIONS']
       cache-control: [no-cache]
+      Connection: [keep-alive]
       connection: [keep-alive]
       content-encoding: [gzip]
       content-length: ['281']

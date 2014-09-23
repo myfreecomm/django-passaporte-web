@@ -3,9 +3,10 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
+      Accept-Encoding: ['gzip, deflate, compress']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
+      Connection: [keep-alive]
       Content-Length: ['0']
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
@@ -34,9 +35,10 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
+      Accept-Encoding: ['gzip, deflate, compress']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
+      Connection: [keep-alive]
       Content-Length: ['0']
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
@@ -65,9 +67,10 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
+      Accept-Encoding: ['gzip, deflate, compress']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
+      Connection: [keep-alive]
       Content-Length: ['0']
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
@@ -103,9 +106,10 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
+      Accept-Encoding: ['gzip, deflate, compress']
+      Authorization: [!!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
       Cache-Control: [no-cache]
+      Connection: [keep-alive]
       Content-Length: ['0']
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
@@ -133,9 +137,10 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
-      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
+      Accept-Encoding: ['gzip, deflate, compress']
+      Authorization: [!!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
       Cache-Control: [no-cache]
+      Connection: [keep-alive]
       Content-Length: ['0']
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
@@ -156,6 +161,7 @@ interactions:
         98QE6kkQVWphYJVgS/vLFQaQWSrfz7CanRIyR/sFhJxVuAMh/2+QsVlDn8G+O34fKUU1PYPEv9ok
         s86jLD1RHjQRmtI09EhDfEAwleE8nWf5bvf4B+MB7vk6DQAA
     headers:
+      Connection: [keep-alive]
       allow: ['GET, POST, HEAD, OPTIONS']
       cache-control: [no-cache]
       connection: [keep-alive]

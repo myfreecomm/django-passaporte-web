@@ -6,6 +6,7 @@
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]
+      Connection: [keep-alive]
       Content-Length: ['0']
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
@@ -30,6 +31,7 @@
     headers:
       allow: ['GET, POST, HEAD, OPTIONS']
       cache-control: [no-cache]
+      Connection: [keep-alive]
       connection: [keep-alive]
       content-encoding: [gzip]
       content-length: ['702']

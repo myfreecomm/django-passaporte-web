@@ -5,11 +5,12 @@ interactions:
       "content-type": "application/xml"}, "updated_by": "identity_client.UpdateAssociationData",
       "updated_at": "2013-06-24 14:55:00"}'
     headers:
-      Accept-Encoding: ['gzip, deflate']
+      Accept-Encoding: ['gzip, deflate, compress']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Content-Length: ['294']
       accept: [application/json]
       cache-control: [no-cache]
+      Connection: [keep-alive]
       content-type: [application/json]
       user-agent: [myfc_id client]
     method: PUT
@@ -25,6 +26,7 @@ interactions:
     headers:
       allow: ['GET, PUT, HEAD, OPTIONS']
       cache-control: [no-cache]
+      Connection: [keep-alive]
       connection: [keep-alive]
       content-encoding: [gzip]
       content-length: ['249']

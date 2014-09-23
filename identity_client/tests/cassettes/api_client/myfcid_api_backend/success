@@ -3,8 +3,8 @@ interactions:
     body: null
     headers:
       Accept: ['*/*']
-      Accept-Encoding: ['gzip, deflate']
-      Authorization: [Basic aWRlbnRpdHlfY2xpZW50QGRpc3Bvc2FibGVpbmJveC5jb206KlN1ZE43JXIkTWlZUmEhRQ==]
+      Accept-Encoding: ['gzip, deflate, compress']
+      Authorization: [!!python/unicode 'Basic aWRlbnRpdHlfY2xpZW50QGRpc3Bvc2FibGVpbmJveC5jb206KlN1ZE43JXIkTWlZUmEhRQ==']
       cache-control: [no-cache]
       content-type: [application/json]
       user-agent: [myfc_id client]
@@ -21,6 +21,7 @@ interactions:
         dR6fH8c316e3ozl5vDm6r1cXl91hucof6o13jC3QHP4z7sjFfMBdSbYzFqoGSVfmZTU58vyuN4oa
         /J/KPsWm9O+RYlHZXwIAAA==
     headers:
+      Connection: [keep-alive]
       cache-control: [no-cache]
       connection: [keep-alive]
       content-encoding: [gzip]

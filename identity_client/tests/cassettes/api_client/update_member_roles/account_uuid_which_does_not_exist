@@ -1,36 +1,12 @@
 interactions:
 - request:
-    body: '{"roles": []}'
-    headers:
-      Accept-Encoding: ['gzip, deflate']
-      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
-      Content-Length: ['13']
-      accept: [application/json]
-      cache-control: [no-cache]
-      content-type: [application/json]
-      user-agent: [myfc_id client]
-    method: PUT
-    uri: https://sandbox.app.passaporteweb.com.br:443/organizations/api/accounts/00000000-0000-0000-0000-000000000000/members/bedcd531-c741-4d32-90d7-a7f7432f3f15/
-  response:
-    body: {string: !!python/unicode '"Account with uuid=00000000-0000-0000-0000-000000000000
-        does not exist"'}
-    headers:
-      allow: ['GET, PUT, DELETE, HEAD, OPTIONS']
-      connection: [keep-alive]
-      content-length: ['71']
-      content-type: [application/json]
-      date: ['Wed, 26 Jun 2013 21:49:33 GMT']
-      p3p: [CP="NON DSP COR CURa TIA"]
-      server: [nginx/0.7.67]
-      vary: ['Authenticate, Accept']
-    status: {code: 404, message: NOT FOUND}
-- request:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
+      Accept-Encoding: ['gzip, deflate, compress']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
+      Connection: [keep-alive]
       Content-Length: ['0']
       Content-Type: [application/json]
       User-Agent: [api_toolkit]

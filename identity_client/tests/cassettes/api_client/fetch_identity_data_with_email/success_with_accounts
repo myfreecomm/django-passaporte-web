@@ -2,10 +2,11 @@ interactions:
 - request:
     body: null
     headers:
-      Accept-Encoding: ['gzip, deflate']
+      Accept-Encoding: ['gzip, deflate, compress']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       accept: [application/json]
       cache-control: [no-cache]
+      Connection: [keep-alive]
       content-length: ['0']
       content-type: [application/json]
       user-agent: [myfc_id client]
@@ -23,6 +24,7 @@ interactions:
         3Q360pDrjYNaIenaHB7DwtGd3pqWFP7PW5rIwibfDH9lCDgDAAA=
     headers:
       cache-control: [no-cache]
+      Connection: [keep-alive]
       connection: [keep-alive]
       content-encoding: [gzip]
       content-length: ['380']

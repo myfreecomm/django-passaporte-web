@@ -6,6 +6,7 @@
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]
+      Connection: [keep-alive]
       Content-Length: ['57']
       Content-Type: [application/json]
       User-Agent: [api_toolkit]

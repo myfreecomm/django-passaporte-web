@@ -3,9 +3,10 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
+      Accept-Encoding: ['gzip, deflate, compress']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
+      Connection: [keep-alive]
       Content-Length: ['0']
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
@@ -34,9 +35,10 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
+      Accept-Encoding: ['gzip, deflate, compress']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
+      Connection: [keep-alive]
       Content-Length: ['0']
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
@@ -65,9 +67,10 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
+      Accept-Encoding: ['gzip, deflate, compress']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
+      Connection: [keep-alive]
       Content-Length: ['0']
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
@@ -100,9 +103,10 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate']
+      Accept-Encoding: ['gzip, deflate, compress']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
+      Connection: [keep-alive]
       Content-Length: ['0']
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
@@ -125,5 +129,36 @@ interactions:
       p3p: [CP="NON DSP COR CURa TIA"]
       server: [nginx/1.4.4]
       vary: ['Authenticate, Accept, Accept-Encoding']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate, compress']
+      Authorization: [!!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      Cache-Control: [no-cache]
+      Connection: [keep-alive]
+      Content-Length: ['0']
+      Content-Type: [application/json]
+      User-Agent: [api_toolkit]
+    method: OPTIONS
+    uri: http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/
+  response:
+    body:
+      string: !!binary |
+        H4sIACu0IVQC/42QzQoCMQyEX2Xp2bJ3b4L4AupJREKblUj/6I+7suy7m1YE0Yun0vkykzCzGAiN
+        TmLdzSIYcJdkypV/Ys/vrjKx6gROgSJk8q6iLWQ8kMUXXpgHiAlryElACIZUm+1viQ2MP7VJjuMo
+        Bx+tLNGgU15j22GLycRBuW9QQ4YfrzXf0gNYO7MY0WmMf97wm1PHZKhqxin3XAW5luvAYusD450U
+        dhulfHG5Owa+EKtBY1KRwrsdsTwBU/qYsVUBAAA=
+    headers:
+      allow: ['GET, PUT, HEAD, OPTIONS']
+      connection: [keep-alive]
+      content-encoding: [gzip]
+      content-length: ['200']
+      content-type: [application/json]
+      date: ['Tue, 23 Sep 2014 17:55:55 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/1.6.2]
+      vary: ['Authenticate, Accept, Cookie, Accept-Encoding']
     status: {code: 200, message: OK}
 version: 1
