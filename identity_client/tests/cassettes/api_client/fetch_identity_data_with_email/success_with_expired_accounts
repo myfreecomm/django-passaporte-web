@@ -10,7 +10,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: OPTIONS
-    uri: https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/
+    uri: https://sandbox.app.passaporteweb.com.br:443/organizations/api/accounts/
   response:
     body:
       string: !!binary |
@@ -41,7 +41,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: OPTIONS
-    uri: https://sandbox.app.passaporteweb.com.br/accounts/api/create/
+    uri: https://sandbox.app.passaporteweb.com.br:443/accounts/api/create/
   response:
     body:
       string: !!binary |
@@ -72,7 +72,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: GET
-    uri: https://sandbox.app.passaporteweb.com.br/accounts/api/identities/?email=identity_client%40disposableinbox.com&include_expired_accounts=True
+    uri: https://sandbox.app.passaporteweb.com.br:443/accounts/api/identities/?email=identity_client%40disposableinbox.com&include_expired_accounts=True
   response:
     body:
       string: !!binary |
@@ -113,7 +113,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: GET
-    uri: https://sandbox.app.passaporteweb.com.br/accounts/api/identities/?include_expired_accounts=True&email=identity_client%40disposableinbox.com
+    uri: https://sandbox.app.passaporteweb.com.br:443/accounts/api/identities/?include_expired_accounts=True&email=identity_client%40disposableinbox.com
   response:
     body:
       string: !!binary |
@@ -154,7 +154,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: OPTIONS
-    uri: https://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/
+    uri: https://sandbox.app.passaporteweb.com.br:443/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/
   response:
     body:
       string: !!binary |

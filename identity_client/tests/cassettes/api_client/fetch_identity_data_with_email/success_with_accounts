@@ -10,7 +10,7 @@ interactions:
       content-type: [application/json]
       user-agent: [myfc_id client]
     method: GET
-    uri: https://sandbox.app.passaporteweb.com.br/profile/api/info//?email=identity_client%40disposableinbox.com
+    uri: https://sandbox.app.passaporteweb.com.br:443/profile/api/info//?email=identity_client%40disposableinbox.com
   response:
     body:
       string: !!binary |

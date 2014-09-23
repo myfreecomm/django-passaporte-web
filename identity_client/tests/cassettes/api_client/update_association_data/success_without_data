@@ -10,7 +10,7 @@ interactions:
       content-type: [application/json]
       user-agent: [myfc_id client]
     method: PUT
-    uri: https://sandbox.app.passaporteweb.com.br/accounts/api/service-info/c3769912-baa9-4a0c-9856-395a706c7d57/identity_client/
+    uri: https://sandbox.app.passaporteweb.com.br:443/accounts/api/service-info/c3769912-baa9-4a0c-9856-395a706c7d57/identity_client/
   response:
     body: {string: !!python/unicode '{"is_active": true, "slug": "identity_client"}'}
     headers:

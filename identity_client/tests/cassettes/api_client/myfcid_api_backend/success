@@ -9,7 +9,7 @@ interactions:
       content-type: [application/json]
       user-agent: [myfc_id client]
     method: GET
-    uri: https://sandbox.app.passaporteweb.com.br/accounts/api/auth/
+    uri: https://sandbox.app.passaporteweb.com.br:443/accounts/api/auth/
   response:
     body:
       string: !!binary |
