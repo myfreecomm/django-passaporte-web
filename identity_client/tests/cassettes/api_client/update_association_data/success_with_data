@@ -11,7 +11,7 @@ interactions:
       content-type: [application/json]
       user-agent: [myfc_id client]
     method: PUT
-    uri: http://sandbox.app.passaporteweb.com.br/accounts/api/service-info/c3769912-baa9-4a0c-9856-395a706c7d57/identity_client/
+    uri: https://sandbox.app.passaporteweb.com.br/accounts/api/service-info/c3769912-baa9-4a0c-9856-395a706c7d57/identity_client/
   response:
     body: {string: !!python/unicode '{"updated_at": "2013-06-24 14:55:00", "timezone":
         "America/Sao_Paulo", "is_active": true, "slug": "identity_client", "updated_by":

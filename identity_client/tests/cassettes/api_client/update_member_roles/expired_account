@@ -10,7 +10,7 @@ interactions:
       content-type: [application/json]
       user-agent: [myfc_id client]
     method: PUT
-    uri: http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/bedcd531-c741-4d32-90d7-a7f7432f3f15/
+    uri: https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/bedcd531-c741-4d32-90d7-a7f7432f3f15/
   response:
     body: {string: !!python/unicode '"Account a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba
         and service identity_client are not related"'}
@@ -35,7 +35,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: GET
-    uri: http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/bedcd531-c741-4d32-90d7-a7f7432f3f15/
+    uri: https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/bedcd531-c741-4d32-90d7-a7f7432f3f15/
   response:
     body: {string: !!python/unicode '"Account a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba
         and service identity_client are not related"'}

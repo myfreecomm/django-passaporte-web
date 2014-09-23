@@ -10,7 +10,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: GET
-    uri: http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/
+    uri: https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/
   response:
     body:
       string: !!binary |
@@ -44,7 +44,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: OPTIONS
-    uri: http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/
+    uri: https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/
   response:
     body:
       string: !!binary |
@@ -74,7 +74,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: POST
-    uri: http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/
+    uri: https://sandbox.app.passaporteweb.com.br/notifications/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/
   response:
     body: {string: !!python/unicode '{"detail": "You do not have permission to access
         this resource. You may need to login or otherwise authenticate the request."}'}

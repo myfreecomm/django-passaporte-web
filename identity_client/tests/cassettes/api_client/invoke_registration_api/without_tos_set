@@ -10,7 +10,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: OPTIONS
-    uri: http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/
+    uri: https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/
   response:
     body:
       string: !!binary |
@@ -41,7 +41,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: OPTIONS
-    uri: http://sandbox.app.passaporteweb.com.br/accounts/api/create/
+    uri: https://sandbox.app.passaporteweb.com.br/accounts/api/create/
   response:
     body:
       string: !!binary |
@@ -73,7 +73,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: POST
-    uri: http://sandbox.app.passaporteweb.com.br/accounts/api/create/
+    uri: https://sandbox.app.passaporteweb.com.br/accounts/api/create/
   response:
     body: {string: !!python/unicode '{"tos": ["Voc\u00ea precisa concordar com os
         Termos de Servi\u00e7o"]}'}

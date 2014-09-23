@@ -10,7 +10,7 @@ interactions:
       content-type: [application/json]
       user-agent: [myfc_id client]
     method: PUT
-    uri: http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/00000000-0000-0000-0000-000000000000/
+    uri: https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/00000000-0000-0000-0000-000000000000/
   response:
     body: {string: !!python/unicode '"Identity with uuid=00000000-0000-0000-0000-000000000000
         does not exist"'}
@@ -35,7 +35,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: GET
-    uri: http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/00000000-0000-0000-0000-000000000000/
+    uri: https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/00000000-0000-0000-0000-000000000000/
   response:
     body: {string: !!python/unicode '"Identity with uuid=00000000-0000-0000-0000-000000000000
         does not exist"'}

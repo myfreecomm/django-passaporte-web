@@ -10,7 +10,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: GET
-    uri: http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/bedcd531-c741-4d32-90d7-a7f7432f3f15/
+    uri: https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/bedcd531-c741-4d32-90d7-a7f7432f3f15/
   response:
     body: {string: !!python/unicode '{"roles": ["other"], "identity": {"first_name":
         "Vitor", "last_name": "M. A. da Cruz", "send_partner_news": false, "uuid":
@@ -37,7 +37,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: OPTIONS
-    uri: http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/bedcd531-c741-4d32-90d7-a7f7432f3f15/
+    uri: https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/bedcd531-c741-4d32-90d7-a7f7432f3f15/
   response:
     body:
       string: !!binary |
@@ -66,7 +66,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: DELETE
-    uri: http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/bedcd531-c741-4d32-90d7-a7f7432f3f15/
+    uri: https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/bedcd531-c741-4d32-90d7-a7f7432f3f15/
   response:
     body: {string: !!python/unicode ''}
     headers:

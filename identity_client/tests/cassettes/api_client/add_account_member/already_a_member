@@ -10,7 +10,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: POST
-    uri: http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/
+    uri: https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/
   response:
     body: {string: !!python/unicode '"Identity with uuid=c3769912-baa9-4a0c-9856-395a706c7d57
         is already in members list of service identity_client at account a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba"'}

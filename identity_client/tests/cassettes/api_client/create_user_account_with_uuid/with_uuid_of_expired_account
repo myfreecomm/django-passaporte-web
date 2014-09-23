@@ -10,7 +10,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: OPTIONS
-    uri: http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/
+    uri: https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/
   response:
     body:
       string: !!binary |
@@ -41,7 +41,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: OPTIONS
-    uri: http://sandbox.app.passaporteweb.com.br/accounts/api/create/
+    uri: https://sandbox.app.passaporteweb.com.br/accounts/api/create/
   response:
     body:
       string: !!binary |
@@ -72,7 +72,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: GET
-    uri: http://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/
+    uri: https://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/
   response:
     body:
       string: !!binary |
@@ -109,7 +109,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: OPTIONS
-    uri: http://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/
+    uri: https://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/
   response:
     body:
       string: !!binary |
@@ -139,20 +139,20 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: POST
-    uri: http://sandbox.app.passaporteweb.com.br/organizations/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/accounts/
+    uri: https://sandbox.app.passaporteweb.com.br/organizations/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/accounts/
   response:
-    body: {string: !!python/unicode '{"membership_details_url": "http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/c3769912-baa9-4a0c-9856-395a706c7d57/",
-        "plan_slug": "unittest-expired", "roles": ["owner"], "url": "http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/",
+    body: {string: !!python/unicode '{"membership_details_url": "https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/c3769912-baa9-4a0c-9856-395a706c7d57/",
+        "plan_slug": "unittest-expired", "roles": ["owner"], "url": "https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/",
         "expiration": null, "service_data": {"name": "Identity Client", "slug": "identity_client"},
         "account_data": {"name": "Test Account", "uuid": "a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba"},
-        "add_member_url": "http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/"}'}
+        "add_member_url": "https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/"}'}
     headers:
       allow: ['GET, POST, HEAD, OPTIONS']
       connection: [keep-alive]
       content-length: ['546']
       content-type: [application/json]
       date: ['Fri, 28 Jun 2013 19:22:45 GMT']
-      location: ['http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/']
+      location: ['https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/']
       p3p: [CP="NON DSP COR CURa TIA"]
       server: [nginx/0.7.67]
       vary: ['Authenticate, Accept']

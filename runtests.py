@@ -58,7 +58,7 @@ def configure_settings(options):
             APPLICATION_HOST = 'http://testserver',
             LOGIN_REDIRECT_URL = '/accounts/',
             PASSAPORTE_WEB = {
-                'HOST': 'http://sandbox.app.passaporteweb.com.br',
+                'HOST': 'https://sandbox.app.passaporteweb.com.br',
                 'SLUG': 'identity_client',
                 'CONSUMER_TOKEN': 'qxRSNcIdeA',
                 'CONSUMER_SECRET': '1f0AVCZPJbRndF9FNSGMOWMfH9KMUDaX',

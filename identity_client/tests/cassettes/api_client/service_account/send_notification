@@ -10,7 +10,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: GET
-    uri: http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/
+    uri: https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/
   response:
     body:
       string: !!binary |
@@ -44,7 +44,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: OPTIONS
-    uri: http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/
+    uri: https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/
   response:
     body:
       string: !!binary |
@@ -74,7 +74,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: POST
-    uri: http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/
+    uri: https://sandbox.app.passaporteweb.com.br/notifications/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/
   response:
     body:
       string: !!binary |
@@ -91,7 +91,7 @@ interactions:
       content-length: ['327']
       content-type: [application/json]
       date: ['Tue, 14 Jan 2014 23:37:24 GMT']
-      location: ['http://sandbox.app.passaporteweb.com.br/notifications/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/00335e52-72b3-4ca1-95bf-566e9556988d/']
+      location: ['https://sandbox.app.passaporteweb.com.br/notifications/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/00335e52-72b3-4ca1-95bf-566e9556988d/']
       p3p: [CP="NON DSP COR CURa TIA"]
       server: [nginx/1.4.4]
       vary: ['Authenticate, Accept, Accept-Encoding']

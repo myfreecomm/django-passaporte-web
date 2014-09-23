@@ -10,7 +10,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: OPTIONS
-    uri: http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/
+    uri: https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/
   response:
     body:
       string: !!binary |
@@ -41,7 +41,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: OPTIONS
-    uri: http://sandbox.app.passaporteweb.com.br/accounts/api/create/
+    uri: https://sandbox.app.passaporteweb.com.br/accounts/api/create/
   response:
     body:
       string: !!binary |
@@ -72,7 +72,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: GET
-    uri: http://sandbox.app.passaporteweb.com.br/accounts/api/identities/00000000-0000-0000-0000-000000000000/
+    uri: https://sandbox.app.passaporteweb.com.br/accounts/api/identities/00000000-0000-0000-0000-000000000000/
   response:
     body: {string: !!python/unicode '"Identity with uuid=00000000-0000-0000-0000-000000000000
         does not exist"'}

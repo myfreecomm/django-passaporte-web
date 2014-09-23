@@ -12,7 +12,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: POST
-    uri: http://sandbox.app.passaporteweb.com.br/accounts/api/create/
+    uri: https://sandbox.app.passaporteweb.com.br/accounts/api/create/
   response:
     body: {string: !!python/unicode '{"cpf": ["Certifique-se de que o valor tenha
         no m\u00e1ximo 14 caracteres (ele possui 19)."]}'}
@@ -35,7 +35,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: OPTIONS
-    uri: http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/
+    uri: https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/
   response:
     body:
       string: !!binary |
@@ -66,7 +66,7 @@ interactions:
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: OPTIONS
-    uri: http://sandbox.app.passaporteweb.com.br/accounts/api/create/
+    uri: https://sandbox.app.passaporteweb.com.br/accounts/api/create/
   response:
     body:
       string: !!binary |
