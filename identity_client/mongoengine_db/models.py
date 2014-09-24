@@ -7,8 +7,8 @@ from passaporte_web.main import ServiceAccount as RemoteServiceAccount
 from mongoengine import *
 from mongoengine.queryset import Q
 
+import django
 from django.core.exceptions import ImproperlyConfigured
-from django.contrib.auth.models import SiteProfileNotAvailable
 
 from identity_client.client_api_methods import APIClient
 from identity_client.decorators import asyncmethod
@@ -81,23 +81,26 @@ class Identity(Document):
         from django.core.mail import send_mail
         send_mail(subject, message, from_email, [self.email])
 
-    def get_profile(self):
-        """
-        Returns site-specific profile for this user. Raises
-        SiteProfileNotAvailable if this site does not allow profiles.
-        """
-        if not hasattr(self, '_profile_cache'):
-            from django.conf import settings
-            if not getattr(settings, 'AUTH_PROFILE_MODULE', False):
-                raise SiteProfileNotAvailable
-            try:
-                app_label, model_name = settings.AUTH_PROFILE_MODULE.split('.')
-                model = models.get_model(app_label, model_name)
-                self._profile_cache = model._default_manager.using(self._state.db).get(user__id__exact=self.id)
-                self._profile_cache.user = self
-            except (ImportError, ImproperlyConfigured):
-                raise SiteProfileNotAvailable
-        return self._profile_cache
+    if django.VERSION < (1, 7):
+        def get_profile(self):
+            """
+            Returns site-specific profile for this user. Raises
+            SiteProfileNotAvailable if this site does not allow profiles.
+            """
+            from django.contrib.auth.models import SiteProfileNotAvailable
+
+            if not hasattr(self, '_profile_cache'):
+                from django.conf import settings
+                if not getattr(settings, 'AUTH_PROFILE_MODULE', False):
+                    raise SiteProfileNotAvailable
+                try:
+                    app_label, model_name = settings.AUTH_PROFILE_MODULE.split('.')
+                    model = models.get_model(app_label, model_name)
+                    self._profile_cache = model._default_manager.using(self._state.db).get(user__id__exact=self.id)
+                    self._profile_cache.user = self
+                except (ImportError, ImproperlyConfigured):
+                    raise SiteProfileNotAvailable
+            return self._profile_cache
 
     def _get_message_set(self):
         import warnings
@@ -201,7 +204,7 @@ class ServiceAccount(Document):
             try:
                 account.add_member(identity, roles)
                 account.save()
-            except Exception, e:
+            except Exception as e:
                 message = 'Error updating accounts for identity %s (%s): %s <%s>'
                 logging.error(message, identity.email, identity.uuid, e, type(e))
 

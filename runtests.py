@@ -95,11 +95,15 @@ def get_runner(settings):
 
 
 def runtests(options=None, labels=None):
+    import django
+
     if not labels:
         labels = ['identity_client']
 
     settings = configure_settings(options)
     runner = get_runner(settings)
+    if django.VERSION >= (1, 7):
+        django.setup()
     sys.exit(runner.run_tests(labels))
 
 if __name__ == '__main__':

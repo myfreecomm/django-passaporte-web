@@ -24,10 +24,9 @@ class required_method(object):
 
     def __init__(self, *args, **kwargs):
         self.methods = args
-        self.error = kwargs.get('error',
-            # Default error:
-            http.HttpResponse('Not Implemented',
-                mimetype='text/plain', status=501)
+        self.error = kwargs.get(
+            'error',
+            http.HttpResponse('Not Implemented', content_type='text/plain', status=501)
         )
 
     def __call__(self, view):
@@ -85,7 +84,7 @@ def requires_plan(plan_slug):
                 return http.HttpResponseForbidden()
 
         return check_user_plan
-        
+
     return decorator
 
 
@@ -98,7 +97,7 @@ def with_403_page(view):
         response = view(request, *args, **kwargs)
 
         if isinstance(response, http.HttpResponseForbidden):
-            t = loader.get_template(template_name) 
+            t = loader.get_template(template_name)
             response = http.HttpResponseForbidden(
                 t.render(
                     Context({'MEDIA_URL': settings.MEDIA_URL})

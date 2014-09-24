@@ -11,9 +11,9 @@ try:
         module_name,
         fromlist=['identity_client']
     )
-except ImportError:
+except ImportError as e:
     raise ImproperlyConfigured(
-        'settings.PERSISTENCE_MODULE: %s could not be imported' % module_name
+        'settings.PERSISTENCE_MODULE: %s could not be imported (%s)' % (module_name, e)
     )
 
 new_settings = getattr(PERSISTENCE_MODULE, 'settings')
