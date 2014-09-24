@@ -1144,14 +1144,15 @@ class UpdateUserApi(TestCase):
         user_url = self.user_data['update_info_url']
         user_url = user_url.replace('sandbox.app.passaporteweb.com.br', '127.0.0.1:23')
 
-        with identity_client.tests.use_cassette('update_user_api/wrong_api_host'):
+        # Este teste não faz requisição para a api, o cassette é só para gerar um erro caso haja uma tentativa de conexão
+        with identity_client.tests.use_cassette('update_user_api/wrong_api_host', record_mode='new_episodes'):
             response = APIClient.update_user_api(form, user_url)
             status_code, content, new_form = response
 
         self.assertEquals(status_code, 500)
         self.assertEquals(content, None)
         self.assertEquals(form.errors, {
-            '__all__': [u'Erro no servidor. Entre em contato com o suporte.']
+            '__all__': [u'Ocorreu uma falha na comunicação com o Passaporte Web. Por favor tente novamente.']
         })
 
     def test_request_with_wrong_credentials(self):
