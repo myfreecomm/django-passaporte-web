@@ -2,8 +2,9 @@ interactions:
 - request:
     body: null
     headers:
-      Accept-Encoding: ['gzip, deflate, compress']
-      Authorization: [!!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
+      Connection: [keep-alive]
       accept: [application/json]
       cache-control: [no-cache]
       content-length: ['0']
@@ -16,9 +17,9 @@ interactions:
         "America/Sao_Paulo", "is_active": true, "slug": "identity_client", "updated_by":
         "identity_client.UpdateAssociationData"}'}
     headers:
+      Connection: [keep-alive]
       allow: ['GET, PUT, HEAD, OPTIONS']
       cache-control: [no-cache]
-      Connection: [keep-alive]
       connection: [keep-alive]
       content-length: ['171']
       content-type: [application/json]

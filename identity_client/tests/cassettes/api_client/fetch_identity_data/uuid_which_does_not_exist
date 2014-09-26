@@ -67,7 +67,7 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]
@@ -84,9 +84,9 @@ interactions:
       connection: [keep-alive]
       content-length: ['72']
       content-type: [application/json]
-      date: ['Thu, 09 Jan 2014 22:02:23 GMT']
+      date: ['Thu, 25 Sep 2014 21:40:57 GMT']
       p3p: [CP="NON DSP COR CURa TIA"]
-      server: [nginx/1.4.4]
-      vary: ['Authenticate, Accept']
+      server: [nginx/1.6.2]
+      vary: ['Authenticate, Accept, Cookie']
     status: {code: 404, message: NOT FOUND}
 version: 1

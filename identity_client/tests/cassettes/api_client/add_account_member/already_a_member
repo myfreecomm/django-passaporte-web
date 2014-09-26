@@ -1,9 +1,9 @@
 interactions:
 - request:
-    body: '{"roles": ["user"], "identity": "c3769912-baa9-4a0c-9856-395a706c7d57"}'
+    body: '{"identity": "c3769912-baa9-4a0c-9856-395a706c7d57", "roles": ["user"]}'
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]
@@ -20,9 +20,9 @@ interactions:
       connection: [keep-alive]
       content-length: ['159']
       content-type: [application/json]
-      date: ['Wed, 26 Jun 2013 19:41:25 GMT']
+      date: ['Thu, 25 Sep 2014 21:40:00 GMT']
       p3p: [CP="NON DSP COR CURa TIA"]
-      server: [nginx/0.7.67]
-      vary: ['Authenticate, Accept']
+      server: [nginx/1.6.2]
+      vary: ['Authenticate, Accept, Cookie']
     status: {code: 409, message: CONFLICT}
 version: 1

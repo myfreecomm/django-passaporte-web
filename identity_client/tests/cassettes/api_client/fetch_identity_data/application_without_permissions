@@ -10,32 +10,6 @@ interactions:
       Content-Length: ['0']
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
-    method: GET
-    uri: https://sandbox.app.passaporteweb.com.br:443/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/
-  response:
-    body:
-      string: !!binary |
-        H4sIAAAAAAAAAwMAAAAAAAAAAAA=
-    headers:
-      connection: [keep-alive]
-      content-encoding: [gzip]
-      content-length: ['20']
-      content-type: [text/html; charset=utf-8]
-      date: ['Mon, 24 Jun 2013 15:34:16 GMT']
-      p3p: [CP="NON DSP COR CURa TIA"]
-      server: [nginx/0.7.67]
-    status: {code: 403, message: FORBIDDEN}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
-      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
-      Cache-Control: [no-cache]
-      Connection: [keep-alive]
-      Content-Length: ['0']
-      Content-Type: [application/json]
-      User-Agent: [api_toolkit]
     method: OPTIONS
     uri: https://sandbox.app.passaporteweb.com.br:443/organizations/api/accounts/
   response:
@@ -89,4 +63,30 @@ interactions:
       server: [nginx/1.4.4]
       vary: ['Authenticate, Accept, Accept-Encoding']
     status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
+      Cache-Control: [no-cache]
+      Connection: [keep-alive]
+      Content-Length: ['0']
+      Content-Type: [application/json]
+      User-Agent: [api_toolkit]
+    method: GET
+    uri: https://sandbox.app.passaporteweb.com.br:443/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAwMAAAAAAAAAAAA=
+    headers:
+      connection: [keep-alive]
+      content-encoding: [gzip]
+      content-length: ['20']
+      content-type: [text/html; charset=utf-8]
+      date: ['Mon, 24 Jun 2013 15:34:16 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/0.7.67]
+    status: {code: 403, message: FORBIDDEN}
 version: 1

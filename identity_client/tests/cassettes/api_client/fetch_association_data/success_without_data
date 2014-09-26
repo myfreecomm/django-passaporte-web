@@ -2,8 +2,9 @@ interactions:
 - request:
     body: null
     headers:
-      Accept-Encoding: ['gzip, deflate, compress']
-      Authorization: [!!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
+      Connection: [keep-alive]
       accept: [application/json]
       cache-control: [no-cache]
       content-length: ['0']

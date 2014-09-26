@@ -1,31 +1,5 @@
 interactions:
 - request:
-    body: '{"first_name": "Myfc ID", "last_name": "Clients", "tos": true, "password2":
-      "*SudN7%r$MiYRa!E", "cpf": "1111111111122222222", "password": "*SudN7%r$MiYRa!E",
-      "email": "identity_client+1@disposableinbox.com"}'
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
-      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
-      Cache-Control: [no-cache]
-      Connection: [keep-alive]
-      Content-Length: ['207']
-      Content-Type: [application/json]
-      User-Agent: [api_toolkit]
-    method: POST
-    uri: https://sandbox.app.passaporteweb.com.br:443/accounts/api/create/
-  response:
-    body: {string: !!python/unicode '{"cpf": ["Certifique-se de que o valor tenha
-        no m\u00e1ximo 14 caracteres (ele possui 19)."]}'}
-    headers:
-      connection: [keep-alive]
-      content-length: ['93']
-      content-type: [text/html; charset=utf-8]
-      date: ['Mon, 24 Jun 2013 16:10:37 GMT']
-      p3p: [CP="NON DSP COR CURa TIA"]
-      server: [nginx/0.7.67]
-    status: {code: 400, message: BAD REQUEST}
-- request:
     body: null
     headers:
       Accept: [application/json]
@@ -89,4 +63,30 @@ interactions:
       server: [nginx/1.4.4]
       vary: ['Authenticate, Accept, Accept-Encoding']
     status: {code: 200, message: OK}
+- request:
+    body: '{"cpf": "1111111111122222222", "email": "identity_client+1@disposableinbox.com",
+      "first_name": "Myfc ID", "last_name": "Clients", "password": "*SudN7%r$MiYRa!E",
+      "password2": "*SudN7%r$MiYRa!E", "tos": true}'
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
+      Cache-Control: [no-cache]
+      Connection: [keep-alive]
+      Content-Length: ['207']
+      Content-Type: [application/json]
+      User-Agent: [api_toolkit]
+    method: POST
+    uri: https://sandbox.app.passaporteweb.com.br:443/accounts/api/create/
+  response:
+    body: {string: !!python/unicode '{"cpf": ["Certifique-se de que o valor tenha
+        no m\u00e1ximo 14 caracteres (ele possui 19)."]}'}
+    headers:
+      connection: [keep-alive]
+      content-length: ['93']
+      content-type: [text/html; charset=utf-8]
+      date: ['Mon, 24 Jun 2013 16:10:37 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/0.7.67]
+    status: {code: 400, message: BAD REQUEST}
 version: 1

@@ -2,12 +2,12 @@ interactions:
 - request:
     body: '{"roles": ["user"]}'
     headers:
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
+      Connection: [keep-alive]
       Content-Length: ['19']
       accept: [application/json]
       cache-control: [no-cache]
-      Connection: [keep-alive]
       content-type: [application/json]
       user-agent: [api_toolkit]
     method: PUT
@@ -29,7 +29,7 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]

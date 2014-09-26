@@ -2,12 +2,12 @@ interactions:
 - request:
     body: '{"roles": ["owner"]}'
     headers:
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
+      Connection: [keep-alive]
       Content-Length: ['20']
       accept: [application/json]
       cache-control: [no-cache]
-      Connection: [keep-alive]
       content-type: [application/json]
       user-agent: [myfc_id client]
     method: PUT
@@ -29,7 +29,7 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]
@@ -46,9 +46,9 @@ interactions:
       connection: [keep-alive]
       content-length: ['90']
       content-type: [application/json]
-      date: ['Fri, 28 Jun 2013 19:04:27 GMT']
+      date: ['Fri, 26 Sep 2014 17:39:54 GMT']
       p3p: [CP="NON DSP COR CURa TIA"]
-      server: [nginx/0.7.67]
-      vary: ['Authenticate, Accept']
+      server: [nginx/1.6.2]
+      vary: ['Authenticate, Accept, Cookie']
     status: {code: 404, message: NOT FOUND}
 version: 1

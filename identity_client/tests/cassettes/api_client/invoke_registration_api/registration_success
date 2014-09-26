@@ -1,41 +1,5 @@
 interactions:
 - request:
-    body: '{"first_name": "Myfc ID", "last_name": "Clients", "tos": true, "password2":
-      "*SudN7%r$MiYRa!E", "cpf": "", "password": "*SudN7%r$MiYRa!E", "email": "identity_client@disposableinbox.com"}'
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
-      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
-      Cache-Control: [no-cache]
-      Connection: [keep-alive]
-      Content-Length: ['186']
-      Content-Type: [application/json]
-      User-Agent: [api_toolkit]
-    method: POST
-    uri: https://sandbox.app.passaporteweb.com.br:443/accounts/api/create/
-  response:
-    body:
-      string: !!binary |
-        H4sIADPKxFEC/61Qy07EIBT9lYa1tdWxrZ2ViW5c+AXGkFu4JDehQICONhP/Xeh0krFuZuEO7jk5
-        ryNT5EPkBkZk+4K9zUoUry/spmAaLu7PmtDEkO8BjeQOfDToucHPkHAFOmDCpolkpotd1/b93X05
-        APTlA9Si7B+bttz1DXR1KzrZdFmLAgcR6YAXGsKp9DOT1lnQSYjIySjLJ6+zdgVC2CmFqcBRRTLl
-        okgYqmtMq+xqbCRFAiJZk9Mf2SKYXnXuTSEuPr9oixn7TvjZPnHeP857jLPyiMKO43aSgP5AAk8+
-        a9qZi2XPv3VWdpkLX1doI3nKiCPQMtYGfZIUnA0waCQz2K/blDgv4rxVpPF/Jl7FUpIfmloshF4C
-        AAA=
-    headers:
-      cache-control: [no-cache]
-      Connection: [keep-alive]
-      connection: [keep-alive]
-      content-encoding: [gzip]
-      content-length: ['287']
-      content-type: [application/json]
-      date: ['Fri, 21 Jun 2013 21:48:35 GMT']
-      expires: ['Fri, 21 Jun 2013 21:48:34 GMT']
-      p3p: [CP="NON DSP COR CURa TIA"]
-      server: [nginx/0.7.67]
-      vary: [Accept-Encoding]
-    status: {code: 200, message: OK}
-- request:
     body: null
     headers:
       Accept: [application/json]
@@ -98,5 +62,42 @@ interactions:
       p3p: [CP="NON DSP COR CURa TIA"]
       server: [nginx/1.4.4]
       vary: ['Authenticate, Accept, Accept-Encoding']
+    status: {code: 200, message: OK}
+- request:
+    body: '{"cpf": "", "email": "identity_client@disposableinbox.com", "first_name":
+      "Myfc ID", "last_name": "Clients", "password": "*SudN7%r$MiYRa!E", "password2":
+      "*SudN7%r$MiYRa!E", "tos": true}'
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
+      Cache-Control: [no-cache]
+      Connection: [keep-alive]
+      Content-Length: ['186']
+      Content-Type: [application/json]
+      User-Agent: [api_toolkit]
+    method: POST
+    uri: https://sandbox.app.passaporteweb.com.br:443/accounts/api/create/
+  response:
+    body:
+      string: !!binary |
+        H4sIADPKxFEC/61Qy07EIBT9lYa1tdWxrZ2ViW5c+AXGkFu4JDehQICONhP/Xeh0krFuZuEO7jk5
+        ryNT5EPkBkZk+4K9zUoUry/spmAaLu7PmtDEkO8BjeQOfDToucHPkHAFOmDCpolkpotd1/b93X05
+        APTlA9Si7B+bttz1DXR1KzrZdFmLAgcR6YAXGsKp9DOT1lnQSYjIySjLJ6+zdgVC2CmFqcBRRTLl
+        okgYqmtMq+xqbCRFAiJZk9Mf2SKYXnXuTSEuPr9oixn7TvjZPnHeP857jLPyiMKO43aSgP5AAk8+
+        a9qZi2XPv3VWdpkLX1doI3nKiCPQMtYGfZIUnA0waCQz2K/blDgv4rxVpPF/Jl7FUpIfmloshF4C
+        AAA=
+    headers:
+      Connection: [keep-alive]
+      cache-control: [no-cache]
+      connection: [keep-alive]
+      content-encoding: [gzip]
+      content-length: ['287']
+      content-type: [application/json]
+      date: ['Fri, 21 Jun 2013 21:48:35 GMT']
+      expires: ['Fri, 21 Jun 2013 21:48:34 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/0.7.67]
+      vary: [Accept-Encoding]
     status: {code: 200, message: OK}
 version: 1

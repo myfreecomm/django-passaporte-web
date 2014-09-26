@@ -2,8 +2,9 @@ interactions:
 - request:
     body: '{}'
     headers:
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
+      Connection: [keep-alive]
       Content-Length: ['2']
       accept: [application/json]
       cache-control: [no-cache]
@@ -15,15 +16,12 @@ interactions:
     body: {string: !!python/unicode '{"is_active": true, "slug": "identity_client"}'}
     headers:
       allow: ['GET, PUT, HEAD, OPTIONS']
-      cache-control: [no-cache]
-      Connection: [keep-alive]
       connection: [keep-alive]
       content-length: ['46']
       content-type: [application/json]
-      date: ['Mon, 24 Jun 2013 18:16:54 GMT']
-      expires: ['Mon, 24 Jun 2013 18:16:53 GMT']
+      date: ['Fri, 26 Sep 2014 17:39:44 GMT']
       p3p: [CP="NON DSP COR CURa TIA"]
-      server: [nginx/0.7.67]
-      vary: ['Authenticate, Accept']
+      server: [nginx/1.6.2]
+      vary: ['Authenticate, Accept, Cookie']
     status: {code: 200, message: OK}
 version: 1

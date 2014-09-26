@@ -1,31 +1,5 @@
 interactions:
 - request:
-    body: '{"first_name": "Myfc ID", "last_name": "Clients", "tos": true, "password2":
-      "*SudN7%r$MiYRa!E", "cpf": "11111111111", "password": "*SudN7%r$MiYRa!E", "email":
-      "identity_client+1@disposableinbox.com"}'
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
-      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
-      Cache-Control: [no-cache]
-      Connection: [keep-alive]
-      Content-Length: ['199']
-      Content-Type: [application/json]
-      User-Agent: [api_toolkit]
-    method: POST
-    uri: https://sandbox.app.passaporteweb.com.br:443/accounts/api/create/
-  response:
-    body: {string: !!python/unicode '{"cpf": ["Este n\u00famero de CPF j\u00e1 est\u00e1
-        cadastrado."]}'}
-    headers:
-      connection: [keep-alive]
-      content-length: ['66']
-      content-type: [text/html; charset=utf-8]
-      date: ['Fri, 21 Jun 2013 21:53:50 GMT']
-      p3p: [CP="NON DSP COR CURa TIA"]
-      server: [nginx/0.7.67]
-    status: {code: 400, message: BAD REQUEST}
-- request:
     body: null
     headers:
       Accept: [application/json]
@@ -89,4 +63,30 @@ interactions:
       server: [nginx/1.4.4]
       vary: ['Authenticate, Accept, Accept-Encoding']
     status: {code: 200, message: OK}
+- request:
+    body: '{"cpf": "11111111111", "email": "identity_client+1@disposableinbox.com",
+      "first_name": "Myfc ID", "last_name": "Clients", "password": "*SudN7%r$MiYRa!E",
+      "password2": "*SudN7%r$MiYRa!E", "tos": true}'
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
+      Cache-Control: [no-cache]
+      Connection: [keep-alive]
+      Content-Length: ['199']
+      Content-Type: [application/json]
+      User-Agent: [api_toolkit]
+    method: POST
+    uri: https://sandbox.app.passaporteweb.com.br:443/accounts/api/create/
+  response:
+    body: {string: !!python/unicode '{"cpf": ["Este n\u00famero de CPF j\u00e1 est\u00e1
+        cadastrado."]}'}
+    headers:
+      connection: [keep-alive]
+      content-length: ['66']
+      content-type: [text/html; charset=utf-8]
+      date: ['Fri, 21 Jun 2013 21:53:50 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/0.7.67]
+    status: {code: 400, message: BAD REQUEST}
 version: 1

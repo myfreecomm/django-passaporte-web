@@ -3,7 +3,7 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]
@@ -38,7 +38,7 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]
@@ -69,7 +69,7 @@ interactions:
     body: '{"body": "Test notification for the account"}'
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]
@@ -78,32 +78,6 @@ interactions:
       User-Agent: [api_toolkit]
     method: POST
     uri: https://sandbox.app.passaporteweb.com.br:443/notifications/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/
-  response:
-    body: {string: !!python/unicode '{"detail": "You do not have permission to access
-        this resource. You may need to login or otherwise authenticate the request."}'}
-    headers:
-      allow: ['GET, POST, HEAD, OPTIONS']
-      connection: [keep-alive]
-      content-length: ['126']
-      content-type: [application/json]
-      date: ['Mon, 24 Jun 2013 19:52:19 GMT']
-      p3p: [CP="NON DSP COR CURa TIA"]
-      server: [nginx/0.7.67]
-      vary: ['Authenticate, Accept']
-    status: {code: 403, message: FORBIDDEN}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
-      Authorization: [!!python/unicode 'Basic Pz8/Pz86WFhYWFhY']
-      Cache-Control: [no-cache]
-      Connection: [keep-alive]
-      Content-Length: ['0']
-      Content-Type: [application/json]
-      User-Agent: [api_toolkit]
-    method: GET
-    uri: http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/
   response:
     body: {string: !!python/unicode '{"detail": "You do not have permission to access
         this resource. You may need to login or otherwise authenticate the request."}'}

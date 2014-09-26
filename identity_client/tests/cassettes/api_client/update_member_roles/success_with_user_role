@@ -3,7 +3,7 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]
@@ -31,7 +31,7 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]
@@ -61,7 +61,7 @@ interactions:
     body: '{"roles": ["user"]}'
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]
@@ -78,9 +78,9 @@ interactions:
         heyaioq+rWgrm5qejrKnvFd929SqUVVXojAwLiI+4RuxpptJeQDhjPkrAMNRl4btBSbWu1h9kRhG
         F/igAe3g3oe8TZblA71mEMoAAQAA
     headers:
+      Connection: [keep-alive]
       allow: ['GET, PUT, DELETE, HEAD, OPTIONS']
       cache-control: [no-cache]
-      Connection: [keep-alive]
       connection: [keep-alive]
       content-encoding: [gzip]
       content-length: ['192']

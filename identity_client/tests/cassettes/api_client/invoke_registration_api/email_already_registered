@@ -1,32 +1,5 @@
 interactions:
 - request:
-    body: '{"first_name": "Myfc ID", "last_name": "Clients", "tos": true, "password2":
-      "*SudN7%r$MiYRa!E", "cpf": "", "password": "*SudN7%r$MiYRa!E", "email": "identity_client@disposableinbox.com"}'
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
-      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
-      Cache-Control: [no-cache]
-      Connection: [keep-alive]
-      Content-Length: ['186']
-      Content-Type: [application/json]
-      User-Agent: [api_toolkit]
-    method: POST
-    uri: https://sandbox.app.passaporteweb.com.br:443/accounts/api/create/
-  response:
-    body: {string: !!python/unicode '{"field_errors": {"email": ["Este email j\u00e1
-        est\u00e1 cadastrado. Por favor insira outro email"]}}'}
-    headers:
-      allow: ['POST, HEAD, OPTIONS']
-      connection: [keep-alive]
-      content-length: ['102']
-      content-type: [application/json]
-      date: ['Thu, 09 Jan 2014 21:05:36 GMT']
-      p3p: [CP="NON DSP COR CURa TIA"]
-      server: [nginx/1.4.4]
-      vary: ['Authenticate, Accept']
-    status: {code: 409, message: CONFLICT}
-- request:
     body: null
     headers:
       Accept: [application/json]
@@ -90,4 +63,32 @@ interactions:
       server: [nginx/1.4.4]
       vary: ['Authenticate, Accept, Accept-Encoding']
     status: {code: 200, message: OK}
+- request:
+    body: '{"cpf": "", "email": "identity_client@disposableinbox.com", "first_name":
+      "Myfc ID", "last_name": "Clients", "password": "*SudN7%r$MiYRa!E", "password2":
+      "*SudN7%r$MiYRa!E", "tos": true}'
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
+      Cache-Control: [no-cache]
+      Connection: [keep-alive]
+      Content-Length: ['186']
+      Content-Type: [application/json]
+      User-Agent: [api_toolkit]
+    method: POST
+    uri: https://sandbox.app.passaporteweb.com.br:443/accounts/api/create/
+  response:
+    body: {string: !!python/unicode '{"field_errors": {"email": ["Este email j\u00e1
+        est\u00e1 cadastrado. Por favor insira outro email"]}}'}
+    headers:
+      allow: ['POST, HEAD, OPTIONS']
+      connection: [keep-alive]
+      content-length: ['102']
+      content-type: [application/json]
+      date: ['Thu, 25 Sep 2014 21:41:34 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/1.6.2]
+      vary: ['Authenticate, Accept, Cookie']
+    status: {code: 409, message: CONFLICT}
 version: 1

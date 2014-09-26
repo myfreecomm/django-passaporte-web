@@ -3,8 +3,9 @@ interactions:
     body: '{"timezone": "America/Sao_Paulo", "updated_by": "identity_client.UpdateAssociationData",
       "updated_at": "2013-06-24 14:55:00"}'
     headers:
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
+      Connection: [keep-alive]
       Content-Length: ['125']
       accept: [application/json]
       cache-control: [no-cache]
@@ -18,15 +19,12 @@ interactions:
         "identity_client.UpdateAssociationData"}'}
     headers:
       allow: ['GET, PUT, HEAD, OPTIONS']
-      cache-control: [no-cache]
-      Connection: [keep-alive]
       connection: [keep-alive]
       content-length: ['171']
       content-type: [application/json]
-      date: ['Mon, 24 Jun 2013 18:16:10 GMT']
-      expires: ['Mon, 24 Jun 2013 18:16:09 GMT']
+      date: ['Fri, 26 Sep 2014 17:39:43 GMT']
       p3p: [CP="NON DSP COR CURa TIA"]
-      server: [nginx/0.7.67]
-      vary: ['Authenticate, Accept']
+      server: [nginx/1.6.2]
+      vary: ['Authenticate, Accept, Cookie']
     status: {code: 200, message: OK}
 version: 1

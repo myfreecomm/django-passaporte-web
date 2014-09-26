@@ -1,9 +1,9 @@
 interactions:
 - request:
-    body: '{"roles": [], "identity": "c3769912-baa9-4a0c-9856-395a706c7d57"}'
+    body: '{"identity": "c3769912-baa9-4a0c-9856-395a706c7d57", "roles": []}'
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]

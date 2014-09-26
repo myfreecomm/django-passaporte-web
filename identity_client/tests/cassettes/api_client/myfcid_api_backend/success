@@ -3,8 +3,9 @@ interactions:
     body: null
     headers:
       Accept: ['*/*']
-      Accept-Encoding: ['gzip, deflate, compress']
-      Authorization: [!!python/unicode 'Basic aWRlbnRpdHlfY2xpZW50QGRpc3Bvc2FibGVpbmJveC5jb206KlN1ZE43JXIkTWlZUmEhRQ==']
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Basic aWRlbnRpdHlfY2xpZW50QGRpc3Bvc2FibGVpbmJveC5jb206KlN1ZE43JXIkTWlZUmEhRQ==]
+      Connection: [keep-alive]
       cache-control: [no-cache]
       content-type: [application/json]
       user-agent: [myfc_id client]

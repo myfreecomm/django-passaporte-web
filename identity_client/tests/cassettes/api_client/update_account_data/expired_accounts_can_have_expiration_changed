@@ -3,7 +3,7 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]
@@ -39,7 +39,7 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]
@@ -51,26 +51,26 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAN540FIC/42QywoCMQxFf6VkbZm9O0H8AXUlIqWNEumLPpyBYf7dtCKIblyF3JN703SGK6E1
-        GdZihmiVv2Rbb9zBnuuuMVgJwClSUoWCb2irCh7I4QsvzKNKGVvICVSMlnSfHe6ZDYw/tUmO4yiv
-        ITlZk0Wvg8G+w1VbiIPK0KFRRf14nYUzawm9wfTnPvZ8SW1MxqYWnMrAZ5PvuV457LdjepBGsdE6
-        VF/EMfJrsBkMZp0ovn8ClidyOwwsQQEAAA==
+        H4sIANCkJVQC/42QzQoCMQyEX2Xp2bJ3b4L4AupJREKblUj/6I+7suy7m1YE0Yun0vkykzCzGAiN
+        TmLdzSIYcJdkypV/Ys/vrjKx6gROgSJk8q6iLWQ8kMUXXpgHiAlryElACIZUm+1viQ2MP7VJjuMo
+        Bx+tLNGgU15j22GLycRBuW9QQ4YfrzXf0gNYO7MY0WmMf97wm1PHZKhqxin3XAW5luvAYusD450U
+        dhulfHG5Owa+EKtBY1KRwrsdsTwBU/qYsVUBAAA=
     headers:
       allow: ['GET, PUT, HEAD, OPTIONS']
       connection: [keep-alive]
       content-encoding: [gzip]
-      content-length: ['196']
+      content-length: ['200']
       content-type: [application/json]
-      date: ['Fri, 10 Jan 2014 22:49:02 GMT']
+      date: ['Fri, 26 Sep 2014 17:39:28 GMT']
       p3p: [CP="NON DSP COR CURa TIA"]
-      server: [nginx/1.4.4]
-      vary: ['Authenticate, Accept, Accept-Encoding']
+      server: [nginx/1.6.2]
+      vary: ['Authenticate, Accept, Cookie, Accept-Encoding']
     status: {code: 200, message: OK}
 - request:
-    body: '{"plan_slug": "unittest-updated", "expiration": "1903-01-01"}'
+    body: '{"expiration": "1903-01-01", "plan_slug": "unittest-updated"}'
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]

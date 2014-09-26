@@ -1,42 +1,9 @@
 interactions:
 - request:
-    body: '{"roles": ["owner"]}'
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
-      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
-      Cache-Control: [no-cache]
-      Connection: [keep-alive]
-      Content-Length: ['20']
-      Content-Type: [application/json]
-      User-Agent: [api_toolkit]
-    method: PUT
-    uri: https://sandbox.app.passaporteweb.com.br:443/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/bedcd531-c741-4d32-90d7-a7f7432f3f15/
-  response:
-    body:
-      string: !!binary |
-        H4sIACRWy1EC/12PzQrCMBCEX6XkbMU2LUVPgiefQSSkyQYW8lOS1FpK392kUBSPOzP7ze5CvNMQ
-        yKV4EDdZ8OR5KAhKsBHjnOSFKPQhMssNpJHcdyvFNP8xbhqTk+UAVrKB+5hwzMKU6dGPkKxxRJnD
-        PUghW1qVomuqspG0Ls8n2ZW8U11Da0VV1WYUBsZFxBd8ERvdzMoDCGfMXwEYjjo37C8wsd3F6qvE
-        MLjAew1oe/c+pm2yrh9nfJpaAQEAAA==
-    headers:
-      allow: ['GET, PUT, DELETE, HEAD, OPTIONS']
-      cache-control: [no-cache]
-      Connection: [keep-alive]
-      content-encoding: [gzip]
-      content-length: ['193']
-      content-type: [application/json]
-      date: ['Wed, 26 Jun 2013 20:59:16 GMT']
-      expires: ['Wed, 26 Jun 2013 20:59:15 GMT']
-      p3p: [CP="NON DSP COR CURa TIA"]
-      server: [nginx/0.7.67]
-      vary: ['Authenticate, Accept, Accept-Encoding']
-    status: {code: 200, message: OK}
-- request:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]
@@ -64,7 +31,7 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]
@@ -88,6 +55,39 @@ interactions:
       date: ['Tue, 14 Jan 2014 19:24:48 GMT']
       p3p: [CP="NON DSP COR CURa TIA"]
       server: [nginx/1.4.4]
+      vary: ['Authenticate, Accept, Accept-Encoding']
+    status: {code: 200, message: OK}
+- request:
+    body: '{"roles": ["owner"]}'
+    headers:
+      Accept: [application/json]
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
+      Cache-Control: [no-cache]
+      Connection: [keep-alive]
+      Content-Length: ['20']
+      Content-Type: [application/json]
+      User-Agent: [api_toolkit]
+    method: PUT
+    uri: https://sandbox.app.passaporteweb.com.br:443/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/bedcd531-c741-4d32-90d7-a7f7432f3f15/
+  response:
+    body:
+      string: !!binary |
+        H4sIACRWy1EC/12PzQrCMBCEX6XkbMU2LUVPgiefQSSkyQYW8lOS1FpK392kUBSPOzP7ze5CvNMQ
+        yKV4EDdZ8OR5KAhKsBHjnOSFKPQhMssNpJHcdyvFNP8xbhqTk+UAVrKB+5hwzMKU6dGPkKxxRJnD
+        PUghW1qVomuqspG0Ls8n2ZW8U11Da0VV1WYUBsZFxBd8ERvdzMoDCGfMXwEYjjo37C8wsd3F6qvE
+        MLjAew1oe/c+pm2yrh9nfJpaAQEAAA==
+    headers:
+      Connection: [keep-alive]
+      allow: ['GET, PUT, DELETE, HEAD, OPTIONS']
+      cache-control: [no-cache]
+      content-encoding: [gzip]
+      content-length: ['193']
+      content-type: [application/json]
+      date: ['Wed, 26 Jun 2013 20:59:16 GMT']
+      expires: ['Wed, 26 Jun 2013 20:59:15 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/0.7.67]
       vary: ['Authenticate, Accept, Accept-Encoding']
     status: {code: 200, message: OK}
 version: 1

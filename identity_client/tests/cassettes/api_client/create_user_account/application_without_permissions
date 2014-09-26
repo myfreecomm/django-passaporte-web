@@ -67,7 +67,7 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]
@@ -79,34 +79,35 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAHhq0FIC/72WzW7bMBCEX0XQubQk6z+nFkUPvfTUWxEIS3IZE6BJgaTipEbevaRsF66TGnbQ
-        +mZoreFovtWutqmQ1vlBwxrTuyT9ylF76Z/TD0mq4KjwWclQiZcdaj6MYL1GO2jcuFD2dsJQmibJ
-        459Z2TZ9XywJBehJBTkjfVc3pOxraPOGtbxuo5R0AzAvH/FIYuTgcZBamGGyKqqtvB/vssyB5tQ8
-        LWAcFyM4B6OxHjdIF8ysF9RmwJiZtHcZjDKTuweR6LJL3GTRjjZeCsnAS6PjU23TWTD8WuYxD+n8
-        NX7+kJtNpS9B5mAzSP3YpqMCPTg1PURlh0qhna3sY/8StNZoGSafdrfFojUK59tTswkQ0vuY23VZ
-        GfsAWv488vY7vVoUtWhpTaAVTYirrElXtyXJOdQlL/MSi26OC59GaWeFcLKelDqN8FqArwN7jymP
-        VoMa5k7cuzr05SUqkdEJFjY5b9Z/AwNvgZncP+dSdYBClBVZ5iy0cV72hPK+Jbwr6nyZY0er6uZc
-        rjB1hsslKm9wmbT0Hp0/5vLNHIAkG+lXiV9Jl8Rigk/h/XX///3hFfA8bzgRTcFDk3FBaIMN6aqe
-        89B/tCr6m3O6wtQZTpeonOFEdsOdH/P6Hq7fbrZBxXrKMDQadIxU9VIQwCIMAMhp03PBKwo3Z3OF
-        qTNsLlFJX+4PC3z9LCxiHGInOzwMrkfJcLf/9lv0eWC79f/ebbwXJXGtX7aPT07erU5cg5xTP6l+
-        5NKNxgFVKHV0FTzEwEZrhFR40w+J/ZnB8C9KvKCpXAkAAA==
+        H4sIALeLJFQC/71VPW/bMBD9K4Jm05KsLytTi6JDl07dioA4kSebAEUSJBXHCfLfS8p26rpAYGfw
+        Ikg88t2796i719QI5ieL6UOSbr037iHLLLolk3riQoHdL5keMwPOgdHWI9lhn4kRNphNRmrgGaN+
+        O439glOOA0zSU3gCD3axpcVqvdjFZ/ZvaGnUJl0k6SCs81TBOOf/wVF54fcxIuEs8E2KEInLDhWn
+        BqxXaKnCnQthbycMoWkSPG5mZdt0XbEiPUBHKsgZ6dZ1Q8quhjZvWMvr9pBBbaZQRjwTv4WjwLx4
+        wjNIw8EjFWrQdLLyXCMHivf6eQnGLP+KE7SJci17mwFjelLeZWBEJg6VCXTZNfSyyEdpLwbBwAut
+        Ypmv6QwY3qrIXjh/E59/4GZS6VvAOdEMWL9fUxNEoU5OmwjtUEq0M5WjD98D1oiWYfL1cCwGrZY4
+        H0/1LriSPkbhbhRL2w0o8XJG7l2+eijqoe1rAu3QBL3KmqzrtiQ5h7rkZV5isZ71wmcj7IwQUqtJ
+        yksNb7bwf8k+w8qjVSDpfDmPtE5X9RqU6NKFMZMS3qPz59b81MmRXLITfpv4rXBJDCb4HK6Ku4NT
+        vAKe5w0nQ1PwUA0fSN9gQ9ZVx3kotK+K7v5O3cDqA6euQfnAKXLoJPzcsV9h/Y7/EVSs6xlWZAVr
+        Rqp6NRDAItw1yPum4wOveri/Ozew+sCda1DSt8fT/Bj3g0WMvexihDi0T4Lhodsee/aessP0+XTz
+        P6KSOEaua/8XqQ+d2osRX7R6n1c4gph9uNj9hQtntINeolCRZeAU9xurByHxvoPsmHS2MHCnsQga
+        0+y05felEtKTmJ6c0gdZ/wAhTgDq/wgAAA==
     headers:
       allow: ['GET, PUT, HEAD, OPTIONS']
       connection: [keep-alive]
       content-encoding: [gzip]
-      content-length: ['604']
+      content-length: ['652']
       content-type: [application/json]
-      date: ['Fri, 10 Jan 2014 21:47:36 GMT']
+      date: ['Thu, 25 Sep 2014 21:40:07 GMT']
       p3p: [CP="NON DSP COR CURa TIA"]
-      server: [nginx/1.4.4]
-      vary: ['Authenticate, Accept, Accept-Encoding']
+      server: [nginx/1.6.2]
+      vary: ['Authenticate, Accept, Cookie, Accept-Encoding']
     status: {code: 200, message: OK}
 - request:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
-      Authorization: [!!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]
       Content-Length: ['0']
@@ -117,91 +118,34 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAHlq0FIC/42QTYsCMQyG/4rkvMPcPa4geBOvIkNoM2ylTUuaYRTxv28zy4K7InhLnvejoTcY
-        A0VfYb26tVGqDoyJ2gqbL5StifCxgoivlErsh4KiTDIwzVYFnzlHQv5rStdRiFxO6aXPlXHBh81+
-        +wPvjbb2SuY/ApYSg0MNmftzzWyhR3bp5nnuxiypmyQSu+xpaU5T1GBn9ovoUfEpmyKcGpN2LMmb
-        77XMP2S2rhhVumhfIgZeen+/b+eJNejVLJ6qk1AsaBLcvwFU8XAHkQEAAA==
+        H4sIALeLJFQC/42QTQvCMAyG/4r07Njdo4LgTbyKjNBmWGnTkkbmEP+7zUTwA8Fb8rwfpL2a3mNw
+        xSxm1zpykY4gYl3N6gi8VtHMZybAL6UguS4DCyF3hINWmWVKAYHeTXHsGdGmGH/6bO4nvFtt1w94
+        q7S2F1T/3kDOwVsQn6g9lUQaemWXZhiGpk8cmzMHJJscTs3xHMTrme0kOhD4ysbwiUao7FAh1wcg
+        /3nDd4/amqxU8CJtDuBp6n1+6cYhiZdRLQ6LZZ81qJK53QGnyxkIpQEAAA==
     headers:
       allow: ['GET, PUT, HEAD, OPTIONS']
       connection: [keep-alive]
       content-encoding: [gzip]
       content-length: ['214']
       content-type: [application/json]
-      date: ['Fri, 10 Jan 2014 21:47:37 GMT']
+      date: ['Thu, 25 Sep 2014 21:40:07 GMT']
       p3p: [CP="NON DSP COR CURa TIA"]
-      server: [nginx/1.4.4]
-      vary: ['Authenticate, Accept, Accept-Encoding']
+      server: [nginx/1.6.2]
+      vary: ['Authenticate, Accept, Cookie, Accept-Encoding']
     status: {code: 200, message: OK}
 - request:
-    body: '{"plan_slug": "unittest", "expiration": null, "name": "Test Account"}'
+    body: '{"expiration": null, "name": "Test Account", "plan_slug": "unittest"}'
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
-      Authorization: [!!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]
-      Content-Length: [!!python/unicode '69']
+      Content-Length: ['69']
       Content-Type: [application/json]
       User-Agent: [api_toolkit]
     method: POST
     uri: https://sandbox.app.passaporteweb.com.br:443/organizations/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/accounts/
-  response:
-    body: {string: !!python/unicode '{"detail": "You do not have permission to access
-        this resource. You may need to login or otherwise authenticate the request."}'}
-    headers:
-      allow: ['GET, POST, HEAD, OPTIONS']
-      connection: [keep-alive]
-      content-length: ['126']
-      content-type: [application/json]
-      date: ['Mon, 24 Jun 2013 19:52:19 GMT']
-      p3p: [CP="NON DSP COR CURa TIA"]
-      server: [nginx/0.7.67]
-      vary: ['Authenticate, Accept']
-    status: {code: 403, message: FORBIDDEN}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
-      Authorization: [!!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
-      Cache-Control: [no-cache]
-      Connection: [keep-alive]
-      Content-Length: ['0']
-      Content-Type: [application/json]
-      User-Agent: [api_toolkit]
-    method: OPTIONS
-    uri: http://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/
-  response:
-    body:
-      string: !!binary |
-        H4sIAHlq0FIC/42QTYsCMQyG/4rkvMPcPa4geBOvIkNoM2ylTUuaYRTxv28zy4K7InhLnvejoTcY
-        A0VfYb26tVGqDoyJ2gqbL5StifCxgoivlErsh4KiTDIwzVYFnzlHQv5rStdRiFxO6aXPlXHBh81+
-        +wPvjbb2SuY/ApYSg0MNmftzzWyhR3bp5nnuxiypmyQSu+xpaU5T1GBn9ovoUfEpmyKcGpN2LMmb
-        77XMP2S2rhhVumhfIgZeen+/b+eJNejVLJ6qk1AsaBLcvwFU8XAHkQEAAA==
-    headers:
-      allow: ['GET, PUT, HEAD, OPTIONS']
-      connection: [keep-alive]
-      content-encoding: [gzip]
-      content-length: ['214']
-      content-type: [application/json]
-      date: ['Fri, 10 Jan 2014 21:47:37 GMT']
-      p3p: [CP="NON DSP COR CURa TIA"]
-      server: [nginx/1.4.4]
-      vary: ['Authenticate, Accept, Accept-Encoding']
-    status: {code: 200, message: OK}
-- request:
-    body: '{"plan_slug": "unittest", "expiration": null, "name": "Test Account"}'
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
-      Authorization: [!!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
-      Cache-Control: [no-cache]
-      Connection: [keep-alive]
-      Content-Length: [!!python/unicode '69']
-      Content-Type: [application/json]
-      User-Agent: [api_toolkit]
-    method: POST
-    uri: http://sandbox.app.passaporteweb.com.br/organizations/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/accounts/
   response:
     body: {string: !!python/unicode '{"detail": "You do not have permission to access
         this resource. You may need to login or otherwise authenticate the request."}'}

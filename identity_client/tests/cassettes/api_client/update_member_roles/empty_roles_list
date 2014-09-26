@@ -3,7 +3,7 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]
@@ -31,7 +31,7 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]
@@ -61,7 +61,7 @@ interactions:
     body: '{"roles": []}'
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]
@@ -78,9 +78,9 @@ interactions:
         heyaioq+rWgrm5qejrKnvFd929SqUVVXojAwLiI+4RuxpptJeQDhjPkrAMNRl4btBSbWu1h9kRhG
         F/igAe3g3oe8TZblA71mEMoAAQAA
     headers:
+      Connection: [keep-alive]
       allow: ['GET, PUT, DELETE, HEAD, OPTIONS']
       cache-control: [no-cache]
-      Connection: [keep-alive]
       connection: [keep-alive]
       content-encoding: [gzip]
       content-length: ['192']
@@ -90,33 +90,5 @@ interactions:
       p3p: [CP="NON DSP COR CURa TIA"]
       server: [nginx/0.7.67]
       vary: ['Authenticate, Accept, Accept-Encoding']
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
-      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
-      Cache-Control: [no-cache]
-      Connection: [keep-alive]
-      Content-Length: ['0']
-      Content-Type: [application/json]
-      User-Agent: [api_toolkit]
-    method: GET
-    uri: https://sandbox.app.passaporteweb.com.br:443/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/bedcd531-c741-4d32-90d7-a7f7432f3f15/
-  response:
-    body: {string: !!python/unicode '{"roles": ["user"], "identity": {"first_name":
-        "Vitor", "last_name": "M. A. da Cruz", "send_partner_news": false, "uuid":
-        "bedcd531-c741-4d32-90d7-a7f7432f3f15", "is_active": true, "send_myfreecomm_news":
-        false, "email": "vitormazzi@gmail.com"}}'}
-    headers:
-      allow: ['GET, PUT, DELETE, HEAD, OPTIONS']
-      connection: [keep-alive]
-      content-length: ['245']
-      content-type: [application/json]
-      date: ['Tue, 14 Jan 2014 18:45:10 GMT']
-      p3p: [CP="NON DSP COR CURa TIA"]
-      server: [nginx/1.4.4]
-      vary: ['Authenticate, Accept']
     status: {code: 200, message: OK}
 version: 1

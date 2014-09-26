@@ -1,9 +1,9 @@
 interactions:
 - request:
-    body: '{"roles": ["user"], "identity": "00000000-0000-0000-0000-000000000000"}'
+    body: '{"identity": "00000000-0000-0000-0000-000000000000", "roles": ["user"]}'
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]
@@ -20,9 +20,9 @@ interactions:
       connection: [keep-alive]
       content-length: ['72']
       content-type: [application/json]
-      date: ['Wed, 26 Jun 2013 19:34:49 GMT']
+      date: ['Thu, 25 Sep 2014 21:40:01 GMT']
       p3p: [CP="NON DSP COR CURa TIA"]
-      server: [nginx/0.7.67]
-      vary: ['Authenticate, Accept']
+      server: [nginx/1.6.2]
+      vary: ['Authenticate, Accept, Cookie']
     status: {code: 404, message: NOT FOUND}
 version: 1

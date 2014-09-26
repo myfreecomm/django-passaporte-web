@@ -67,7 +67,7 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]
@@ -109,50 +109,8 @@ interactions:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
+      Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
-      Cache-Control: [no-cache]
-      Connection: [keep-alive]
-      Content-Length: ['0']
-      Content-Type: [application/json]
-      User-Agent: [api_toolkit]
-    method: GET
-    uri: https://sandbox.app.passaporteweb.com.br:443/accounts/api/identities/?include_expired_accounts=True&email=identity_client%40disposableinbox.com
-  response:
-    body:
-      string: !!binary |
-        H4sIAM00z1IC/72XTW/jNhCG/4qgcxmTJvWVU3eLouih7aW3YiEMyeGGWFkSSGqTNNj/XlJ2Fl4n
-        NaRFVrAPhsZ69WoecobzlBvrfGh7OGB+m+W/a+yDDY/5T1newVngl87GSLrssdftCC706Noe730M
-        BzdhDE2T1enPildl07A9kQANEUAVaeqiJLwpoKKlqnRRJSnrW1DBfsYziVFDwNb2Zmgn1yW1uxDG
-        293OQ6/l8HAD43gzgvcwDi7gPcobNRxupNuBUsPUB7+D0e7s8UUs+t0SN7tkpx+CNVZBsEOf3uop
-        nwXjL9akfFgf1vj5Rm42lX+JMs82o9Q/T/nYQd/6bvqYlD12HbrZyintv0atAzqF2bvjbSnohg7n
-        2/PhPkLIP6S8rcvV4D5Cb/898/Y1e4VhhalkQaAyZUwXL0hdVJxQDQXXnHJk9ZwufBitmxXik/up
-        6y5TuBbgy4R9j6mAroeunVfiydXzulyikhhdYFGTD8Ph/8DAa2Am/+ZcRA1oDBdkT1VcxpQ3ROqm
-        IrpmBd1TrKUQm3NZYeoKlyUqr3CZehsC+nDO5Y/H7K9why57N47d1738DRvQB9u/MRwsQJZmbwgI
-        lERwJkmtYslpBGNG11BXe705nBWmrsBZorIQzp/D827J7m24y8Kd9VkKZvgQi6v/8cVNC9CUlpqY
-        kulYAbQhssSS1KLROhYHKVizOacVpq5wWqJyhRM5dl59zuvveH27xgNCNVJhrAJQKyKKtOSQxeoM
-        VJaNNlpI2JzNClNX2CxRWbiH3oP6lIUh7h3MzBQmhz+ejJDCqLi4iFKSE4GVJMCMIYIJzqum5CDZ
-        SzL5njJKaEEoyyi9nb8vjllv2YuWu7zWixaoLDwj/Oamccg0ZokhblDdyqoGaUpOUDKMpZpr0hga
-        K4IoYwcFWQn2ShdKnOJS5FtxWuHyCqclKgs5ncrcNlWuonSvoAHCYlGOZ524P6RATmoGOn72UpWv
-        HK+3ZrTC5RVGS1TyLx+eh8rDo3GI6WB9MVfGw/Rnq/A4k50mu8dWHUfS750QT6IkjZrLZsSLJx/H
-        OTyAnbN+Ef1ZWz8OHmSHtk+uooeUsNENxna46XB7emY0/B+JM4f98A8AAA==
-    headers:
-      allow: ['GET, HEAD, OPTIONS']
-      connection: [keep-alive]
-      content-encoding: [gzip]
-      content-length: ['841']
-      content-type: [application/json]
-      date: ['Thu, 09 Jan 2014 23:46:21 GMT']
-      p3p: [CP="NON DSP COR CURa TIA"]
-      server: [nginx/1.4.4]
-      vary: ['Authenticate, Accept, Accept-Encoding']
-    status: {code: 200, message: OK}
-- request:
-    body: null
-    headers:
-      Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
-      Authorization: [!!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
       Cache-Control: [no-cache]
       Connection: [keep-alive]
       Content-Length: ['0']
@@ -163,27 +121,27 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAM00z1IC/42QTYsCMQyG/4rkvMPcPa4geBOvIkNoM2ylTUuaYRTxv28zy4K7InhLnvejoTcY
-        A0VfYb26tVGqDoyJ2gqbL5StifCxgoivlErsh4KiTDIwzVYFnzlHQv5rStdRiFxO6aXPlXHBh81+
-        +wPvjbb2SuY/ApYSg0MNmftzzWyhR3bp5nnuxiypmyQSu+xpaU5T1GBn9ovoUfEpmyKcGpN2LMmb
-        77XMP2S2rhhVumhfIgZeen+/b+eJNejVLJ6qk1AsaBLcvwFU8XAHkQEAAA==
+        H4sIAPSLJFQC/42QTQvCMAyG/4r07Njdo4LgTbyKjNBmWGnTkkbmEP+7zUTwA8Fb8rwfpL2a3mNw
+        xSxm1zpykY4gYl3N6gi8VtHMZybAL6UguS4DCyF3hINWmWVKAYHeTXHsGdGmGH/6bO4nvFtt1w94
+        q7S2F1T/3kDOwVsQn6g9lUQaemWXZhiGpk8cmzMHJJscTs3xHMTrme0kOhD4ysbwiUao7FAh1wcg
+        /3nDd4/amqxU8CJtDuBp6n1+6cYhiZdRLQ6LZZ81qJK53QGnyxkIpQEAAA==
     headers:
       allow: ['GET, PUT, HEAD, OPTIONS']
       connection: [keep-alive]
       content-encoding: [gzip]
       content-length: ['214']
       content-type: [application/json]
-      date: ['Thu, 09 Jan 2014 23:46:21 GMT']
+      date: ['Thu, 25 Sep 2014 21:41:08 GMT']
       p3p: [CP="NON DSP COR CURa TIA"]
-      server: [nginx/1.4.4]
-      vary: ['Authenticate, Accept, Accept-Encoding']
+      server: [nginx/1.6.2]
+      vary: ['Authenticate, Accept, Cookie, Accept-Encoding']
     status: {code: 200, message: OK}
 - request:
     body: null
     headers:
       Accept: [application/json]
-      Accept-Encoding: ['gzip, deflate, compress']
-      Authorization: [!!python/unicode 'Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==']
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
       Cache-Control: [no-cache]
       Connection: [keep-alive]
       Content-Length: ['0']
@@ -194,7 +152,7 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIACXAIVQC/42QTQvCMAyG/4r07Njdo4LgTbyKjNBmWGnTkkbmEP+7zUTwA8Fb8rwfpL2a3mNw
+        H4sIALakJVQC/42QTQvCMAyG/4r07Njdo4LgTbyKjNBmWGnTkkbmEP+7zUTwA8Fb8rwfpL2a3mNw
         xSxm1zpykY4gYl3N6gi8VtHMZybAL6UguS4DCyF3hINWmWVKAYHeTXHsGdGmGH/6bO4nvFtt1w94
         q7S2F1T/3kDOwVsQn6g9lUQaemWXZhiGpk8cmzMHJJscTs3xHMTrme0kOhD4ysbwiUao7FAh1wcg
         /3nDd4/amqxU8CJtDuBp6n1+6cYhiZdRLQ6LZZ81qJK53QGnyxkIpQEAAA==
@@ -204,7 +162,7 @@ interactions:
       content-encoding: [gzip]
       content-length: ['214']
       content-type: [application/json]
-      date: ['Tue, 23 Sep 2014 18:47:01 GMT']
+      date: ['Fri, 26 Sep 2014 17:39:02 GMT']
       p3p: [CP="NON DSP COR CURa TIA"]
       server: [nginx/1.6.2]
       vary: ['Authenticate, Accept, Cookie, Accept-Encoding']
