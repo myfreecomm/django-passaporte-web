@@ -107,5 +107,13 @@ def runtests(options=None, labels=None):
     sys.exit(runner.run_tests(labels))
 
 if __name__ == '__main__':
+    import logging
+    logging.basicConfig(
+        level = logging.INFO,
+        format = "%(asctime)s - %(levelname)s - %(message)s",
+        filename = '/dev/null',
+        filemode = 'a',
+    )
+
     options, labels = parse_args()
     runtests(options, labels)
