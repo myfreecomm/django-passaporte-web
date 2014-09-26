@@ -123,7 +123,7 @@ def handle_api_exceptions(method):
             status_code = e.response.status_code
             error = {
                 'status': e.response.status_code,
-                'message': e.response.text if e.response.text else e.message,
+                'message': e.response.text if e.response.text else str(e),
             }
 
         except requests.exceptions.ConnectionError as e:
@@ -141,7 +141,7 @@ def handle_api_exceptions(method):
         except (requests.exceptions.RequestException, Exception) as e:
             error = {
                 'status': None,
-                'message': u'Unexpected error: {0} <{1}>'.format(e, type(e)),
+                'message': u'Unexpected error: {0}'.format(e),
             }
 
         if error:
@@ -177,7 +177,7 @@ def handle_api_exceptions_with_form(method):
 
             error = {
                 'status': e.response.status_code,
-                'message': e.response.text if e.response.text else e.message,
+                'message': e.response.text if e.response.text else str(e),
             }
 
         except requests.exceptions.ConnectionError as e:
@@ -204,7 +204,7 @@ def handle_api_exceptions_with_form(method):
             }
             error = {
                 'status': None,
-                'message': u'Unexpected error: {0} <{1}>'.format(e, type(e)),
+                'message': u'Unexpected error: {0}'.format(e),
             }
 
         if error_dict:

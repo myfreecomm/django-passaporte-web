@@ -3,5 +3,5 @@ from django.test import TransactionTestCase as TestCase
 
 __all__ = ['models', 'settings', 'TestCase']
 
-import models
-import settings
+from . import models
+from . import settings

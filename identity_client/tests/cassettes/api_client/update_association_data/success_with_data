@@ -1,7 +1,7 @@
 interactions:
 - request:
-    body: '{"timezone": "America/Sao_Paulo", "updated_by": "identity_client.UpdateAssociationData",
-      "updated_at": "2013-06-24 14:55:00"}'
+    body: '{"timezone": "America/Sao_Paulo", "updated_at": "2013-06-24 14:55:00",
+     "updated_by": "identity_client.UpdateAssociationData"}'
     headers:
       Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]

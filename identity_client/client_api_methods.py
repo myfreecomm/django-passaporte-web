@@ -11,7 +11,7 @@ from identity_client.decorators import handle_api_exceptions, handle_api_excepti
 
 __all__ = ['APIClient']
 
-# TODO: 
+# TODO:
 # - fetch_application_accounts
 # - perfil
 # - notificações
@@ -109,7 +109,7 @@ class APIClient(object):
 
         logging.info('update_association_data: Making request to %s', url)
 
-        association_data = json.dumps(new_data)
+        association_data = json.dumps(new_data, sort_keys=True)
         response = cls.pweb.put(
                 url,
                 headers={'content-length': str(len(association_data))},
@@ -199,7 +199,7 @@ class APIClient(object):
             url = "{0}{1}".format(cls.api_host, api_path)
 
         account_members = AccountMembers(url, token=cls.api_user, secret=cls.api_password)
-        
+
         logging.info(u'Adding user with uuid "{0}" to account members identified by url "{1}"'.format(user_uuid, url))
         member = account_members.create(identity=user_uuid, roles=roles)
 

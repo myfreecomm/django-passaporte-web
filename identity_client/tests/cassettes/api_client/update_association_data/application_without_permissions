@@ -1,7 +1,7 @@
 interactions:
 - request:
-    body: '{"timezone": "America/Sao_Paulo", "updated_by": "identity_client.UpdateAssociationData",
-      "updated_at": "2013-06-24 14:55:00"}'
+    body: '{"timezone": "America/Sao_Paulo", "updated_at": "2013-06-24 14:55:00",
+      "updated_by": "identity_client.UpdateAssociationData"}'
     headers:
       Accept-Encoding: ['gzip, deflate']
       Authorization: [Basic cXhSU05jSWRlQToxZjBBVkNaUEpiUm5kRjlGTlNHTU9XTWZIOUtNVURhWA==]
@@ -14,16 +14,16 @@ interactions:
     method: PUT
     uri: https://sandbox.app.passaporteweb.com.br:443/accounts/api/service-info/c3769912-baa9-4a0c-9856-395a706c7d57/ecommerce/
   response:
-    body: {string: !!python/unicode '{"detail": "You do not have permission to access
-        this resource. You may need to login or otherwise authenticate the request."}'}
+    body: {string: '{"detail": "You do not have permission to access this resource.
+        You may need to login or otherwise authenticate the request."}'}
     headers:
-      allow: ['GET, PUT, HEAD, OPTIONS']
-      connection: [keep-alive]
-      content-length: ['126']
-      content-type: [application/json]
-      date: ['Fri, 26 Sep 2014 17:39:42 GMT']
-      p3p: [CP="NON DSP COR CURa TIA"]
-      server: [nginx/1.6.2]
-      vary: ['Authenticate, Accept, Cookie']
+      Allow: ['GET, PUT, HEAD, OPTIONS']
+      Connection: [keep-alive]
+      Content-Length: ['126']
+      Content-Type: [application/json]
+      Date: ['Fri, 26 Sep 2014 21:38:13 GMT']
+      P3P: [CP="NON DSP COR CURa TIA"]
+      Server: [nginx/1.6.2]
+      Vary: ['Authenticate, Accept, Cookie']
     status: {code: 403, message: FORBIDDEN}
 version: 1

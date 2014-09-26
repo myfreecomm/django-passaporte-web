@@ -6,10 +6,10 @@ except ImportError:
 
 from django.contrib.auth import views as auth_views
 
-from shortcuts import route
-from views import login, show_login
-from views import new_identity, register
-from forms import IdentityAuthenticationForm, RegistrationForm
+from .shortcuts import route
+from .views import login, show_login
+from .views import new_identity, register
+from .forms import IdentityAuthenticationForm, RegistrationForm
 
 urlpatterns = patterns('identity_client.views',
     route(r'^registration/',

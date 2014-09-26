@@ -52,9 +52,9 @@ class InvokeRegistrationApi(TestCase):
         response = APIClient.invoke_registration_api(form)
         status_code, content, new_form = response
 
-        self.assertEquals(status_code, 500)
-        self.assertEquals(content, None)
-        self.assertEquals(form.errors, {
+        self.assertEqual(status_code, 500)
+        self.assertEqual(content, None)
+        self.assertEqual(form.errors, {
             '__all__': [u'Ocorreu uma falha na comunicação com o Passaporte Web. Por favor tente novamente.']
         })
 
@@ -71,9 +71,9 @@ class InvokeRegistrationApi(TestCase):
         APIClient.api_user = settings.PASSAPORTE_WEB['CONSUMER_TOKEN']
         APIClient.api_password = settings.PASSAPORTE_WEB['CONSUMER_SECRET']
 
-        self.assertEquals(status_code, 401)
-        self.assertEquals(content, None)
-        self.assertEquals(form.errors, {
+        self.assertEqual(status_code, 401)
+        self.assertEqual(content, None)
+        self.assertEqual(form.errors, {
             '__all__': [u'Esta aplicação não está autorizada a utilizar o PassaporteWeb. Entre em contato com o suporte.']
         })
 
@@ -85,9 +85,9 @@ class InvokeRegistrationApi(TestCase):
             response = APIClient.invoke_registration_api(form)
             status_code, content, new_form = response
 
-        self.assertEquals(status_code, 403)
-        self.assertEquals(content, None)
-        self.assertEquals(form.errors, {
+        self.assertEqual(status_code, 403)
+        self.assertEqual(content, None)
+        self.assertEqual(form.errors, {
             '__all__': [u'Erro no servidor. Entre em contato com o suporte.']
         })
 
@@ -100,9 +100,9 @@ class InvokeRegistrationApi(TestCase):
             response = APIClient.invoke_registration_api(form)
             status_code, content, new_form = response
 
-        self.assertEquals(status_code, 400)
-        self.assertEquals(content, None)
-        self.assertEquals(form.errors, {
+        self.assertEqual(status_code, 400)
+        self.assertEqual(content, None)
+        self.assertEqual(form.errors, {
             u'tos': [u'Você precisa concordar com os Termos de Serviço']
         })
 
@@ -115,9 +115,9 @@ class InvokeRegistrationApi(TestCase):
             response = APIClient.invoke_registration_api(form)
             status_code, content, new_form = response
 
-        self.assertEquals(status_code, 400)
-        self.assertEquals(content, None)
-        self.assertEquals(form.errors, {
+        self.assertEqual(status_code, 400)
+        self.assertEqual(content, None)
+        self.assertEqual(form.errors, {
             u'password2': [u'Este campo é obrigatório.']
         })
 
@@ -130,9 +130,9 @@ class InvokeRegistrationApi(TestCase):
             response = APIClient.invoke_registration_api(form)
             status_code, content, new_form = response
 
-        self.assertEquals(status_code, 400)
-        self.assertEquals(content, None)
-        self.assertEquals(form.errors, {
+        self.assertEqual(status_code, 400)
+        self.assertEqual(content, None)
+        self.assertEqual(form.errors, {
             u'__all__': [u"The two password fields didn't match."]
         })
 
@@ -144,8 +144,8 @@ class InvokeRegistrationApi(TestCase):
             response = APIClient.invoke_registration_api(form)
             status_code, content, new_form = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(content, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(content, {
             u'first_name': u'Myfc ID',
             u'last_name': u'Clients',
             u'send_partner_news': False,
@@ -160,7 +160,7 @@ class InvokeRegistrationApi(TestCase):
             u'email': u'identity_client@disposableinbox.com',
             u'profile_url': u'/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/profile/'
         })
-        self.assertEquals(form.errors, {})
+        self.assertEqual(form.errors, {})
 
     def test_email_already_registered(self):
         form = RegistrationForm(self.registration_data)
@@ -170,9 +170,9 @@ class InvokeRegistrationApi(TestCase):
             response = APIClient.invoke_registration_api(form)
             status_code, content, new_form = response
 
-        self.assertEquals(status_code, 409)
-        self.assertEquals(content, None)
-        self.assertEquals(form.errors, {
+        self.assertEqual(status_code, 409)
+        self.assertEqual(content, None)
+        self.assertEqual(form.errors, {
             u'field_errors': [u'email'],
             u'email': [u'Este email já está cadastrado. Por favor insira outro email']
         })
@@ -187,9 +187,9 @@ class InvokeRegistrationApi(TestCase):
             response = APIClient.invoke_registration_api(form)
             status_code, content, new_form = response
 
-        self.assertEquals(status_code, 400)
-        self.assertEquals(content, None)
-        self.assertEquals(form.errors, {
+        self.assertEqual(status_code, 400)
+        self.assertEqual(content, None)
+        self.assertEqual(form.errors, {
             u'cpf': [u'Este número de CPF já está cadastrado.']
         })
 
@@ -203,9 +203,9 @@ class InvokeRegistrationApi(TestCase):
             response = APIClient.invoke_registration_api(form)
             status_code, content, new_form = response
 
-        self.assertEquals(status_code, 400)
-        self.assertEquals(content, None)
-        self.assertEquals(form.errors, {
+        self.assertEqual(status_code, 400)
+        self.assertEqual(content, None)
+        self.assertEqual(form.errors, {
             u'cpf': [u'Certifique-se de que o valor tenha no máximo 14 caracteres (ele possui 19).']
         })
 
@@ -219,9 +219,9 @@ class InvokeRegistrationApi(TestCase):
             response = APIClient.invoke_registration_api(form)
             status_code, content, new_form = response
 
-        self.assertEquals(status_code, 400)
-        self.assertEquals(content, None)
-        self.assertEquals(form.errors, {
+        self.assertEqual(status_code, 400)
+        self.assertEqual(content, None)
+        self.assertEqual(form.errors, {
             u'cpf': [u'Certifique-se de que o valor tenha no máximo 14 caracteres (ele possui 15).']
         })
 
@@ -233,9 +233,9 @@ class FetchIdentityData(TestCase):
         response = APIClient.fetch_identity_data(uuid=test_user_uuid)
         status_code, content, error = response
 
-        self.assertEquals(status_code, 500)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
+        self.assertEqual(status_code, 500)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
 
     def test_request_with_wrong_credentials(self):
         APIClient.api_user = '?????'
@@ -248,9 +248,9 @@ class FetchIdentityData(TestCase):
         APIClient.api_user = settings.PASSAPORTE_WEB['CONSUMER_TOKEN']
         APIClient.api_password = settings.PASSAPORTE_WEB['CONSUMER_SECRET']
 
-        self.assertEquals(status_code, 401)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 401)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'status': 401, 'message': u'{"detail": "You need to login or otherwise authenticate the request."}'
         })
 
@@ -260,9 +260,9 @@ class FetchIdentityData(TestCase):
             response = APIClient.fetch_identity_data(uuid=test_user_uuid)
             status_code, content, error = response
 
-        self.assertEquals(status_code, 403)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {'status': 403, 'message': '403 Client Error: FORBIDDEN'})
+        self.assertEqual(status_code, 403)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {'status': 403, 'message': '403 Client Error: FORBIDDEN'})
 
     def test_request_with_uuid_which_does_not_exist(self):
 
@@ -270,9 +270,9 @@ class FetchIdentityData(TestCase):
             response = APIClient.fetch_identity_data(uuid='00000000-0000-0000-0000-000000000000')
             status_code, content, error = response
 
-        self.assertEquals(status_code, 404)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 404)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'message': u'"Identity with uuid=00000000-0000-0000-0000-000000000000 does not exist"',
             'status': 404
         })
@@ -283,8 +283,8 @@ class FetchIdentityData(TestCase):
             response = APIClient.fetch_identity_data(uuid=test_user_uuid)
             status_code, content, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(content, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(content, {
             u'accounts': [{
                 u'expiration': None,
                 u'external_id': None,
@@ -352,7 +352,7 @@ class FetchIdentityData(TestCase):
             u'update_info_url': u'http://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/',
             u'uuid': u'c3769912-baa9-4a0c-9856-395a706c7d57'
         })
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
     def test_success_request_with_accounts(self):
 
@@ -360,8 +360,8 @@ class FetchIdentityData(TestCase):
             response = APIClient.fetch_identity_data(uuid=test_user_uuid)
             status_code, content, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(content, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(content, {
             u'accounts': [{
                 u'expiration': None,
                 u'external_id': None,
@@ -429,7 +429,7 @@ class FetchIdentityData(TestCase):
             u'update_info_url': u'http://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/',
             u'uuid': u'c3769912-baa9-4a0c-9856-395a706c7d57'
         })
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
     def test_request_with_expired_accounts(self):
 
@@ -437,8 +437,8 @@ class FetchIdentityData(TestCase):
             response = APIClient.fetch_identity_data(uuid=test_user_uuid, include_expired_accounts=True)
             status_code, content, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(content, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(content, {
             u'accounts': [{
                 u'expiration': None,
                 u'external_id': None,
@@ -533,7 +533,7 @@ class FetchIdentityData(TestCase):
             u'update_info_url': u'http://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/',
             u'uuid': u'c3769912-baa9-4a0c-9856-395a706c7d57'
         })
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
     def test_request_with_accounts_from_other_services(self):
 
@@ -541,8 +541,8 @@ class FetchIdentityData(TestCase):
             response = APIClient.fetch_identity_data(uuid=test_user_uuid, include_other_services=True)
             status_code, content, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(content, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(content, {
             u'accounts': [{
                 u'name': u'Minhas aplica\xe7\xf5es',
                 u'uuid': u'1bcde52d-7da8-4800-bd59-dfea96933ce4'
@@ -609,7 +609,7 @@ class FetchIdentityData(TestCase):
             u'update_info_url': u'http://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/',
             u'uuid': u'c3769912-baa9-4a0c-9856-395a706c7d57'
         })
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
     def test_request_with_expired_accounts_from_other_services(self):
 
@@ -617,8 +617,8 @@ class FetchIdentityData(TestCase):
             response = APIClient.fetch_identity_data(uuid=test_user_uuid, include_other_services=1, include_expired_accounts=1)
             status_code, content, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(content, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(content, {
             u'accounts': [{
                 u'name': u'Minhas aplica\xe7\xf5es',
                 u'uuid': u'1bcde52d-7da8-4800-bd59-dfea96933ce4'
@@ -716,7 +716,7 @@ class FetchIdentityData(TestCase):
             u'update_info_url': u'http://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/',
             u'uuid': u'c3769912-baa9-4a0c-9856-395a706c7d57'
         })
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
 
 class FetchIdentityDataWithEmail(TestCase):
@@ -726,9 +726,9 @@ class FetchIdentityDataWithEmail(TestCase):
         response = APIClient.fetch_identity_data(email=test_user_email)
         status_code, content, error = response
 
-        self.assertEquals(status_code, 500)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
+        self.assertEqual(status_code, 500)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
 
     def test_request_with_wrong_credentials(self):
         APIClient.api_user = '?????'
@@ -741,9 +741,9 @@ class FetchIdentityDataWithEmail(TestCase):
         APIClient.api_user = settings.PASSAPORTE_WEB['CONSUMER_TOKEN']
         APIClient.api_password = settings.PASSAPORTE_WEB['CONSUMER_SECRET']
 
-        self.assertEquals(status_code, 401)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 401)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'message': u'{"detail": "You need to login or otherwise authenticate the request."}',
             'status': 401
         })
@@ -754,9 +754,9 @@ class FetchIdentityDataWithEmail(TestCase):
             response = APIClient.fetch_identity_data(email=test_user_email)
             status_code, content, error = response
 
-        self.assertEquals(status_code, 403)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {'status': 403, 'message': '403 Client Error: FORBIDDEN'})
+        self.assertEqual(status_code, 403)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {'status': 403, 'message': '403 Client Error: FORBIDDEN'})
 
     def test_request_with_email_which_does_not_exist(self):
 
@@ -764,9 +764,9 @@ class FetchIdentityDataWithEmail(TestCase):
             response = APIClient.fetch_identity_data(email='nao_registrado@email.test')
             status_code, content, error = response
 
-        self.assertEquals(status_code, 404)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 404)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'message': u'"Identity with email=nao_registrado@email.test does not exist"',
             'status': 404
         })
@@ -776,7 +776,7 @@ class FetchIdentityDataWithEmail(TestCase):
             response = APIClient.fetch_identity_data(email=test_user_email)
             status_code, content, error = response
 
-        self.assertEquals(status_code, 200)
+        self.assertEqual(status_code, 200)
         expected = {
             u'accounts': [{
                 u'expiration': None,
@@ -829,8 +829,8 @@ class FetchIdentityDataWithEmail(TestCase):
             u'update_info_url': u'https://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/',
             u'uuid': u'c3769912-baa9-4a0c-9856-395a706c7d57'
         }
-        self.assertEquals(content, expected)
-        self.assertEquals(error, None)
+        self.assertEqual(content, expected)
+        self.assertEqual(error, None)
 
     def test_request_with_expired_accounts(self):
 
@@ -838,8 +838,8 @@ class FetchIdentityDataWithEmail(TestCase):
             response = APIClient.fetch_identity_data(email=test_user_email, include_expired_accounts=True)
             status_code, content, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(content, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(content, {
             u'accounts': [{
                 u'expiration': None,
                 u'external_id': None,
@@ -934,7 +934,7 @@ class FetchIdentityDataWithEmail(TestCase):
             u'update_info_url': u'http://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/',
             u'uuid': u'c3769912-baa9-4a0c-9856-395a706c7d57'
         })
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
     def test_request_with_accounts_from_other_services(self):
 
@@ -942,8 +942,8 @@ class FetchIdentityDataWithEmail(TestCase):
             response = APIClient.fetch_identity_data(email=test_user_email, include_other_services=True)
             status_code, content, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(content, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(content, {
             u'accounts': [{
                 u'name': u'Minhas aplica\xe7\xf5es',
                 u'uuid': u'1bcde52d-7da8-4800-bd59-dfea96933ce4'
@@ -1010,7 +1010,7 @@ class FetchIdentityDataWithEmail(TestCase):
             u'update_info_url': u'http://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/',
             u'uuid': u'c3769912-baa9-4a0c-9856-395a706c7d57'
         })
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
     def test_request_with_expired_accounts_from_other_services(self):
 
@@ -1018,8 +1018,8 @@ class FetchIdentityDataWithEmail(TestCase):
             response = APIClient.fetch_identity_data(email=test_user_email, include_other_services=1, include_expired_accounts=1)
             status_code, content, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(content, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(content, {
             u'accounts': [{
                 u'name': u'Minhas aplica\xe7\xf5es',
                 u'uuid': u'1bcde52d-7da8-4800-bd59-dfea96933ce4'
@@ -1117,7 +1117,7 @@ class FetchIdentityDataWithEmail(TestCase):
             u'update_info_url': u'http://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/',
             u'uuid': u'c3769912-baa9-4a0c-9856-395a706c7d57'
         })
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
 
 class UpdateUserApi(TestCase):
@@ -1149,9 +1149,9 @@ class UpdateUserApi(TestCase):
             response = APIClient.update_user_api(form, user_url)
             status_code, content, new_form = response
 
-        self.assertEquals(status_code, 500)
-        self.assertEquals(content, None)
-        self.assertEquals(form.errors, {
+        self.assertEqual(status_code, 500)
+        self.assertEqual(content, None)
+        self.assertEqual(form.errors, {
             '__all__': [u'Ocorreu uma falha na comunicação com o Passaporte Web. Por favor tente novamente.']
         })
 
@@ -1167,9 +1167,9 @@ class UpdateUserApi(TestCase):
         APIClient.api_user = settings.PASSAPORTE_WEB['CONSUMER_TOKEN']
         APIClient.api_password = settings.PASSAPORTE_WEB['CONSUMER_SECRET']
 
-        self.assertEquals(status_code, 401)
-        self.assertEquals(content, None)
-        self.assertEquals(form.errors, {
+        self.assertEqual(status_code, 401)
+        self.assertEqual(content, None)
+        self.assertEqual(form.errors, {
             '__all__': [u'Esta aplicação não está autorizada a utilizar o PassaporteWeb. Entre em contato com o suporte.']
         })
 
@@ -1180,9 +1180,9 @@ class UpdateUserApi(TestCase):
             response = APIClient.update_user_api(form, self.user_data['update_info_url'])
             status_code, content, new_form = response
 
-        self.assertEquals(status_code, 403)
-        self.assertEquals(content, None)
-        self.assertEquals(form.errors, {
+        self.assertEqual(status_code, 403)
+        self.assertEqual(content, None)
+        self.assertEqual(form.errors, {
             '__all__': [u'Erro no servidor. Entre em contato com o suporte.']
         })
 
@@ -1195,9 +1195,9 @@ class UpdateUserApi(TestCase):
             response = APIClient.update_user_api(form, self.user_data['update_info_url'])
             status_code, content, new_form = response
 
-        self.assertEquals(status_code, 400)
-        self.assertEquals(content, None)
-        self.assertEquals(form.errors, {
+        self.assertEqual(status_code, 400)
+        self.assertEqual(content, None)
+        self.assertEqual(form.errors, {
             u'cpf': [u'Esse número de CPF já está cadastrado.']
         })
 
@@ -1212,9 +1212,9 @@ class UpdateUserApi(TestCase):
             response = APIClient.update_user_api(form, self.user_data['update_info_url'])
             status_code, content, new_form = response
 
-        self.assertEquals(status_code, 400)
-        self.assertEquals(content, None)
-        self.assertEquals(form.errors, {
+        self.assertEqual(status_code, 400)
+        self.assertEqual(content, None)
+        self.assertEqual(form.errors, {
             u'cpf': [u'Certifique-se de que o valor tenha no máximo 14 caracteres (ele possui 19).']
         })
 
@@ -1229,9 +1229,9 @@ class UpdateUserApi(TestCase):
             response = APIClient.update_user_api(form, self.user_data['update_info_url'])
             status_code, content, new_form = response
 
-        self.assertEquals(status_code, 400)
-        self.assertEquals(content, None)
-        self.assertEquals(form.errors, {
+        self.assertEqual(status_code, 400)
+        self.assertEqual(content, None)
+        self.assertEqual(form.errors, {
             u'cpf': [u'Certifique-se de que o valor tenha no máximo 14 caracteres (ele possui 15).']
         })
 
@@ -1243,8 +1243,8 @@ class UpdateUserApi(TestCase):
             response = APIClient.update_user_api(form, self.user_data['update_info_url'])
             status_code, content, new_form = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(content, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(content, {
             u'accounts': [],
             u'email': u'identity_client@disposableinbox.com',
             u'first_name': u'Identity',
@@ -1258,7 +1258,7 @@ class UpdateUserApi(TestCase):
             u'update_info_url': u'/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/',
             u'uuid': u'c3769912-baa9-4a0c-9856-395a706c7d57',
         })
-        self.assertEquals(form.errors, {})
+        self.assertEqual(form.errors, {})
 
     def test_success_request_with_cpf(self):
         form = IdentityInformationForm(self.updated_user_data)
@@ -1269,8 +1269,8 @@ class UpdateUserApi(TestCase):
             response = APIClient.update_user_api(form, self.user_data['update_info_url'])
             status_code, content, new_form = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(content, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(content, {
             u'accounts': [],
             u'email': u'identity_client@disposableinbox.com',
             u'first_name': u'Identity',
@@ -1285,7 +1285,7 @@ class UpdateUserApi(TestCase):
             u'uuid': u'c3769912-baa9-4a0c-9856-395a706c7d57',
             u'cpf': u'99999999999',
         })
-        self.assertEquals(form.errors, {})
+        self.assertEqual(form.errors, {})
 
 
 class FetchAssociationData(TestCase):
@@ -1305,9 +1305,9 @@ class FetchAssociationData(TestCase):
         response = APIClient.fetch_association_data(association_url)
         status_code, content, error = response
 
-        self.assertEquals(status_code, 500)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
+        self.assertEqual(status_code, 500)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
 
     def test_request_with_wrong_credentials(self):
         APIClient.pweb.auth = ('?????', 'XXXXXX')
@@ -1318,9 +1318,9 @@ class FetchAssociationData(TestCase):
 
         APIClient.pweb.auth = (settings.PASSAPORTE_WEB['CONSUMER_TOKEN'], settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
 
-        self.assertEquals(status_code, 401)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 401)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'status': 401,
             'message': u'{"detail": "You need to login or otherwise authenticate the request."}'
         })
@@ -1333,9 +1333,9 @@ class FetchAssociationData(TestCase):
             response = APIClient.fetch_association_data(association_url)
             status_code, content, error = response
 
-        self.assertEquals(status_code, 403)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 403)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'status': 403,
             'message': u'{"detail": "You do not have permission to access this resource. You may need to login or otherwise authenticate the request."}'
         })
@@ -1348,9 +1348,9 @@ class FetchAssociationData(TestCase):
             response = APIClient.fetch_association_data(association_url)
             status_code, content, error = response
 
-        self.assertEquals(status_code, 403)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 403)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'status': 403,
             'message': u'{"detail": "You do not have permission to access this resource. You may need to login or otherwise authenticate the request."}'
         })
@@ -1360,24 +1360,24 @@ class FetchAssociationData(TestCase):
             response = APIClient.fetch_association_data(self.user_data['services']['identity_client'])
             status_code, content, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(content, {u'is_active': True, u'slug': u'identity_client'})
-        self.assertEquals(error, None)
+        self.assertEqual(status_code, 200)
+        self.assertEqual(content, {u'is_active': True, u'slug': u'identity_client'})
+        self.assertEqual(error, None)
 
     def test_success_with_data(self):
         with identity_client.tests.use_cassette('fetch_association_data/success_with_data'):
             response = APIClient.fetch_association_data(self.user_data['services']['identity_client'])
             status_code, content, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(content, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(content, {
             u'timezone': u'America/Sao_Paulo',
             u'is_active': True,
             u'updated_at': u'2013-06-24 14:55:00',
             u'updated_by': u'identity_client.UpdateAssociationData',
             u'slug': u'identity_client'
         })
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
 
 class UpdateAssociationData(TestCase):
@@ -1403,9 +1403,9 @@ class UpdateAssociationData(TestCase):
         response = APIClient.update_association_data(self.association_data, association_url)
         status_code, content, error = response
 
-        self.assertEquals(status_code, 500)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
+        self.assertEqual(status_code, 500)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
 
     def test_request_with_wrong_credentials(self):
         APIClient.pweb.auth = ('?????', 'XXXXXX')
@@ -1416,9 +1416,9 @@ class UpdateAssociationData(TestCase):
 
         APIClient.pweb.auth = (settings.PASSAPORTE_WEB['CONSUMER_TOKEN'], settings.PASSAPORTE_WEB['CONSUMER_SECRET'])
 
-        self.assertEquals(status_code, 401)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 401)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'status': 401,
             'message': u'{"detail": "You need to login or otherwise authenticate the request."}'
         })
@@ -1431,9 +1431,9 @@ class UpdateAssociationData(TestCase):
             response = APIClient.update_association_data(self.association_data, association_url)
             status_code, content, error = response
 
-        self.assertEquals(status_code, 403)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 403)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'status': 403,
             'message': u'{"detail": "You do not have permission to access this resource. You may need to login or otherwise authenticate the request."}'
         })
@@ -1446,9 +1446,9 @@ class UpdateAssociationData(TestCase):
             response = APIClient.update_association_data(self.association_data, association_url)
             status_code, content, error = response
 
-        self.assertEquals(status_code, 403)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 403)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'status': 403,
             'message': u'{"detail": "You do not have permission to access this resource. You may need to login or otherwise authenticate the request."}'
         })
@@ -1458,24 +1458,24 @@ class UpdateAssociationData(TestCase):
             response = APIClient.update_association_data(self.association_data, self.user_data['services']['identity_client'])
             status_code, content, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(content, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(content, {
             u'timezone': u'America/Sao_Paulo',
             u'is_active': True,
             u'updated_at': u'2013-06-24 14:55:00',
             u'updated_by': u'identity_client.UpdateAssociationData',
             u'slug': u'identity_client'
         })
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
     def test_success_without_data(self):
         with identity_client.tests.use_cassette('update_association_data/success_without_data'):
             response = APIClient.update_association_data({}, self.user_data['services']['identity_client'])
             status_code, content, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(content, {u'is_active': True, u'slug': u'identity_client'})
-        self.assertEquals(error, None)
+        self.assertEqual(status_code, 200)
+        self.assertEqual(content, {u'is_active': True, u'slug': u'identity_client'})
+        self.assertEqual(error, None)
 
     def test_success_with_xml_payload(self):
         data_with_xml = self.association_data.copy()
@@ -1488,8 +1488,8 @@ class UpdateAssociationData(TestCase):
             response = APIClient.update_association_data(data_with_xml, self.user_data['services']['identity_client'])
             status_code, content, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(content, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(content, {
             u'timezone': u'America/Sao_Paulo',
             u'is_active': True,
             u'updated_at': u'2013-06-24 14:55:00',
@@ -1500,7 +1500,7 @@ class UpdateAssociationData(TestCase):
                 u'body': u'<?xml version="1.0" encoding="UTF-8" ?> <俄语>данные</俄语>'
             }
         })
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
 
 class FetchUserAccounts(TestCase):
@@ -1510,9 +1510,9 @@ class FetchUserAccounts(TestCase):
         response = APIClient.fetch_user_accounts(uuid=test_user_uuid)
         status_code, accounts, error = response
 
-        self.assertEquals(status_code, 500)
-        self.assertEquals(accounts, None)
-        self.assertEquals(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
+        self.assertEqual(status_code, 500)
+        self.assertEqual(accounts, None)
+        self.assertEqual(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
 
     def test_request_with_wrong_credentials(self):
         APIClient.api_user = '?????'
@@ -1525,9 +1525,9 @@ class FetchUserAccounts(TestCase):
         APIClient.api_user = settings.PASSAPORTE_WEB['CONSUMER_TOKEN']
         APIClient.api_password = settings.PASSAPORTE_WEB['CONSUMER_SECRET']
 
-        self.assertEquals(status_code, 401)
-        self.assertEquals(accounts, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 401)
+        self.assertEqual(accounts, None)
+        self.assertEqual(error, {
             'status': 401,
             'message': u'{"detail": "You need to login or otherwise authenticate the request."}'
         })
@@ -1537,9 +1537,9 @@ class FetchUserAccounts(TestCase):
             response = APIClient.fetch_user_accounts(uuid=test_user_uuid)
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 403)
-        self.assertEquals(accounts, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 403)
+        self.assertEqual(accounts, None)
+        self.assertEqual(error, {
             'status': 403,
             'message': u'{"detail": "You do not have permission to access this resource. You may need to login or otherwise authenticate the request."}'
         })
@@ -1549,9 +1549,9 @@ class FetchUserAccounts(TestCase):
             response = APIClient.fetch_user_accounts(uuid='00000000-0000-0000-0000-000000000000')
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 404)
-        self.assertEquals(accounts, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 404)
+        self.assertEqual(accounts, None)
+        self.assertEqual(error, {
             'status': 404,
             'message': u'"Identity with uuid=00000000-0000-0000-0000-000000000000 does not exist"'
         })
@@ -1561,17 +1561,17 @@ class FetchUserAccounts(TestCase):
             response = APIClient.fetch_user_accounts(test_user_uuid)
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(accounts, [])
-        self.assertEquals(error, None)
+        self.assertEqual(status_code, 200)
+        self.assertEqual(accounts, [])
+        self.assertEqual(error, None)
 
     def test_success_with_accounts(self):
         with identity_client.tests.use_cassette('fetch_user_accounts/success_with_accounts'):
             response = APIClient.fetch_user_accounts(test_user_uuid)
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(accounts, [{
+        self.assertEqual(status_code, 200)
+        self.assertEqual(accounts, [{
             u'account_data': {u'name': u'Test Account', u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'},
             u'add_member_url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/',
             u'expiration': None,
@@ -1581,15 +1581,15 @@ class FetchUserAccounts(TestCase):
             u'service_data': {u'name': u'Identity Client', u'slug': u'identity_client'},
             u'url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/',
         }])
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
     def test_success_with_expired_accounts(self):
         with identity_client.tests.use_cassette('fetch_user_accounts/success_with_expired_accounts'):
             response = APIClient.fetch_user_accounts(test_user_uuid, include_expired_accounts=True)
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(accounts, [{
+        self.assertEqual(status_code, 200)
+        self.assertEqual(accounts, [{
             u'account_data': {u'name': u'My Other Applications',
             u'uuid': u'e5ab6f2f-a4eb-431b-8c12-9411fd8a872d'},
             u'add_member_url': u'/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/members/',
@@ -1610,15 +1610,15 @@ class FetchUserAccounts(TestCase):
             u'service_data': {u'name': u'Identity Client', u'slug': u'identity_client'},
             u'url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/'
         }])
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
     def test_success_with_expired_accounts_from_other_services(self):
         with identity_client.tests.use_cassette('fetch_user_accounts/success_with_expired_accounts_from_other_services'):
             response = APIClient.fetch_user_accounts(test_user_uuid, include_other_services=1, include_expired_accounts=1)
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(accounts, [
+        self.assertEqual(status_code, 200)
+        self.assertEqual(accounts, [
             {
                 u'account_data': {u'name': u'Test Acount', u'uuid': u'7002ca9a-1d15-4005-b4e3-81adada2bc68'},
                 u'add_member_url': u'/organizations/api/accounts/7002ca9a-1d15-4005-b4e3-81adada2bc68/members/',
@@ -1676,15 +1676,15 @@ class FetchUserAccounts(TestCase):
                 u'name': u'Minhas aplicações', u'uuid': u'1bcde52d-7da8-4800-bd59-dfea96933ce4'
             }
         ])
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
     def test_success_with_accounts_from_other_services(self):
         with identity_client.tests.use_cassette('fetch_user_accounts/success_with_accounts_from_other_services'):
             response = APIClient.fetch_user_accounts(test_user_uuid, include_other_services=True)
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(accounts, [
+        self.assertEqual(status_code, 200)
+        self.assertEqual(accounts, [
             {
                 u'account_data': {u'name': u'Ecommerce account', u'uuid': u'48aeff34-20c9-4039-bd97-d815020e8b44'},
                 u'add_member_url': u'/organizations/api/accounts/48aeff34-20c9-4039-bd97-d815020e8b44/members/',
@@ -1725,15 +1725,15 @@ class FetchUserAccounts(TestCase):
                 u'name': u'Minhas aplicações', u'uuid': u'1bcde52d-7da8-4800-bd59-dfea96933ce4'
             }
         ])
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
     def test_success_with_only_accounts_with_a_given_role(self):
         with identity_client.tests.use_cassette('fetch_user_accounts/success_with_only_accounts_with_a_given_role'):
             response = APIClient.fetch_user_accounts(test_user_uuid, role='admin')
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(accounts, [{
+        self.assertEqual(status_code, 200)
+        self.assertEqual(accounts, [{
             u'account_data': {u'name': u'My Other Applications',
             u'uuid': u'e5ab6f2f-a4eb-431b-8c12-9411fd8a872d'},
             u'add_member_url': u'/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/members/',
@@ -1744,15 +1744,15 @@ class FetchUserAccounts(TestCase):
             u'service_data': {u'name': u'Identity Client', u'slug': u'identity_client'},
             u'url': u'/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/'
         }])
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
     def test_success_with_only_accounts_with_a_given_role_in_all_services(self):
         with identity_client.tests.use_cassette('fetch_user_accounts/success_with_only_accounts_with_a_given_role_in_all_services'):
             response = APIClient.fetch_user_accounts(test_user_uuid, role='admin', include_other_services=1)
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(accounts, [
+        self.assertEqual(status_code, 200)
+        self.assertEqual(accounts, [
             {
                 u'account_data': {u'name': u'My Other Applications',
                 u'uuid': u'e5ab6f2f-a4eb-431b-8c12-9411fd8a872d'},
@@ -1767,7 +1767,7 @@ class FetchUserAccounts(TestCase):
                 u'name': u'Minhas aplicações', 'uuid': u'1bcde52d-7da8-4800-bd59-dfea96933ce4'
             }
         ])
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
     def test_success_with_only_accounts_with_a_given_role_in_all_services_including_expired(self):
         with identity_client.tests.use_cassette('fetch_user_accounts/success_with_only_accounts_with_a_given_role_in_all_services_including_expired'):
@@ -1776,8 +1776,8 @@ class FetchUserAccounts(TestCase):
             )
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(accounts, [
+        self.assertEqual(status_code, 200)
+        self.assertEqual(accounts, [
             {
                 u'account_data': {u'name': u'My Other Applications',
                 u'uuid': u'e5ab6f2f-a4eb-431b-8c12-9411fd8a872d'},
@@ -1792,7 +1792,7 @@ class FetchUserAccounts(TestCase):
                 u'name': u'Minhas aplicações', 'uuid': u'1bcde52d-7da8-4800-bd59-dfea96933ce4'
             }
         ])
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
 
 class FetchAccountData(TestCase):
@@ -1802,9 +1802,9 @@ class FetchAccountData(TestCase):
         response = APIClient.fetch_account_data(account_uuid=test_account_uuid)
         status_code, account, error = response
 
-        self.assertEquals(status_code, 500)
-        self.assertEquals(account, None)
-        self.assertEquals(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
+        self.assertEqual(status_code, 500)
+        self.assertEqual(account, None)
+        self.assertEqual(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
 
     def test_request_with_wrong_credentials(self):
         APIClient.api_user = '?????'
@@ -1817,9 +1817,9 @@ class FetchAccountData(TestCase):
         APIClient.api_user = settings.PASSAPORTE_WEB['CONSUMER_TOKEN']
         APIClient.api_password = settings.PASSAPORTE_WEB['CONSUMER_SECRET']
 
-        self.assertEquals(status_code, 401)
-        self.assertEquals(account, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 401)
+        self.assertEqual(account, None)
+        self.assertEqual(error, {
             'status': 401,
             'message': u'{"detail": "You need to login or otherwise authenticate the request."}'
         })
@@ -1829,9 +1829,9 @@ class FetchAccountData(TestCase):
             response = APIClient.fetch_account_data(account_uuid=test_account_uuid)
             status_code, account, error = response
 
-        self.assertEquals(status_code, 403)
-        self.assertEquals(account, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 403)
+        self.assertEqual(account, None)
+        self.assertEqual(error, {
             'status': 403,
             'message': u'{"detail": "You do not have permission to access this resource. You may need to login or otherwise authenticate the request."}'
         })
@@ -1841,9 +1841,9 @@ class FetchAccountData(TestCase):
             response = APIClient.fetch_account_data(account_uuid='00000000-0000-0000-0000-000000000000')
             status_code, account, error = response
 
-        self.assertEquals(status_code, 404)
-        self.assertEquals(account, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 404)
+        self.assertEqual(account, None)
+        self.assertEqual(error, {
             'status': 404,
             'message': u'"Account 00000000-0000-0000-0000-000000000000 has no relation with service identity_client"'
         })
@@ -1853,7 +1853,7 @@ class FetchAccountData(TestCase):
             response = APIClient.fetch_account_data(account_uuid=test_account_uuid)
             status_code, account, error = response
 
-        self.assertEquals(status_code, 200)
+        self.assertEqual(status_code, 200)
         expected = {
             u'account_data': {
                     u'name': u'Test Account', u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'
@@ -1881,17 +1881,17 @@ class FetchAccountData(TestCase):
             u'updated_by': u'https://sandbox.app.passaporteweb.com.br/admin/applications/identity_client/',
             u'url': u'https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/'
         }
-        self.assertEquals(account, expected)
-        self.assertEquals(error, None)
+        self.assertEqual(account, expected)
+        self.assertEqual(error, None)
 
     def test_reading_expired_accounts_fails(self):
         with identity_client.tests.use_cassette('fetch_account_data/expired_accounts'):
             response = APIClient.fetch_account_data(test_user_uuid)
             status_code, account, error = response
 
-        self.assertEquals(status_code, 404)
-        self.assertEquals(account, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 404)
+        self.assertEqual(account, None)
+        self.assertEqual(error, {
             'status': 404,
             'message': u'"Account c3769912-baa9-4a0c-9856-395a706c7d57 has no relation with service identity_client"'
         })
@@ -1904,9 +1904,9 @@ class CreateUserAccount(TestCase):
         response = APIClient.create_user_account(uuid=test_user_uuid, account_name='Test Account', plan_slug='unittest')
         status_code, accounts, error = response
 
-        self.assertEquals(status_code, 500)
-        self.assertEquals(accounts, None)
-        self.assertEquals(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
+        self.assertEqual(status_code, 500)
+        self.assertEqual(accounts, None)
+        self.assertEqual(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
 
     def test_request_with_wrong_credentials(self):
         APIClient.api_user = '?????'
@@ -1919,9 +1919,9 @@ class CreateUserAccount(TestCase):
         APIClient.api_user = settings.PASSAPORTE_WEB['CONSUMER_TOKEN']
         APIClient.api_password = settings.PASSAPORTE_WEB['CONSUMER_SECRET']
 
-        self.assertEquals(status_code, 401)
-        self.assertEquals(accounts, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 401)
+        self.assertEqual(accounts, None)
+        self.assertEqual(error, {
             'status': 401,
             'message': u'{"detail": "You need to login or otherwise authenticate the request."}'
         })
@@ -1931,9 +1931,9 @@ class CreateUserAccount(TestCase):
             response = APIClient.create_user_account(uuid=test_user_uuid, account_name='Test Account', plan_slug='unittest')
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 403)
-        self.assertEquals(accounts, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 403)
+        self.assertEqual(accounts, None)
+        self.assertEqual(error, {
             'status': 403,
             'message': u'{"detail": "You do not have permission to access this resource. You may need to login or otherwise authenticate the request."}'
         })
@@ -1945,9 +1945,9 @@ class CreateUserAccount(TestCase):
             )
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 404)
-        self.assertEquals(accounts, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 404)
+        self.assertEqual(accounts, None)
+        self.assertEqual(error, {
             'status': 404,
             'message': u'"Identity with uuid=00000000-0000-0000-0000-000000000000 does not exist"'
         })
@@ -1960,11 +1960,11 @@ class CreateUserAccount(TestCase):
             )
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 500)
-        self.assertEquals(accounts, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 500)
+        self.assertEqual(accounts, None)
+        self.assertEqual(error, {
             'status': None,
-            'message': u"Unexpected error: Either 'account_uuid' or 'account_name' must be given <<type 'exceptions.ValueError'>>",
+            'message': u"Unexpected error: Either 'account_uuid' or 'account_name' must be given",
         })
 
     def test_request_with_invalid_expiration(self):
@@ -1974,9 +1974,9 @@ class CreateUserAccount(TestCase):
             )
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 400)
-        self.assertEquals(accounts, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 400)
+        self.assertEqual(accounts, None)
+        self.assertEqual(error, {
             'status': 400,
             'message': u'{"field_errors": {"expiration": ["Informe uma data v\\u00e1lida."]}}'
         })
@@ -1988,9 +1988,9 @@ class CreateUserAccount(TestCase):
             )
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 400)
-        self.assertEquals(accounts, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 400)
+        self.assertEqual(accounts, None)
+        self.assertEqual(error, {
             'status': 400,
             'message': u'{"field_errors": {"expiration": ["Informe uma data v\\u00e1lida."]}}'
         })
@@ -2002,9 +2002,9 @@ class CreateUserAccount(TestCase):
             )
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 400)
-        self.assertEquals(accounts, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 400)
+        self.assertEqual(accounts, None)
+        self.assertEqual(error, {
             'status': 400,
             'message': u'{"field_errors": {"expiration": ["Informe uma data v\\u00e1lida."]}}'
         })
@@ -2016,7 +2016,7 @@ class CreateUserAccount(TestCase):
             )
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 201)
+        self.assertEqual(status_code, 201)
         expected = {
             u'membership_details_url': u'https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/c3769912-baa9-4a0c-9856-395a706c7d57/',
             u'plan_slug': u'unittest',
@@ -2027,8 +2027,8 @@ class CreateUserAccount(TestCase):
             u'account_data': {u'name': u'Test Account', u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'},
             u'add_member_url': u'https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/'
         }
-        self.assertEquals(accounts, expected)
-        self.assertEquals(error, None)
+        self.assertEqual(accounts, expected)
+        self.assertEqual(error, None)
 
     def test_duplicated_account(self):
         with identity_client.tests.use_cassette('create_user_account/duplicated_account'):
@@ -2037,9 +2037,9 @@ class CreateUserAccount(TestCase):
             )
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 409)
-        self.assertEquals(accounts, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 409)
+        self.assertEqual(accounts, None)
+        self.assertEqual(error, {
             'status': 409,
             'message': u'"ServiceAccount for service identity_client and account \'Test Account\' already exists and is active. Conflict"'
         })
@@ -2052,9 +2052,9 @@ class CreateUserAccountWithUUID(TestCase):
         response = APIClient.create_user_account(uuid=test_user_uuid, account_uuid=test_account_uuid, plan_slug='unittest')
         status_code, accounts, error = response
 
-        self.assertEquals(status_code, 500)
-        self.assertEquals(accounts, None)
-        self.assertEquals(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
+        self.assertEqual(status_code, 500)
+        self.assertEqual(accounts, None)
+        self.assertEqual(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
 
     def test_request_with_wrong_credentials(self):
         APIClient.api_user = '?????'
@@ -2067,9 +2067,9 @@ class CreateUserAccountWithUUID(TestCase):
         APIClient.api_user = settings.PASSAPORTE_WEB['CONSUMER_TOKEN']
         APIClient.api_password = settings.PASSAPORTE_WEB['CONSUMER_SECRET']
 
-        self.assertEquals(status_code, 401)
-        self.assertEquals(accounts, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 401)
+        self.assertEqual(accounts, None)
+        self.assertEqual(error, {
             'status': 401,
             'message': u'{"detail": "You need to login or otherwise authenticate the request."}'
         })
@@ -2079,9 +2079,9 @@ class CreateUserAccountWithUUID(TestCase):
             response = APIClient.create_user_account(uuid=test_user_uuid, account_uuid=test_account_uuid, plan_slug='unittest')
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 403)
-        self.assertEquals(accounts, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 403)
+        self.assertEqual(accounts, None)
+        self.assertEqual(error, {
             'status': 403,
             'message': u'{"detail": "You do not have permission to access this resource. You may need to login or otherwise authenticate the request."}'
         })
@@ -2093,9 +2093,9 @@ class CreateUserAccountWithUUID(TestCase):
             )
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 404)
-        self.assertEquals(accounts, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 404)
+        self.assertEqual(accounts, None)
+        self.assertEqual(error, {
             'status': 404,
             'message': u'"Identity with uuid=00000000-0000-0000-0000-000000000000 does not exist"'
         })
@@ -2107,9 +2107,9 @@ class CreateUserAccountWithUUID(TestCase):
             )
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 400)
-        self.assertEquals(accounts, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 400)
+        self.assertEqual(accounts, None)
+        self.assertEqual(error, {
             'status': 400,
             'message': u'{"field_errors": {"uuid": ["This UUID does not match any account."]}, "errors": ["Either name or uuid must be supplied."]}'
         })
@@ -2122,11 +2122,11 @@ class CreateUserAccountWithUUID(TestCase):
             )
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 500)
-        self.assertEquals(accounts, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 500)
+        self.assertEqual(accounts, None)
+        self.assertEqual(error, {
             'status': None,
-            'message': u"Unexpected error: Either 'account_uuid' or 'account_name' must be given <<type 'exceptions.ValueError'>>",
+            'message': u"Unexpected error: Either 'account_uuid' or 'account_name' must be given",
         })
 
     def test_request_with_invalid_expiration(self):
@@ -2134,9 +2134,9 @@ class CreateUserAccountWithUUID(TestCase):
             response = APIClient.create_user_account(uuid=test_user_uuid, account_uuid=test_account_uuid, plan_slug='unittest', expiration='ABC')
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 400)
-        self.assertEquals(accounts, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 400)
+        self.assertEqual(accounts, None)
+        self.assertEqual(error, {
             'status': 400,
             'message': u'{"field_errors": {"expiration": ["Informe uma data v\\u00e1lida."]}}'
         })
@@ -2146,9 +2146,9 @@ class CreateUserAccountWithUUID(TestCase):
             response = APIClient.create_user_account(uuid=test_user_uuid, account_uuid=test_account_uuid, plan_slug='unittest', expiration='0000-01-01')
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 400)
-        self.assertEquals(accounts, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 400)
+        self.assertEqual(accounts, None)
+        self.assertEqual(error, {
             'status': 400,
             'message': u'{"field_errors": {"expiration": ["Informe uma data v\\u00e1lida."]}}'
         })
@@ -2158,9 +2158,9 @@ class CreateUserAccountWithUUID(TestCase):
             response = APIClient.create_user_account(uuid=test_user_uuid, account_uuid=test_account_uuid, plan_slug='unittest', expiration='10000-01-01')
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 400)
-        self.assertEquals(accounts, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 400)
+        self.assertEqual(accounts, None)
+        self.assertEqual(error, {
             'status': 400,
             'message': u'{"field_errors": {"expiration": ["Informe uma data v\\u00e1lida."]}}'
         })
@@ -2174,7 +2174,7 @@ class CreateUserAccountWithUUID(TestCase):
             )
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 201)
+        self.assertEqual(status_code, 201)
         expected = {
             u'membership_details_url': u'https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/members/c3769912-baa9-4a0c-9856-395a706c7d57/',
             u'plan_slug': u'unittest',
@@ -2187,17 +2187,17 @@ class CreateUserAccountWithUUID(TestCase):
             u'uuid': u'e5ab6f2f-a4eb-431b-8c12-9411fd8a872d'},
             u'add_member_url': u'https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/members/'
         }
-        self.assertEquals(accounts, expected)
-        self.assertEquals(error, None)
+        self.assertEqual(accounts, expected)
+        self.assertEqual(error, None)
 
     def test_duplicated_account(self):
         with identity_client.tests.use_cassette('create_user_account_with_uuid/duplicated_account'):
             response = APIClient.create_user_account(uuid=test_user_uuid, account_uuid=test_account_uuid, plan_slug='unittest')
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 409)
-        self.assertEquals(accounts, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 409)
+        self.assertEqual(accounts, None)
+        self.assertEqual(error, {
             'status': 409,
             'message': u'"ServiceAccount for service identity_client and account \'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba\' already exists and is active. Conflict"'
         })
@@ -2211,7 +2211,7 @@ class CreateUserAccountWithUUID(TestCase):
             )
             status_code, accounts, error = response
 
-        self.assertEquals(status_code, 201)
+        self.assertEqual(status_code, 201)
         expected = {
             u'account_data': {u'name': u'Test Account', u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'},
             u'add_member_url': u'https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/',
@@ -2222,8 +2222,8 @@ class CreateUserAccountWithUUID(TestCase):
             u'service_data': {u'name': u'Identity Client', u'slug': u'identity_client'},
             u'url': u'https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/'
         }
-        self.assertEquals(accounts, expected)
-        self.assertEquals(error, None)
+        self.assertEqual(accounts, expected)
+        self.assertEqual(error, None)
 
 
 class UpdateAccountData(TestCase):
@@ -2245,9 +2245,9 @@ class UpdateAccountData(TestCase):
         response = APIClient.update_account_data(plan_slug=self.new_plan, expiration=self.new_expiration, api_path=api_path)
         status_code, account, error = response
 
-        self.assertEquals(status_code, 500)
-        self.assertEquals(account, None)
-        self.assertEquals(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
+        self.assertEqual(status_code, 500)
+        self.assertEqual(account, None)
+        self.assertEqual(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
 
     def test_request_with_wrong_credentials(self):
         APIClient.api_user = '?????'
@@ -2262,9 +2262,9 @@ class UpdateAccountData(TestCase):
         APIClient.api_user = settings.PASSAPORTE_WEB['CONSUMER_TOKEN']
         APIClient.api_password = settings.PASSAPORTE_WEB['CONSUMER_SECRET']
 
-        self.assertEquals(status_code, 401)
-        self.assertEquals(account, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 401)
+        self.assertEqual(account, None)
+        self.assertEqual(error, {
             'status': 401,
             'message': u'{"detail": "You need to login or otherwise authenticate the request."}'
         })
@@ -2276,9 +2276,9 @@ class UpdateAccountData(TestCase):
             )
             status_code, account, error = response
 
-        self.assertEquals(status_code, 403)
-        self.assertEquals(account, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 403)
+        self.assertEqual(account, None)
+        self.assertEqual(error, {
             'status': 403,
             'message': u'{"detail": "You do not have permission to access this resource. You may need to login or otherwise authenticate the request."}'
         })
@@ -2291,9 +2291,9 @@ class UpdateAccountData(TestCase):
             )
             status_code, account, error = response
 
-        self.assertEquals(status_code, 404)
-        self.assertEquals(account, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 404)
+        self.assertEqual(account, None)
+        self.assertEqual(error, {
             'status': 404,
             'message': u'"Account 00000000-0000-0000-0000-000000000000 has no relation with service identity_client"'
         })
@@ -2305,11 +2305,11 @@ class UpdateAccountData(TestCase):
             )
             status_code, account, error = response
 
-        self.assertEquals(status_code, 500)
-        self.assertEquals(account, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 500)
+        self.assertEqual(account, None)
+        self.assertEqual(error, {
             'status': None,
-            'message': u"Unexpected error: expiration must be a date instance or None <<type 'exceptions.TypeError'>>"}
+            'message': u"Unexpected error: expiration must be a date instance or None"}
         )
 
     def test_expiration_cannot_be_a_datetime(self):
@@ -2319,11 +2319,11 @@ class UpdateAccountData(TestCase):
             )
             status_code, account, error = response
 
-        self.assertEquals(status_code, 500)
-        self.assertEquals(account, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 500)
+        self.assertEqual(account, None)
+        self.assertEqual(error, {
             'status': None,
-            'message': u"Unexpected error: expiration must be a date instance or None <<type 'exceptions.TypeError'>>"}
+            'message': u"Unexpected error: expiration must be a date instance or None"}
         )
 
     def test_expiration_cannot_be_a_float(self):
@@ -2333,11 +2333,11 @@ class UpdateAccountData(TestCase):
             )
             status_code, account, error = response
 
-        self.assertEquals(status_code, 500)
-        self.assertEquals(account, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 500)
+        self.assertEqual(account, None)
+        self.assertEqual(error, {
             'status': None,
-            'message': u"Unexpected error: expiration must be a date instance or None <<type 'exceptions.TypeError'>>"}
+            'message': u"Unexpected error: expiration must be a date instance or None"}
         )
 
     def test_expiration_cannot_be_an_int(self):
@@ -2347,11 +2347,11 @@ class UpdateAccountData(TestCase):
             )
             status_code, account, error = response
 
-        self.assertEquals(status_code, 500)
-        self.assertEquals(account, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 500)
+        self.assertEqual(account, None)
+        self.assertEqual(error, {
             'status': None,
-            'message': u"Unexpected error: expiration must be a date instance or None <<type 'exceptions.TypeError'>>"}
+            'message': u"Unexpected error: expiration must be a date instance or None"}
         )
 
     def test_expiration_can_be_None(self):
@@ -2361,8 +2361,8 @@ class UpdateAccountData(TestCase):
             )
             status_code, account, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(account, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(account, {
             u'account_data': {
                 u'name': u'Test Account',
                 u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'
@@ -2378,7 +2378,7 @@ class UpdateAccountData(TestCase):
             u'plan_slug': u'unittest-updated',
             u'add_member_url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/',
         })
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
     def test_expiration_can_be_set_to_the_past(self):
         with identity_client.tests.use_cassette('update_account_data/expiration_can_be_set_to_the_past'):
@@ -2387,8 +2387,8 @@ class UpdateAccountData(TestCase):
             )
             status_code, account, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(account, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(account, {
             u'account_data': {
                 u'name': u'Test Account',
                 u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'
@@ -2416,7 +2416,7 @@ class UpdateAccountData(TestCase):
             u'plan_slug': u'unittest-updated',
             u'add_member_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/',
         })
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
     def test_success(self):
         with identity_client.tests.use_cassette('update_account_data/success'):
@@ -2425,8 +2425,8 @@ class UpdateAccountData(TestCase):
             )
             status_code, account, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(account, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(account, {
             u'account_data': {
                 u'name': u'Test Account',
                 u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'
@@ -2454,7 +2454,7 @@ class UpdateAccountData(TestCase):
             u'plan_slug': u'unittest-updated',
             u'add_member_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/',
         })
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
     def test_expired_accounts_can_have_plan_changed(self):
         with identity_client.tests.use_cassette('update_account_data/expired_accounts_can_have_plan_changed'):
@@ -2463,8 +2463,8 @@ class UpdateAccountData(TestCase):
             )
             status_code, account, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(account, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(account, {
             u'account_data': {
                 u'name': u'Test Account',
                 u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'
@@ -2492,7 +2492,7 @@ class UpdateAccountData(TestCase):
             u'plan_slug': u'expired-service',
             u'add_member_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/',
         })
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
     def test_expired_accounts_can_have_expiration_changed(self):
         with identity_client.tests.use_cassette('update_account_data/expired_accounts_can_have_expiration_changed'):
@@ -2501,8 +2501,8 @@ class UpdateAccountData(TestCase):
             )
             status_code, account, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(account, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(account, {
             u'account_data': {
                 u'name': u'Test Account',
                 u'uuid': u'a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba'
@@ -2530,7 +2530,7 @@ class UpdateAccountData(TestCase):
             u'plan_slug': u'unittest-updated',
             u'add_member_url': u'http://sandbox.app.passaporteweb.com.br/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/',
         })
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
 
 class AddAccountMember(TestCase):
@@ -2552,9 +2552,9 @@ class AddAccountMember(TestCase):
         )
         status_code, content, error = response
 
-        self.assertEquals(status_code, 500)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
+        self.assertEqual(status_code, 500)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
 
     def test_request_with_wrong_credentials(self):
         APIClient.api_user = '?????'
@@ -2569,9 +2569,9 @@ class AddAccountMember(TestCase):
         APIClient.api_user = settings.PASSAPORTE_WEB['CONSUMER_TOKEN']
         APIClient.api_password = settings.PASSAPORTE_WEB['CONSUMER_SECRET']
 
-        self.assertEquals(status_code, 401)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 401)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'status': 401,
             'message': u'{"detail": "You need to login or otherwise authenticate the request."}'
         })
@@ -2583,9 +2583,9 @@ class AddAccountMember(TestCase):
             )
             status_code, content, error = response
 
-        self.assertEquals(status_code, 403)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 403)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'status': 403,
             'message': u'{"detail": "You do not have permission to access this resource. You may need to login or otherwise authenticate the request."}'
         })
@@ -2597,9 +2597,9 @@ class AddAccountMember(TestCase):
             )
             status_code, content, error = response
 
-        self.assertEquals(status_code, 404)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 404)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'status': 404,
             'message': u'"Identity with uuid=00000000-0000-0000-0000-000000000000 does not exist"'
         })
@@ -2611,9 +2611,9 @@ class AddAccountMember(TestCase):
             )
             status_code, content, error = response
 
-        self.assertEquals(status_code, 409)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 409)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'status': 409,
             'message': u'"Identity with uuid=c3769912-baa9-4a0c-9856-395a706c7d57 is already in members list of service identity_client at account a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba"'
         })
@@ -2625,8 +2625,8 @@ class AddAccountMember(TestCase):
             )
             status_code, content, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(content, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(content, {
             u'membership_details_url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/bedcd531-c741-4d32-90d7-a7f7432f3f15/',
             u'identity': {
                 u'first_name': u'Identity',
@@ -2639,7 +2639,7 @@ class AddAccountMember(TestCase):
             },
             u'roles': [u'user']
         })
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
     def test_success_with_user_role(self):
         with identity_client.tests.use_cassette('add_account_member/success_with_user_role'):
@@ -2648,8 +2648,8 @@ class AddAccountMember(TestCase):
             )
             status_code, content, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(content, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(content, {
             u'membership_details_url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/bedcd531-c741-4d32-90d7-a7f7432f3f15/',
             u'identity': {
                 u'first_name': u'Identity',
@@ -2662,7 +2662,7 @@ class AddAccountMember(TestCase):
             },
             u'roles': [u'user']
         })
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
     def test_success_with_owner_role(self):
         with identity_client.tests.use_cassette('add_account_member/success_with_owner_role'):
@@ -2671,8 +2671,8 @@ class AddAccountMember(TestCase):
             )
             status_code, content, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(content, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(content, {
             u'membership_details_url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/bedcd531-c741-4d32-90d7-a7f7432f3f15/',
             u'identity': {
                 u'first_name': u'Identity',
@@ -2685,19 +2685,19 @@ class AddAccountMember(TestCase):
             },
             u'roles': [u'owner']
         })
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
     def test_success_with_list_of_roles(self):
         with identity_client.tests.use_cassette('add_account_member/success_with_list_of_roles'):
             response = APIClient.add_account_member(
                 user_uuid=second_user_uuid,
-                roles=['owner', 'user', range(5), 12345, 01234, {'a': 'A'}, 'test-user', u'çãéê®©þ«»'],
+                roles=['owner', 'user', [0, 1, 2, 3, 4], 12345, int('01234', 8), {'a': 'A'}, 'test-user', u'çãéê®©þ«»'],
                 api_path=self.account_data['add_member_url']
             )
             status_code, content, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(content, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(content, {
             u'membership_details_url': u'/organizations/api/accounts/a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba/members/bedcd531-c741-4d32-90d7-a7f7432f3f15/',
             u'identity': {
                 u'first_name': u'Identity',
@@ -2710,7 +2710,7 @@ class AddAccountMember(TestCase):
             },
             u'roles': [u'[0, 1, 2, 3, 4]', u'çãéê®©þ«»', u'test-user', u'668', u'user', u"{'a': 'a'}", u'owner', u'12345']
         })
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
     def test_adding_members_to_an_expired_account_fails(self):
         with identity_client.tests.use_cassette('add_account_member/expired_account'):
@@ -2719,9 +2719,9 @@ class AddAccountMember(TestCase):
             )
             status_code, content, error = response
 
-        self.assertEquals(status_code, 404)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 404)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'status': 404,
             'message': u'"Account a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba and service identity_client are not related"'
         })
@@ -2749,9 +2749,9 @@ class UpdateMemberRoles(TestCase):
         )
         status_code, content, error = response
 
-        self.assertEquals(status_code, 500)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
+        self.assertEqual(status_code, 500)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
 
     def test_request_with_wrong_credentials(self):
         APIClient.api_user = '?????'
@@ -2766,9 +2766,9 @@ class UpdateMemberRoles(TestCase):
         APIClient.api_user = settings.PASSAPORTE_WEB['CONSUMER_TOKEN']
         APIClient.api_password = settings.PASSAPORTE_WEB['CONSUMER_SECRET']
 
-        self.assertEquals(status_code, 401)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 401)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'status': 401,
             'message': u'{"detail": "You need to login or otherwise authenticate the request."}'
         })
@@ -2780,9 +2780,9 @@ class UpdateMemberRoles(TestCase):
             )
             status_code, content, error = response
 
-        self.assertEquals(status_code, 403)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 403)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'status': 403,
             'message': u'{"detail": "You do not have permission to access this resource. You may need to login or otherwise authenticate the request."}'
         })
@@ -2794,8 +2794,8 @@ class UpdateMemberRoles(TestCase):
             )
             status_code, content, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(content, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(content, {
             u'identity': {
                 u'first_name': u'Identity',
                 u'last_name': u'Client',
@@ -2807,7 +2807,7 @@ class UpdateMemberRoles(TestCase):
             },
             u'roles': [u'user']
         })
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
     def test_success_with_user_role(self):
         with identity_client.tests.use_cassette('update_member_roles/success_with_user_role'):
@@ -2816,8 +2816,8 @@ class UpdateMemberRoles(TestCase):
             )
             status_code, content, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(content, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(content, {
             u'identity': {
                 u'first_name': u'Identity',
                 u'last_name': u'Client',
@@ -2829,7 +2829,7 @@ class UpdateMemberRoles(TestCase):
             },
             u'roles': [u'user']
         })
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
     def test_success_with_owner_role(self):
         with identity_client.tests.use_cassette('update_member_roles/success_with_owner_role'):
@@ -2838,8 +2838,8 @@ class UpdateMemberRoles(TestCase):
             )
             status_code, content, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(content, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(content, {
             u'identity': {
                 u'first_name': u'Identity',
                 u'last_name': u'Client',
@@ -2851,18 +2851,18 @@ class UpdateMemberRoles(TestCase):
             },
             u'roles': [u'owner']
         })
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
     def test_success_with_list_of_roles(self):
         with identity_client.tests.use_cassette('update_member_roles/success_with_list_of_roles'):
             response = APIClient.update_member_roles(
-                roles=['owner', 'user', range(5), 12345, 01234, {'a': 'A'}, 'test-user', u'çãéê®©þ«»'],
+                roles=['owner', 'user', [0, 1, 2, 3, 4], 12345, int('01234', 8), {'a': 'A'}, 'test-user', u'çãéê®©þ«»'],
                 api_path=self.member_data['membership_details_url']
             )
             status_code, content, error = response
 
-        self.assertEquals(status_code, 200)
-        self.assertEquals(content, {
+        self.assertEqual(status_code, 200)
+        self.assertEqual(content, {
             u'identity': {
                 u'first_name': u'Identity',
                 u'last_name': u'Client',
@@ -2874,7 +2874,7 @@ class UpdateMemberRoles(TestCase):
             },
             u'roles': [u'[0, 1, 2, 3, 4]', u'çãéê®©þ«»', u'test-user', u'668', u'user', u"{'a': 'a'}", u'owner', u'12345']
         })
-        self.assertEquals(error, None)
+        self.assertEqual(error, None)
 
     def test_request_with_user_uuid_which_is_not_a_member(self):
         with identity_client.tests.use_cassette('update_member_roles/user_uuid_not_a_member'):
@@ -2883,9 +2883,9 @@ class UpdateMemberRoles(TestCase):
             )
             status_code, content, error = response
 
-        self.assertEquals(status_code, 404)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 404)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'status': 404,
             'message': u'"Identity bedcd531-c741-4d32-90d7-a7f7432f3f15 is not member of service identity_client for account a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba"'
         })
@@ -2898,9 +2898,9 @@ class UpdateMemberRoles(TestCase):
             )
             status_code, content, error = response
 
-        self.assertEquals(status_code, 404)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 404)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'status': 404, 'message': u'"Account with uuid=00000000-0000-0000-0000-000000000000 does not exist"'
         })
 
@@ -2912,9 +2912,9 @@ class UpdateMemberRoles(TestCase):
             )
             status_code, content, error = response
 
-        self.assertEquals(status_code, 404)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 404)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'status': 404, 'message': u'"Identity with uuid=00000000-0000-0000-0000-000000000000 does not exist"'
         })
 
@@ -2925,9 +2925,9 @@ class UpdateMemberRoles(TestCase):
             )
             status_code, content, error = response
 
-        self.assertEquals(status_code, 404)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 404)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'status': 404,
             'message': u'"Account a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba and service identity_client are not related"'
         })
@@ -2955,9 +2955,9 @@ class RemoveAccountMember(TestCase):
         )
         status_code, content, error = response
 
-        self.assertEquals(status_code, 500)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
+        self.assertEqual(status_code, 500)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {'status': None, 'message': 'Error connecting to PassaporteWeb'})
 
     def test_request_with_wrong_credentials(self):
         APIClient.api_user = '?????'
@@ -2972,9 +2972,9 @@ class RemoveAccountMember(TestCase):
         APIClient.api_user = settings.PASSAPORTE_WEB['CONSUMER_TOKEN']
         APIClient.api_password = settings.PASSAPORTE_WEB['CONSUMER_SECRET']
 
-        self.assertEquals(status_code, 401)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 401)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'status': 401,
             'message': u'{"detail": "You need to login or otherwise authenticate the request."}'
         })
@@ -2986,9 +2986,9 @@ class RemoveAccountMember(TestCase):
             )
             status_code, content, error = response
 
-        self.assertEquals(status_code, 403)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 403)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'status': 403,
             'message': u'{"detail": "You do not have permission to access this resource. You may need to login or otherwise authenticate the request."}'
         })
@@ -3000,9 +3000,9 @@ class RemoveAccountMember(TestCase):
             )
             status_code, content, error = response
 
-        self.assertEquals(status_code, 204)
-        self.assertEquals(content, '')
-        self.assertEquals(error, None)
+        self.assertEqual(status_code, 204)
+        self.assertEqual(content, '')
+        self.assertEqual(error, None)
 
     def test_removing_user_with_owner_role(self):
         with identity_client.tests.use_cassette('remove_account_member/remove_owner'):
@@ -3011,9 +3011,9 @@ class RemoveAccountMember(TestCase):
             )
             status_code, content, error = response
 
-        self.assertEquals(status_code, 406)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {'status': 406, 'message': u'"Service owner cannot be removed from members list"'})
+        self.assertEqual(status_code, 406)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {'status': 406, 'message': u'"Service owner cannot be removed from members list"'})
 
     def test_request_with_user_uuid_which_is_not_a_member(self):
         with identity_client.tests.use_cassette('remove_account_member/user_uuid_not_a_member'):
@@ -3022,9 +3022,9 @@ class RemoveAccountMember(TestCase):
             )
             status_code, content, error = response
 
-        self.assertEquals(status_code, 404)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 404)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'status': 404,
             'message': u'"Identity bedcd531-c741-4d32-90d7-a7f7432f3f15 is not member of service identity_client for account a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba"'
         })
@@ -3036,9 +3036,9 @@ class RemoveAccountMember(TestCase):
             )
             status_code, content, error = response
 
-        self.assertEquals(status_code, 404)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 404)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'status': 404, 'message': u'"Account with uuid=00000000-0000-0000-0000-000000000000 does not exist"'
         })
 
@@ -3049,9 +3049,9 @@ class RemoveAccountMember(TestCase):
             )
             status_code, content, error = response
 
-        self.assertEquals(status_code, 404)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 404)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'status': 404, 'message': u'"Identity with uuid=00000000-0000-0000-0000-000000000000 does not exist"'
         })
 
@@ -3062,9 +3062,9 @@ class RemoveAccountMember(TestCase):
             )
             status_code, content, error = response
 
-        self.assertEquals(status_code, 404)
-        self.assertEquals(content, None)
-        self.assertEquals(error, {
+        self.assertEqual(status_code, 404)
+        self.assertEqual(content, None)
+        self.assertEqual(error, {
             'status': 404,
             'message': u'"Identity bedcd531-c741-4d32-90d7-a7f7432f3f15 is not member of service identity_client for account a4c9bce4-2a8c-452f-ae13-0a0b69dfd4ba"'
         })

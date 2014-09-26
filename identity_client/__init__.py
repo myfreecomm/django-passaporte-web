@@ -24,4 +24,4 @@ for attr_name in dir(new_settings):
     attr_value = getattr(new_settings, attr_name)
     setattr(settings, attr_name, attr_value)
 
-import handlers
+from . import handlers

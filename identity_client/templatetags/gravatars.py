@@ -22,6 +22,7 @@
 # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+import six
 from hashlib import md5
 
 from django import template
@@ -69,7 +70,7 @@ def gravatar(user, size=24, default="mm", secure=True):
     url += "?" + "&".join(params)
 
     username = user.get_full_name() or user.username
-    if not isinstance(username, unicode):
+    if not isinstance(username, six.text_type):
         # Grant username is unicode
         username = username.decode('utf-8')
 

@@ -37,6 +37,9 @@ class Identity(models.Model):
     def __unicode__(self):
         return self.email
 
+    def __str__(self):
+        return self.email
+
     def is_anonymous(self):
         """
         Always returns False. This is a way of comparing User objects to
@@ -142,6 +145,9 @@ class ServiceAccount(models.Model):
     def __unicode__(self):
         return self.name
 
+    def __str__(self):
+        return self.name
+
     @classmethod
     def active(cls):
         return cls.objects.filter(
@@ -212,7 +218,7 @@ class ServiceAccount(models.Model):
             try:
                 account.add_member(identity, roles)
                 account.save()
-            except Exception, e:
+            except Exception as e:
                 message = 'Error updating accounts for identity %s (%s): %s <%s>'
                 logging.error(message, identity.email, identity.uuid, e, type(e))
 
@@ -289,6 +295,9 @@ class AccountMember(models.Model):
         verbose_name_plural = u'membros de contas do passaporte web'
 
     def __unicode__(self):
+        return u'%s - [%s]' % (self.identity.email, self._roles)
+
+    def __str__(self):
         return u'%s - [%s]' % (self.identity.email, self._roles)
 
     def set_roles(self, roles):

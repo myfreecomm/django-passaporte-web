@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import six
 from datetime import datetime, timedelta
 import json
 import requests
@@ -79,7 +80,7 @@ class TestIdentityModel(TestCase):
 
     def test_unicode(self):
         # An Identity should always be authenticated
-        self.assertEquals(unicode(self.identity), self.email)
+        self.assertEqual(six.text_type(self.identity), self.email)
 
 
     def test_always_authenticated(self):
@@ -89,7 +90,7 @@ class TestIdentityModel(TestCase):
 
     def test_never_anonymous(self):
         # An Identity should never be anonymous
-        self.assertEquals(self.identity.is_anonymous(), False)
+        self.assertEqual(self.identity.is_anonymous(), False)
 
 
     def test_set_password_not_implemented(self):
@@ -121,7 +122,7 @@ class TestIdentityModel(TestCase):
 
     def test_has_usable_password_always_false(self):
         # An Identity should never have a usable password
-        self.assertEquals(self.identity.has_usable_password(), False)
+        self.assertEqual(self.identity.has_usable_password(), False)
 
 
 class TestServiceAccountModel(TestCase):
@@ -145,7 +146,7 @@ class TestServiceAccountModel(TestCase):
 
     def test_unicode(self):
         # An Identity should always be authenticated
-        self.assertEquals(unicode(self.account), self.account_name)
+        self.assertEqual(six.text_type(self.account), self.account_name)
 
 
     def test_account_without_expiration_is_active(self):
@@ -193,14 +194,14 @@ class TestServiceAccountModel(TestCase):
     def test_get_member_roles_is_a_list_of_strings(self):
         self.account.add_member(self.identity, roles=['user', 'admin'])
         member = self.account.get_member(self.identity)
-        self.assertEqual(member.roles, ['admin', 'user'])
+        self.assertEqual(sorted(member.roles), ['admin', 'user'])
 
 
     def test_add_member_who_is_already_a_member_overwrites_roles(self):
         self.account.add_member(self.identity, roles=['user'])
         self.account.add_member(self.identity, roles=['user', 'admin'])
         member = self.account.get_member(self.identity)
-        self.assertEqual(member.roles, ['admin', 'user'])
+        self.assertEqual(sorted(member.roles), ['admin', 'user'])
 
 
     def test_member_may_have_no_roles(self):
@@ -312,12 +313,12 @@ class TestServiceAccountModel(TestCase):
     def test_update_user_accounts_creates_local_accounts(self, mocked_accounts):
         mocked_accounts.return_value = 200, mocked_accounts_list, []
 
-        self.assertEquals(ServiceAccount.for_identity(self.identity).count(), 0)
+        self.assertEqual(ServiceAccount.for_identity(self.identity).count(), 0)
 
         accounts = ServiceAccount.pull_remote_accounts(self.identity)
         ServiceAccount.update_user_accounts(self.identity, accounts)
 
-        self.assertEquals(ServiceAccount.for_identity(self.identity).count(), 3)
+        self.assertEqual(ServiceAccount.for_identity(self.identity).count(), 3)
 
 
     @patch.object(PERSISTENCE_MODULE.models.APIClient, 'fetch_user_accounts')
@@ -325,12 +326,12 @@ class TestServiceAccountModel(TestCase):
         mocked_accounts.return_value = 200, mocked_accounts_list, []
 
         self.account.add_member(self.identity, roles=['user'])
-        self.assertEquals(ServiceAccount.for_identity(self.identity).count(), 1)
+        self.assertEqual(ServiceAccount.for_identity(self.identity).count(), 1)
 
         accounts = ServiceAccount.pull_remote_accounts(self.identity)
         ServiceAccount.remove_stale_accounts(self.identity, accounts)
 
-        self.assertEquals(ServiceAccount.for_identity(self.identity).count(), 0)
+        self.assertEqual(ServiceAccount.for_identity(self.identity).count(), 0)
 
 
     @patch.object(PERSISTENCE_MODULE.models.APIClient, 'fetch_user_accounts')
@@ -342,11 +343,11 @@ class TestServiceAccountModel(TestCase):
         mocked_accounts.return_value = 200, mocked_accounts_list, []
 
         self.account.add_member(self.identity, roles=['user'])
-        self.assertEquals(ServiceAccount.for_identity(self.identity).count(), 1)
+        self.assertEqual(ServiceAccount.for_identity(self.identity).count(), 1)
 
         ServiceAccount.refresh_accounts(self.identity)
 
-        self.assertEquals(ServiceAccount.for_identity(self.identity).count(), 3)
+        self.assertEqual(ServiceAccount.for_identity(self.identity).count(), 3)
         self.assertFalse(self.account in ServiceAccount.for_identity(self.identity))
 
     def test_send_notification(self):
@@ -356,7 +357,7 @@ class TestServiceAccountModel(TestCase):
             future = self.account.send_notification(body)
 
         self.assertTrue(isinstance(future, futures.Future))
-        self.assertEquals(future.result().body, body)
+        self.assertEqual(future.result().body, body)
 
     def test_error_sending_notification(self):
         self.account.url = "https://sandbox.app.passaporteweb.com.br/organizations/api/accounts/e5ab6f2f-a4eb-431b-8c12-9411fd8a872d/"

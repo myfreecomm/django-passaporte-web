@@ -32,6 +32,9 @@ class Identity(Document):
     def __unicode__(self):
         return self.email
 
+    def __str__(self):
+        return self.email
+
     def is_anonymous(self):
         """
         Always returns False. This is a way of comparing User objects to
@@ -122,6 +125,9 @@ class AccountMember(EmbeddedDocument):
     def __unicode__(self):
         return u'%s - [%s]' % (self.identity.email, ','.join(self.roles))
 
+    def __str__(self):
+        return u'%s - [%s]' % (self.identity.email, ','.join(self.roles))
+
 
 class ServiceAccount(Document):
     name = StringField(max_length=256, required=True)
@@ -134,6 +140,9 @@ class ServiceAccount(Document):
     meta = {'allow_inheritance': True}
 
     def __unicode__(self):
+        return self.name
+
+    def __str__(self):
         return self.name
 
     @queryset_manager

@@ -10,8 +10,8 @@ try:
 except ImportError:
     from localflavor.br import forms as br_forms
 
-from timezones import PRETTY_TIMEZONE_CHOICES
-from backend import MyfcidAPIBackend
+from .timezones import PRETTY_TIMEZONE_CHOICES
+from .backend import MyfcidAPIBackend
 
 __all__ = [
     'Html5Form',

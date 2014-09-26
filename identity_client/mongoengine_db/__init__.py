@@ -10,8 +10,8 @@ except ImportError:
 from django.conf import settings as django_settings
 from django.test import TestCase as SimpleTestCase
 
-import models
-import settings
+from . import models
+from . import settings
 
 __all__ = ['models', 'settings', 'TestCase']
 
