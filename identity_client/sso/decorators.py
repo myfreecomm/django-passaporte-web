@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import logging
-import oauth2 as oauth
-from httplib2 import HttpLib2Error
+import six
+from requests.exceptions import ReadTimeout, RequestException
+from requests_oauthlib.oauth1_session import TokenRequestDenied
 
 from django.http import HttpResponseServerError, HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -10,13 +11,29 @@ from django.conf import settings
 from identity_client.sso.client import SSOClient
 
 
-__all__ = ['oauth_callback', ]
+__all__ = ['sso_login_required', 'oauth_callback']
+
+
+def sso_login_required(view):
+
+    def decorated(request, *args, **kwargs):
+        url = reverse('sso_consumer:request_token')
+
+        actual_decorator = user_passes_test(
+            lambda user: user.is_authenticated(),
+            login_url=url,
+        )
+
+        wrapped_view = actual_decorator(view)
+
+        return wrapped_view(request, *args, **kwargs)
+
+    return decorated
 
 
 def oauth_callback(view):
 
     def decorated(request, *args, **kwargs):
-
         if 'request_token' not in request.session:
             # O fluxo de autenticação ainda não foi iniciado
 
@@ -30,54 +47,53 @@ def oauth_callback(view):
 
         else:
             # O fluxo de autenticação já foi iniciado
-
             if  getattr(request, 'access_token', None) is None:
                 # Obter access token
                 oauth_token = request.GET.get('oauth_token')
                 oauth_verifier = request.GET.get('oauth_verifier')
 
                 request_token = request.session['request_token']
-                secret = request_token[oauth_token]
-
-                request_token = oauth.Token(key=oauth_token, secret=secret)
-                request_token.set_verifier(oauth_verifier)
-
+                oauth_secret = request_token[oauth_token]
                 try:
                     # Adicionar access token à sessão
-                    access_token = SSOClient(request_token).fetch_access_token()
+                    access_token = SSOClient(
+                        resource_owner_key=oauth_token,
+                        resource_owner_secret=oauth_secret,
+                        verifier=oauth_verifier
+                    ).fetch_access_token()
                     request.session['access_token'] = {
-                        access_token.key: access_token.secret
+                        access_token['oauth_token']: access_token['oauth_token_secret']
                     }
                     request.session.save()
 
                     # E à request
-                    request.access_token = access_token
+                    request.access_token = {
+                        'resource_owner_key': access_token['oauth_token'],
+                        'resource_owner_secret': access_token['oauth_token_secret']
+                    }
 
-                except AssertionError, e:
-                    resp, content = e.args
+                except ReadTimeout as e:
+                    message = e.args[0].args[0]
+                    logging.error(message)
+                    return HttpResponseServerError(content=message, status=503)
 
-                    message = "Could not fetch access token. Response was {0} - {1}".format(
-                        resp.get('status'), content
-                    )
+                except RequestException as e:
+                    message = u"Could not fetch access token. {0} ({1})".format(e, e.response.text)
+                    logging.error(message)
+                    return HttpResponseServerError(content=message, status=503)
+
+                except TokenRequestDenied as e:
+                    message = u';'.join(e.args)
+                    logging.error(message)
+                    return HttpResponseServerError(content=message, status=503)
+
+                except ValueError as e:
+                    message = u"Could not fetch access token. {0}".format(e)
                     logging.error(message)
                     return HttpResponseServerError(content=message)
 
-                except ValueError, e:
-                    message = "Invalid access token"
-                    logging.error(message)
-                    return HttpResponseServerError(content=message)
-
-                except HttpLib2Error, e:
-                    message = "Could not fetch access token, communication failure: {0} ({1})".format(
-                        e, type(e)
-                    )
-                    logging.error(message)
-                    return HttpResponseServerError(status=502, content=message)
-
-                except Exception, e:
-                    message = "Could not fetch access token, unknown error: {0} ({1})".format(
-                        e, type(e)
-                    )
+                except Exception as e:
+                    message = u"Could not fetch access token. Unknown error ({0})".format(e)
                     logging.error(message)
                     return HttpResponseServerError(content=message)
 

@@ -12,6 +12,7 @@ from django.template import Context, loader
 
 from identity_client.utils import get_account_module
 from identity_client.utils import prepare_form_errors
+from identity_client.sso.decorators import sso_login_required
 
 
 __all__ = [
@@ -38,23 +39,6 @@ class required_method(object):
         f.__name__ = view.__name__
         f.__doc__ = view.__doc__
         return f
-
-
-def sso_login_required(view):
-
-    def decorated(request, *args, **kwargs):
-        url = reverse('sso_consumer:request_token')
-
-        actual_decorator = user_passes_test(
-            lambda user: user.is_authenticated(),
-            login_url=url,
-        )
-
-        wrapped_view = actual_decorator(view)
-
-        return wrapped_view(request, *args, **kwargs)
-
-    return decorated
 
 
 def requires_plan(plan_slug):

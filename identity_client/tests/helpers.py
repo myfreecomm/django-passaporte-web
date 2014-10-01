@@ -13,7 +13,7 @@ from identity_client import PERSISTENCE_MODULE
 
 
 __all__ = [
-    'MyfcIDTestClient', 'MyfcIDTestCase', 'MyfcIDAPITestCase', 'use_cassette'
+    'MyfcIDTestClient', 'MyfcIDTestCase', 'MyfcIDAPITestCase', 'use_cassette', 'use_sso_cassette'
 ]
 
 
@@ -21,6 +21,13 @@ def use_cassette(*args, **kwargs):
     return VCR(
         cassette_library_dir = os.path.join(os.path.dirname(__file__), 'cassettes', 'api_client'),
         match_on = ['url', 'method', 'headers', 'body'],
+        record_mode = 'none',
+    ).use_cassette(*args, **kwargs)
+
+def use_sso_cassette(*args, **kwargs):
+    return VCR(
+        cassette_library_dir = os.path.join(os.path.dirname(__file__), 'cassettes', 'sso'),
+        match_on = ['method', 'scheme', 'host', 'port', 'path', 'query'],
         record_mode = 'none',
     ).use_cassette(*args, **kwargs)
 

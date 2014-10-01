@@ -1,0 +1,29 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: ['OAuth oauth_nonce="46477305677476087041412190814", oauth_timestamp="1412190814",
+          oauth_version="1.0", oauth_signature_method="HMAC-SHA1", oauth_consumer_key="not%20a%20valid%20token",
+          oauth_callback="http%3A%2F%2Ftestserver%2Fsso%2Fcallback%2F", oauth_signature="r%2BkVoudTDxJ5dK%2Bnt1TqQ0GUw%2B4%3D"']
+      Connection: [keep-alive]
+      Content-Length: ['0']
+      User-Agent: [python-requests/2.4.1 CPython/2.7.6 Linux/3.13.0-36-generic]
+    method: POST
+    uri: https://sandbox.app.passaporteweb.com.br:443/sso/initiate/
+  response:
+    body: {string: !!python/unicode 'Internal Server Error'}
+    headers:
+      cache-control: [max-age=0]
+      connection: [keep-alive]
+      content-length: ['21']
+      content-type: [text/html; charset=utf-8]
+      date: ['Wed, 01 Oct 2014 19:43:13 GMT']
+      expires: ['Wed, 01 Oct 2014 19:43:13 GMT']
+      last-modified: ['Wed, 01 Oct 2014 19:43:13 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/1.6.2]
+      vary: [Cookie]
+    status: {code: 500, message: SERVER_ERROR}
+version: 1

@@ -1,181 +1,208 @@
 # -*- coding: utf-8 -*-
-from httplib2 import HttpLib2Error
+import logging
 from mock import Mock, patch
-from oauth2 import Token
+from requests.packages.urllib3.exceptions import ReadTimeoutError
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
-from ..utils import reverse_with_host
-from mock_helpers import (
-    mocked_request_token, mocked_response, mocked_access_token, patch_httplib2, OAUTH_REQUEST_TOKEN
-)
+import identity_client
 
-__all__ = ['TestOauthCallback', ]
+from identity_client.utils import reverse_with_host
+from identity_client.tests.test_sso_client import (
+    SSOClientRequestToken, SSOClientAccessToken, SSOClientAuthorize
+)
+from .mock_helpers import patch_request
+
+__all__ = [
+    'OAuthCallbackWithoutRequestToken',
+    'OAuthCallbackWithRequestToken',
+]
 
 from warnings import warn;
 warn('decorators.sso_login_required não está testado')
 warn('decorators.requires_plan não está testado')
 
-class TestOauthCallback(TestCase):
+SIDE_EFFECTS = {
+    'Timeout': ReadTimeoutError('connection', 'url', "Read timed out. (read timeout=30)"),
+    'Memory': MemoryError('KTHXBYE'),
+}
 
 
-    @patch_httplib2(Mock(return_value=mocked_request_token()))
-    def _fetch_request_token(self):
-        self.client.get(reverse('sso_consumer:request_token'), {})
-
+class OAuthCallbackWithoutRequestToken(TestCase):
 
     def test_redirects_to_sso_on_missing_request_token(self):
         self.assertNotIn('request_token', self.client.session)
 
         response = self.client.get(
             reverse('sso_consumer:callback'), {
-                'oauth_token': OAUTH_REQUEST_TOKEN,
-                'oauth_verifier': 'niceverifier'
+                'oauth_token': SSOClientRequestToken.REQUEST_TOKEN['oauth_token'],
+                'oauth_verifier': SSOClientAccessToken.VERIFIER
             }
         )
 
-        self.assertEquals(response.status_code, 302)
-
-        self.assertEquals(response['Location'], reverse_with_host('sso_consumer:request_token'))
-
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['Location'], reverse_with_host('sso_consumer:request_token'))
 
     def test_adds_callback_url_to_session(self):
         self.assertNotIn('request_token', self.client.session)
 
         response = self.client.get(reverse('sso_consumer:callback'))
 
-        self.assertEquals(response.status_code, 302)
-
+        self.assertEqual(response.status_code, 302)
         self.assertIn('callback_url', self.client.session)
-        self.assertEquals(
-            self.client.session['callback_url'],
-            reverse_with_host('sso_consumer:callback')
-        )
-
+        self.assertEqual(self.client.session['callback_url'], reverse_with_host('sso_consumer:callback'))
 
     def test_strips_querystring_before_adding_callback_url_to_session(self):
         self.assertNotIn('request_token', self.client.session)
 
         response = self.client.get(
-            reverse('sso_consumer:callback'), {
-                'oauth_token': OAUTH_REQUEST_TOKEN,
-                'oauth_verifier': 'niceverifier'
-            }
+            reverse('sso_consumer:callback'), {'key': 'value', 'key2': 'value2'}
         )
 
-        self.assertEquals(response.status_code, 302)
-
+        self.assertEqual(response.status_code, 302)
         self.assertIn('callback_url', self.client.session)
-        self.assertEquals(
-            self.client.session['callback_url'],
-            reverse_with_host('sso_consumer:callback')
-        )
+        self.assertEqual(self.client.session['callback_url'], reverse_with_host('sso_consumer:callback'))
 
 
-    @patch_httplib2(Mock(side_effect=HttpLib2Error))
-    def test_fetch_access_token_fails_if_provider_is_down(self):
-        self._fetch_request_token()
+class OAuthCallbackWithRequestToken(TestCase):
+
+    def setUp(self):
+        with identity_client.tests.use_sso_cassette('fetch_request_token/success'):
+            self.client.get(reverse('sso_consumer:request_token'), {})
+
         self.assertIn('request_token', self.client.session)
 
-        response = self.client.get(
-            reverse('sso_consumer:callback'), {
-                'oauth_token': OAUTH_REQUEST_TOKEN,
-                'oauth_verifier': 'niceverifier'
-            },
-        )
+    def test_callback_fails_if_service_credentials_are_invalid(self):
+        with identity_client.tests.use_sso_cassette('fetch_access_token/invalid_credentials'):
+            response = self.client.get(
+                reverse('sso_consumer:callback'), {
+                    'oauth_token': SSOClientRequestToken.REQUEST_TOKEN['oauth_token'],
+                    'oauth_verifier': SSOClientAccessToken.VERIFIER
+                }
+            )
 
-        self.assertEquals(response.status_code, 502)
-        self.assertEquals(
-            response.content,
-            "Could not fetch access token, communication failure:  (<class 'httplib2.HttpLib2Error'>)"
-        )
-
+        self.assertEqual(response.status_code, 503)
+        expected = b"Token request failed with code 401, response was 'Unauthorized consumer with key 'not a valid token''."
+        self.assertEqual(response.content, expected)
         self.assertNotIn('access_token', self.client.session)
 
+    def test_callback_fails_if_connection_to_provider_fails(self):
+        with identity_client.tests.use_sso_cassette('fetch_access_token/500'):
+            response = self.client.get(
+                reverse('sso_consumer:callback'), {
+                    'oauth_token': SSOClientRequestToken.REQUEST_TOKEN['oauth_token'],
+                    'oauth_verifier': SSOClientAccessToken.VERIFIER
+                }
+            )
 
-    @patch_httplib2(Mock(side_effect=Exception))
-    def test_fetch_access_token_handles_unexpected_errors(self):
-        self._fetch_request_token()
-        self.assertIn('request_token', self.client.session)
-
-        response = self.client.get(
-            reverse('sso_consumer:callback'), {
-                'oauth_token': OAUTH_REQUEST_TOKEN,
-                'oauth_verifier': 'niceverifier'
-            },
-        )
-
-        self.assertEquals(response.status_code, 500)
-        self.assertEquals(
-            response.content,
-            "Could not fetch access token, unknown error:  (<type 'exceptions.Exception'>)"
-        )
-
+        self.assertEqual(response.status_code, 503)
+        expected = b"Token request failed with code 500, response was 'Internal Server Error'."
+        self.assertEqual(response.content, expected)
         self.assertNotIn('access_token', self.client.session)
 
+    def test_callback_fails_if_connection_to_provider_times_out(self):
+        with patch_request(Mock(side_effect=SIDE_EFFECTS['Timeout'])):
+            response = self.client.get(
+                reverse('sso_consumer:callback'), {
+                    'oauth_token': SSOClientRequestToken.REQUEST_TOKEN['oauth_token'],
+                    'oauth_verifier': SSOClientAccessToken.VERIFIER
+                }
+            )
 
-    @patch_httplib2(Mock(return_value=mocked_response(200, 'corrupted data')))
-    def test_fetch_access_token_fails_on_corrupted_data_returned(self):
-        self._fetch_request_token()
-
-        response = self.client.get(
-            reverse('sso_consumer:callback'), {
-                'oauth_token': OAUTH_REQUEST_TOKEN,
-                'oauth_verifier': 'niceverifier'
-            },
-        )
-
-        self.assertEquals(response.status_code, 500)
-        self.assertEquals(response.content, 'Invalid access token')
-
+        self.assertEqual(response.status_code, 503)
+        expected = b'connection: Read timed out. (read timeout=30)'
+        self.assertEqual(response.content, expected)
         self.assertNotIn('access_token', self.client.session)
 
+    def test_callback_fails_if_provider_is_not_available(self):
+        with identity_client.tests.use_sso_cassette('fetch_access_token/503'):
+            response = self.client.get(
+                reverse('sso_consumer:callback'), {
+                    'oauth_token': SSOClientRequestToken.REQUEST_TOKEN['oauth_token'],
+                    'oauth_verifier': SSOClientAccessToken.VERIFIER
+                }
+            )
 
-    @patch_httplib2(Mock(return_value=mocked_response(400, 'Bad Request')))
-    def test_fetch_access_token_handles_response_with_unexpected_status_code(self):
-        self._fetch_request_token()
-
-        response = self.client.get(
-            reverse('sso_consumer:callback'), {
-                'oauth_token': OAUTH_REQUEST_TOKEN,
-                'oauth_verifier': 'niceverifier'
-            },
-        )
-
-        self.assertEquals(response.status_code, 500)
-        self.assertEquals(response.content, 'Could not fetch access token. Response was 400 - Bad Request')
-
+        self.assertEqual(response.status_code, 503)
+        expected = b"Token request failed with code 503, response was 'Service Unavailable'."
+        self.assertEqual(response.content, expected)
         self.assertNotIn('access_token', self.client.session)
 
+    def test_callback_fails_if_request_has_an_error(self):
+        with identity_client.tests.use_sso_cassette('fetch_access_token/418'):
+            response = self.client.get(
+                reverse('sso_consumer:callback'), {
+                    'oauth_token': SSOClientRequestToken.REQUEST_TOKEN['oauth_token'],
+                    'oauth_verifier': SSOClientAccessToken.VERIFIER
+                }
+            )
 
-    @patch_httplib2(Mock(return_value=mocked_access_token()))
-    @patch('oauth2.Request.sign_request')
-    def test_oauth_request_is_correctly_signed(self, sign_request_mock):
-        self._fetch_request_token()
+        self.assertEqual(response.status_code, 503)
+        expected = b"Token request failed with code 418, response was 'I'm a Teapot'."
+        self.assertEqual(response.content, expected)
+        self.assertNotIn('access_token', self.client.session)
 
-        response = self.client.get(
-            reverse('sso_consumer:callback'), {
-                'oauth_token': OAUTH_REQUEST_TOKEN,
-                'oauth_verifier': 'niceverifier'
-            },
-        )
+    def test_callback_fails_gracefully_when_response_is_malformed(self):
+        with identity_client.tests.use_sso_cassette('fetch_access_token/malformed_response'):
+            response = self.client.get(
+                reverse('sso_consumer:callback'), {
+                    'oauth_token': SSOClientRequestToken.REQUEST_TOKEN['oauth_token'],
+                    'oauth_verifier': SSOClientAccessToken.VERIFIER
+                }
+            )
 
-        self.assertTrue(isinstance(sign_request_mock.call_args[0][2], Token))
+        self.assertEqual(response.status_code, 500)
+        self.assertNotIn('access_token', self.client.session)
 
+        content_start = response.content[:72]
+        expected_start = b'Could not fetch access token. Unable to decode token from token response'
+        self.assertEqual(content_start, expected_start)
 
-    @patch_httplib2(Mock(return_value=mocked_access_token()))
-    def test_adds_access_token_to_session(self):
-        self._fetch_request_token()
+        content_end = response.content[-65:]
+        expected_end = b'Please ensure the request/response body is x-www-form-urlencoded.'
+        self.assertEqual(content_end, expected_end)
 
-        response = self.client.get(
-            reverse('sso_consumer:callback'), {
-                'oauth_token': OAUTH_REQUEST_TOKEN,
-                'oauth_verifier': 'niceverifier'
-            },
-        )
+    def test_callback_fails_gracefully(self):
+        with patch_request(Mock(side_effect=SIDE_EFFECTS['Memory'])):
+            response = self.client.get(
+                reverse('sso_consumer:callback'), {
+                    'oauth_token': SSOClientRequestToken.REQUEST_TOKEN['oauth_token'],
+                    'oauth_verifier': SSOClientAccessToken.VERIFIER
+                }
+            )
 
-        self.assertIn('access_token', self.client.session)
-        self.assertEquals(
-            self.client.session['access_token'], {'dummyaccesstoken': 'dummyaccesstokensecret'}
+        self.assertEqual(response.status_code, 500)
+        self.assertEqual(response.content, b"Could not fetch access token. Unknown error (KTHXBYE)")
+        self.assertNotIn('access_token', self.client.session)
+
+    def test_callback_failure_when_verifier_is_invalid(self):
+        with identity_client.tests.use_sso_cassette('fetch_access_token/invalid_verifier'):
+            response = self.client.get(
+                reverse('sso_consumer:callback'), {
+                    'oauth_token': SSOClientRequestToken.REQUEST_TOKEN['oauth_token'],
+                    'oauth_verifier': '56967615'
+                }
+            )
+
+        self.assertEqual(response.status_code, 503)
+        expected = b"Token request failed with code 401, response was 'invalid oauth_token verifier: 56967615'."
+        self.assertEqual(response.content, expected)
+        self.assertNotIn('access_token', self.client.session)
+
+    def test_fails_when_access_token_is_expired(self):
+        with identity_client.tests.use_sso_cassette('fetch_user_data/expired_access_token'):
+            response = self.client.get(
+                reverse('sso_consumer:callback'), {
+                    'oauth_token': SSOClientRequestToken.REQUEST_TOKEN['oauth_token'],
+                    'oauth_verifier': SSOClientAccessToken.VERIFIER
+                }
+            )
+
+        self.assertEqual(response.status_code, 503)
+        expected = b'Error invoking decorated: 401 Client Error: UNAUTHORIZED ({"detail": "You need to login or otherwise authenticate the request."})'
+        self.assertEqual(response.content, expected)
+        self.assertEqual(
+            self.client.session['access_token'],
+            {SSOClientAccessToken.ACCESS_TOKEN['oauth_token']: SSOClientAccessToken.ACCESS_TOKEN['oauth_token_secret']}
         )

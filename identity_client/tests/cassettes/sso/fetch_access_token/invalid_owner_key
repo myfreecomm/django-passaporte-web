@@ -1,0 +1,30 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: ['OAuth oauth_nonce="73094399212578593591412192588", oauth_timestamp="1412192588",
+          oauth_version="1.0", oauth_signature_method="HMAC-SHA1", oauth_consumer_key="qxRSNcIdeA",
+          oauth_token="invalid%20owner%20key", oauth_callback="http%3A%2F%2F127.0.0.1%3A9000%2Fsso%2Fcallback%2F",
+          oauth_verifier="56967615", oauth_signature="9BqHd3%2BH5muCvph2RKLOw4QF7%2Fo%3D"']
+      Connection: [keep-alive]
+      Content-Length: ['0']
+      User-Agent: [python-requests/2.4.1 CPython/2.7.6 Linux/3.13.0-36-generic]
+    method: POST
+    uri: https://sandbox.app.passaporteweb.com.br:443/sso/token/
+  response:
+    body: {string: !!python/unicode 'invalid oauth_token'}
+    headers:
+      cache-control: [max-age=0]
+      connection: [keep-alive]
+      content-length: ['19']
+      content-type: [text/html; charset=utf-8]
+      date: ['Wed, 01 Oct 2014 19:43:11 GMT']
+      expires: ['Wed, 01 Oct 2014 19:43:11 GMT']
+      last-modified: ['Wed, 01 Oct 2014 19:43:11 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/1.6.2]
+      vary: [Cookie]
+    status: {code: 401, message: UNAUTHORIZED}
+version: 1

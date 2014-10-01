@@ -1,133 +1,156 @@
 # -*- coding: utf-8 -*-
-from httplib2 import HttpLib2Error
-from oauth2 import Token
-from datetime import datetime, timedelta
-import json
-
+import logging
 from mock import Mock, patch
+import requests
 
 from django.utils.importlib import import_module
-from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.test import TestCase
+from django.core.urlresolvers import reverse
+from django.conf import settings
 from django.contrib.auth import REDIRECT_FIELD_NAME
 
-from mock_helpers import *
+from passaporte_web.tests.helpers import TEST_USER
+
+import identity_client
+
 from identity_client.models import Identity
 from identity_client.utils import get_account_module
-from identity_client.sso.client import SSOClient
-
-__all__ = ['SSOFetchRequestTokenView', 'AccessUserData']
-
-mocked_user_json = """{
-    "last_name": "Doe",
-    "services": ["financedesktop"],
-    "timezone": null,
-    "nickname": null,
-    "first_name": "John",
-    "language": null,
-    "country": null,
-    "cpf": null,
-    "gender": null,
-    "birth_date": "2010-05-04",
-    "email": "jd@123.com",
-    "uuid": "16fd2706-8baf-433b-82eb-8c7fada847da",
-    "is_active": true,
-    "accounts": [
-        {
-            "plan_slug": "plus",
-            "name": "Pessoal",
-            "roles": ["owner"],
-            "url": "http://192.168.1.48:8000/organizations/api/accounts/e823f8e7-962c-414f-b63f-6cf439686159/",
-            "expiration": "%s",
-            "external_id": null,
-            "uuid": "e823f8e7-962c-414f-b63f-6cf439686159"
-        },
-        {
-            "plan_slug": "max",
-            "name": "Myfreecomm",
-            "roles": ["owner"],
-            "url": "http://192.168.1.48:8000/organizations/api/accounts/b39bad59-94af-4880-995a-04967b454c7a/",
-            "expiration": "%s",
-            "external_id": null,
-            "uuid": "b39bad59-94af-4880-995a-04967b454c7a"
-        }
-    ]
-}""" % (
-    (datetime.today() + timedelta(days=1)).strftime('%Y-%m-%d'),
-    (datetime.today() + timedelta(days=30)).strftime('%Y-%m-%d'),
+from identity_client.tests.test_sso_client import SSOClientRequestToken
+from identity_client.tests.test_decorators import (
+    OAuthCallbackWithoutRequestToken,
+    OAuthCallbackWithRequestToken,
+    SIDE_EFFECTS,
 )
+from .mock_helpers import patch_request
 
-mocked_user_corrupted = """{
-    "last_name": "Doe",
-    "services": ["financedesktop"],
-    "timezone": null,
-    "nickname": null,
-    "first_name": "John",
-    "language": n
-"""
-
-request_token_session = {OAUTH_REQUEST_TOKEN: OAUTH_REQUEST_TOKEN_SECRET}
-dummy_access_token = Token(OAUTH_ACCESS_TOKEN, OAUTH_ACCESS_TOKEN_SECRET)
-mocked_user_dict = json.loads(mocked_user_json)
+__all__ = ['InitiateSSO', 'FetchUserData']
 
 
-class SSOFetchRequestTokenView(TestCase):
+class InitiateSSO(TestCase):
 
-    @patch_httplib2(Mock(return_value=mocked_request_token()))
-    def test_request_token_success(self):
-        response = self.client.get(reverse('sso_consumer:request_token'), {})
-
-        authorization_url = '%(HOST)s/%(AUTHORIZATION_PATH)s' % settings.PASSAPORTE_WEB
+    def test_initiate_redirects_user_to_authorization_url_on_success(self):
+        with identity_client.tests.use_sso_cassette('fetch_request_token/success'):
+            response = self.client.get(reverse('sso_consumer:request_token'), {})
 
         self.assertEqual(response.status_code, 302)
+        authorization_url = '%(HOST)s/%(AUTHORIZATION_PATH)s' % settings.PASSAPORTE_WEB
         self.assertEqual(
             response['Location'],
-            authorization_url + '?oauth_token=' + OAUTH_REQUEST_TOKEN
+            '{0}?oauth_token={1}'.format(authorization_url, SSOClientRequestToken.REQUEST_TOKEN['oauth_token'])
         )
+
+        return
+
+    @patch('logging.error', Mock())
+    def test_initiate_adds_oauth_data_to_session_on_success(self):
+        expected_token = SSOClientRequestToken.REQUEST_TOKEN['oauth_token']
+        expected_token_secret = SSOClientRequestToken.REQUEST_TOKEN['oauth_token_secret']
+
+        with identity_client.tests.use_sso_cassette('fetch_request_token/success'):
+            response = self.client.get(reverse('sso_consumer:request_token'), {})
 
         session = self.client.session
-
         self.assertTrue('request_token' in session)
-        self.assertTrue(OAUTH_REQUEST_TOKEN in session['request_token'])
+        self.assertTrue(expected_token in session['request_token'])
+        self.assertEqual(session['request_token'][expected_token], expected_token_secret)
+
+        return
+
+    @patch('logging.error', Mock())
+    def test_initiate_fails_if_service_credentials_are_invalid(self):
+        with identity_client.tests.use_sso_cassette('fetch_request_token/invalid_credentials'):
+            response = self.client.get(reverse('sso_consumer:request_token'), {})
+
+        self.assertEqual(response.status_code, 503)
         self.assertEqual(
-            session['request_token'][OAUTH_REQUEST_TOKEN],
-            OAUTH_REQUEST_TOKEN_SECRET
+            logging.error.call_args[0][0],
+            u"Error invoking initiate: Token request failed with code 401, response was 'Unauthorized consumer with key 'not a valid token''."
         )
 
-    @patch_httplib2(Mock(return_value=mocked_response(401, 'invalid token')))
-    def test_request_token_fails_on_invalid_token(self):
-        response = self.client.get(reverse('sso_consumer:request_token'), {})
+    @patch('logging.error', Mock())
+    def test_initiate_fails_if_connection_to_provider_fails(self):
+        with identity_client.tests.use_sso_cassette('fetch_request_token/500'):
+            response = self.client.get(reverse('sso_consumer:request_token'), {})
+
+        self.assertEqual(response.status_code, 503)
+        self.assertEqual(
+            logging.error.call_args[0][0],
+            u"Error invoking initiate: Token request failed with code 500, response was 'Internal Server Error'."
+        )
+
+    @patch('logging.error', Mock())
+    def test_initiate_fails_if_connection_to_provider_times_out(self):
+        with patch_request(Mock(side_effect=SIDE_EFFECTS['Timeout'])):
+            response = self.client.get(reverse('sso_consumer:request_token'), {})
+
+        self.assertEqual(response.status_code, 503)
+        self.assertEqual(logging.error.call_count, 1)
+        self.assertEqual(
+            logging.error.call_args[0][0],
+            u'Error invoking initiate: connection: Read timed out. (read timeout=30)'
+        )
+
+    @patch('logging.error', Mock())
+    def test_initiate_fails_if_provider_is_not_available(self):
+        with identity_client.tests.use_sso_cassette('fetch_request_token/503'):
+            response = self.client.get(reverse('sso_consumer:request_token'), {})
+
+        self.assertEqual(response.status_code, 503)
+        self.assertEqual(logging.error.call_count, 1)
+        self.assertEqual(
+            logging.error.call_args[0][0],
+            u"Error invoking initiate: Token request failed with code 503, response was 'Service Unavailable'."
+        )
+
+    @patch('logging.error', Mock())
+    def test_initiate_fails_if_request_has_an_error(self):
+        with identity_client.tests.use_sso_cassette('fetch_request_token/418'):
+            response = self.client.get(reverse('sso_consumer:request_token'), {})
+
+        self.assertEqual(response.status_code, 503)
+        self.assertEqual(logging.error.call_count, 1)
+        self.assertEqual(
+            logging.error.call_args[0][0],
+            u"Error invoking initiate: Token request failed with code 418, response was 'I'm a Teapot'."
+        )
+
+    @patch('logging.error', Mock())
+    def test_initiate_fails_gracefully_when_response_is_malformed(self):
+        with identity_client.tests.use_sso_cassette('fetch_request_token/malformed_response'):
+            response = self.client.get(reverse('sso_consumer:request_token'), {})
 
         self.assertEqual(response.status_code, 500)
+        self.assertEqual(logging.error.call_count, 1)
+        self.assertEqual(
+            logging.error.call_args[0][0],
+            'Error invoking initiate: Unable to decode token from token response'
+        )
 
-    @patch_httplib2(Mock(return_value=mocked_response(200, 'invalid_request_token')))
-    def test_handles_malformed_request_token(self):
-        response = self.client.get(reverse('sso_consumer:request_token'), {})
-
-        self.assertEqual(response.status_code, 500)
-
-    @patch_httplib2(Mock(side_effect=HttpLib2Error))
-    def test_request_token_fails_on_broken_oauth_provider(self):
-
-        response = self.client.get(reverse('sso_consumer:request_token'), {})
-
-        self.assertEqual(response.status_code, 502)
-
-    @patch_httplib2(Mock(return_value=mocked_response(200, 'corrupted_data')))
-    def test_request_token_fails_on_corrupted_data(self):
-        response = self.client.get(reverse('sso_consumer:request_token'), {})
+    @patch('logging.error', Mock())
+    def test_initiate_fails_gracefully(self):
+        with patch_request(Mock(side_effect=SIDE_EFFECTS['Memory'])):
+            response = self.client.get(reverse('sso_consumer:request_token'), {})
 
         self.assertEqual(response.status_code, 500)
+        self.assertEqual(logging.error.call_count, 1)
+        self.assertEqual(
+            logging.error.call_args[0][0] % logging.error.call_args[0][1:],
+            u"Error invoking initiate: KTHXBYE {0}".format(type(SIDE_EFFECTS['Memory']))
+        )
 
 
-class AccessUserData(TestCase):
+class FetchUserData(OAuthCallbackWithRequestToken):
 
-    @patch_httplib2(Mock(return_value=mocked_request_token()))
-    def setUp(self):
-        response = self.client.get(reverse('sso_consumer:request_token'), {})
-        self.assertEquals(response.status_code, 302)
-
+    REQUEST_TOKEN = {
+        'oauth_token': 'JL0KLSpLpmWHOMwf',
+        'oauth_token_secret': 'SoIvesLtE2KuJrNO',
+        'oauth_callback_confirmed': 'true',
+    }
+    ACCESS_TOKEN = {
+        'oauth_token_secret': u'pqtkne3xOh838vtJ',
+        'oauth_token': u'pSKTtK9DdUrypvyx',
+        'oauth_callback_confirmed': u'false'
+    }
 
     def _get_real_session(self, client):
         if 'django.contrib.sessions' in settings.INSTALLED_APPS:
@@ -135,128 +158,85 @@ class AccessUserData(TestCase):
             cookie = client.cookies.get(settings.SESSION_COOKIE_NAME, None)
             return engine.SessionStore(cookie and cookie.value or None)
 
+    def full_oauth_dance(self):
+        with identity_client.tests.use_sso_cassette('fetch_user_data/active_request_token'):
+            initiate_response = self.client.get(reverse('sso_consumer:request_token'), {})
+            authorization_url = initiate_response['Location']
 
-    @patch.object(SSOClient, 'fetch_access_token', Mock(return_value=dummy_access_token))
-    @patch_httplib2(Mock(return_value=mocked_response(200, mocked_user_json)))
-    def test_access_user_data_successfuly(self):
+            authentication_challenge = requests.get(authorization_url)
+            csrf_index =  authentication_challenge.text.find('csrfmiddlewaretoken')
+            csrf_token = authentication_challenge.text[csrf_index:].split('"')[0].split("'")[2]
 
-        response = self.client.get(
-            reverse('sso_consumer:callback'), {
-                'oauth_token': OAUTH_REQUEST_TOKEN,
-                'oauth_verifier': 'niceverifier'
-            },
-        )
+            authorization_data = {
+                'email': TEST_USER['email'],
+                'password': TEST_USER['password'],
+                'csrfmiddlewaretoken': csrf_token,
+                'next': authorization_url,
+            }
+            authentication_response = requests.post(
+                authentication_challenge.url, authorization_data,
+                headers = {'Referer': authorization_url},
+                cookies = authentication_challenge.cookies,
+            )
+
+            callback_index = authentication_response.text.find('http://testserver')
+            callback_url = authentication_response.text[callback_index:].split('"')[0]
+
+            return self.client.get(callback_url)
+
+    def test_callback_adds_access_token_to_session(self):
+        session = self._get_real_session(self.client)
+        session['request_token'] = {
+            self.REQUEST_TOKEN['oauth_token']: self.REQUEST_TOKEN['oauth_token_secret']
+        }
+        session.save()
+
+        with identity_client.tests.use_sso_cassette('fetch_user_data/active_request_token'):
+            response = self.client.get(
+                reverse('sso_consumer:callback'), {
+                    'oauth_token': "JL0KLSpLpmWHOMwf",
+                    'oauth_verifier': "28583669",
+                }
+            )
 
         self.assertEqual(response.status_code, 302)
-        self.assertTrue(response['Location'].endswith(settings.LOGIN_REDIRECT_URL))
+
+        self.assertIn('access_token', self.client.session)
+        self.assertEqual(
+            self.client.session['access_token'],
+            {self.ACCESS_TOKEN['oauth_token']: self.ACCESS_TOKEN['oauth_token_secret']}
+        )
+
+    def test_user_data_is_added_to_session(self):
+        response = self.full_oauth_dance()
+
+        self.assertEqual(response.status_code, 302)
         self.assertNotEqual(self.client.session.get('user_data'), None)
 
+    def test_next_url_is_LOGIN_REDIRECT_URL(self):
+        response = self.full_oauth_dance()
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(response['Location'].endswith(settings.LOGIN_REDIRECT_URL))
 
-    @patch.object(SSOClient, 'fetch_access_token', Mock(return_value=dummy_access_token))
-    @patch_httplib2(Mock(return_value=mocked_response(200, mocked_user_json)))
+    def test_authentication_creates_local_user(self):
+        Identity.objects.all().delete()
+        response = self.full_oauth_dance()
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Identity.objects.count(), 1)
+
+    def test_authentication_creates_local_user_accounts(self):
+        serviceAccountModel = get_account_module()
+        serviceAccountModel.objects.all().delete()
+        response = self.full_oauth_dance()
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(serviceAccountModel.objects.count(), 2)
+
     def test_next_url_may_be_read_from_session(self):
         session = self._get_real_session(self.client)
         session[REDIRECT_FIELD_NAME] = '/oauth-protected-view/'
         session.save()
 
-        response = self.client.get(
-            reverse('sso_consumer:callback'), {
-                'oauth_token': OAUTH_REQUEST_TOKEN,
-                'oauth_verifier': 'niceverifier'
-            },
-        )
+        response = self.full_oauth_dance()
 
         self.assertEqual(response.status_code, 302)
         self.assertTrue(response['Location'].endswith('/oauth-protected-view/'))
-
-
-    @patch.object(SSOClient, 'fetch_access_token', Mock(return_value=dummy_access_token))
-    @patch_httplib2(Mock(return_value=mocked_response(200, mocked_user_json)))
-    def test_default_next_url_is_LOGIN_REDIRECT_URL(self):
-        response = self.client.get(
-            reverse('sso_consumer:callback'), {
-                'oauth_token': OAUTH_REQUEST_TOKEN,
-                'oauth_verifier': 'niceverifier'
-            },
-        )
-
-        self.assertEqual(response.status_code, 302)
-        self.assertTrue(response['Location'].endswith(settings.LOGIN_REDIRECT_URL))
-
-
-    @patch.object(SSOClient, 'fetch_access_token', Mock(return_value=dummy_access_token))
-    @patch_httplib2(Mock(side_effect=HttpLib2Error))
-    def test_access_user_data_fails_if_myfc_id_is_down(self):
-        response = self.client.get(
-            reverse('sso_consumer:callback'), {
-                'oauth_token': OAUTH_REQUEST_TOKEN,
-                'oauth_verifier': 'niceverifier'
-            },
-        )
-
-        self.assertEqual(response.status_code, 502)
-
-
-    @patch.object(SSOClient, 'fetch_access_token', Mock(return_value=dummy_access_token))
-    @patch_httplib2(Mock(return_value=mocked_response(200, mocked_user_corrupted)))
-    def test_access_user_data_fails_if_corrupted_data_is_received(self):
-        response = self.client.get(
-            reverse('sso_consumer:callback'), {
-                'oauth_token': OAUTH_REQUEST_TOKEN,
-                'oauth_verifier': 'niceverifier'
-            },
-        )
-
-        self.assertEqual(response.status_code, 500)
-
-
-    @patch.object(SSOClient, 'fetch_access_token', Mock(return_value=dummy_access_token))
-    @patch_httplib2(Mock(return_value=mocked_response(200, mocked_user_json)))
-    @patch('oauth2.Request.sign_request')
-    def test_oauth_request_user_data_is_correctly_signed(self, sign_request_mock):
-        response = self.client.get(
-            reverse('sso_consumer:callback'), {
-                'oauth_token': OAUTH_REQUEST_TOKEN,
-                'oauth_verifier': 'niceverifier'
-            },
-        )
-
-        self.assertTrue(isinstance(sign_request_mock.call_args[0][2], Token))
-
-
-    @patch.object(SSOClient, 'fetch_access_token', Mock(return_value=dummy_access_token))
-    @patch_httplib2(Mock(return_value=mocked_response(200, mocked_user_json)))
-    def test_authentication_creates_local_user(self):
-        Identity.objects.all().delete()
-
-        response = self.client.get(
-            reverse('sso_consumer:callback'), {
-                'oauth_token': OAUTH_REQUEST_TOKEN,
-                'oauth_verifier': 'niceverifier'
-            },
-        )
-
-        self.assertEqual(response.status_code, 302)
-        self.assertTrue(response['Location'].endswith(settings.LOGIN_REDIRECT_URL))
-
-        self.assertEqual(Identity.objects.count(), 1)
-
-
-    @patch.object(SSOClient, 'fetch_access_token', Mock(return_value=dummy_access_token))
-    @patch_httplib2(Mock(return_value=mocked_response(200, mocked_user_json)))
-    @patch.object(settings, 'SERVICE_ACCOUNT_MODULE', 'identity_client.ServiceAccount')
-    def test_authentication_creates_local_user_accounts(self):
-        serviceAccountModel = get_account_module()
-        serviceAccountModel.objects.all().delete()
-
-        response = self.client.get(
-            reverse('sso_consumer:callback'), {
-                'oauth_token': OAUTH_REQUEST_TOKEN,
-                'oauth_verifier': 'niceverifier'
-            },
-      )
-
-        self.assertEqual(response.status_code, 302)
-        self.assertTrue(response['Location'].endswith(settings.LOGIN_REDIRECT_URL))
-
-        self.assertEqual(serviceAccountModel.objects.count(), 2)

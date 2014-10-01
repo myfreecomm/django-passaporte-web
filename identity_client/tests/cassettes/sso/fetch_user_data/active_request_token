@@ -1,0 +1,304 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: ['OAuth oauth_nonce="48295233996438811021412285707", oauth_timestamp="1412285707",
+          oauth_version="1.0", oauth_signature_method="HMAC-SHA1", oauth_consumer_key="qxRSNcIdeA",
+          oauth_callback="http%3A%2F%2Ftestserver%2Fsso%2Fcallback%2F", oauth_signature="%2Bb0pTl354zsKEytsHqurRrQeOSA%3D"']
+      Connection: [keep-alive]
+      Content-Length: ['0']
+      User-Agent: [python-requests/2.4.1 CPython/2.7.6 Linux/3.13.0-36-generic]
+    method: POST
+    uri: https://sandbox.app.passaporteweb.com.br:443/sso/initiate/
+  response:
+    body: {string: !!python/unicode 'oauth_token_secret=SoIvesLtE2KuJrNO&oauth_token=JL0KLSpLpmWHOMwf&oauth_callback_confirmed=true'}
+    headers:
+      cache-control: [max-age=0]
+      connection: [keep-alive]
+      content-length: ['94']
+      content-type: [text/html; charset=utf-8]
+      date: ['Thu, 02 Oct 2014 21:35:11 GMT']
+      expires: ['Thu, 02 Oct 2014 21:35:11 GMT']
+      last-modified: ['Thu, 02 Oct 2014 21:35:11 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/1.6.2]
+      vary: [Cookie]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [python-requests/2.4.1 CPython/2.7.6 Linux/3.13.0-36-generic]
+    method: GET
+    uri: https://sandbox.app.passaporteweb.com.br:443/sso/authorize/?oauth_token=JL0KLSpLpmWHOMwf
+  response:
+    body: {string: !!python/unicode ''}
+    headers:
+      cache-control: [max-age=0]
+      connection: [keep-alive]
+      content-length: ['0']
+      content-type: [text/html; charset=utf-8]
+      date: ['Thu, 02 Oct 2014 21:35:12 GMT']
+      expires: ['Thu, 02 Oct 2014 21:35:12 GMT']
+      last-modified: ['Thu, 02 Oct 2014 21:35:12 GMT']
+      location: ['https://sandbox.app.passaporteweb.com.br/oauth/1.0/login/?oauth_token=JL0KLSpLpmWHOMwf&next=/sso/authorize/%3Foauth_token%3DJL0KLSpLpmWHOMwf']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/1.6.2]
+      vary: [Cookie]
+    status: {code: 302, message: FOUND}
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [python-requests/2.4.1 CPython/2.7.6 Linux/3.13.0-36-generic]
+    method: GET
+    uri: https://sandbox.app.passaporteweb.com.br:443/oauth/1.0/login/?oauth_token=JL0KLSpLpmWHOMwf&next=/sso/authorize/%3Foauth_token%3DJL0KLSpLpmWHOMwf
+  response:
+    body:
+      string: !!binary |
+        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
+        AA==
+    headers:
+      cache-control: [max-age=0]
+      connection: [keep-alive]
+      content-encoding: [gzip]
+      content-length: ['2908']
+      content-type: [text/html; charset=utf-8]
+      date: ['Thu, 02 Oct 2014 21:35:12 GMT']
+      expires: ['Thu, 02 Oct 2014 21:35:12 GMT']
+      last-modified: ['Thu, 02 Oct 2014 21:35:12 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/1.6.2]
+      set-cookie: ['csrftoken=3SB7jwwt8ALf2bl6DBjF27TdS2oAinlb; expires=Thu, 01-Oct-2015
+          21:35:12 GMT; Max-Age=31449600; Path=/', 'sessionid=ja12v7lkwyy6quy5bphye7lwgr5z2y9w;
+          expires=Thu, 16-Oct-2014 21:35:12 GMT; httponly; Max-Age=1209600; Path=/']
+      vary: ['Cookie, Accept-Encoding']
+    status: {code: 200, message: OK}
+- request:
+    body: csrfmiddlewaretoken=3SB7jwwt8ALf2bl6DBjF27TdS2oAinlb&password=%2ASudN7%25r%24MiYRa%21E&email=identity_client%40disposableinbox.com&next=https%3A%2F%2Fsandbox.app.passaporteweb.com.br%2Fsso%2Fauthorize%2F%3Foauth_token%3DJL0KLSpLpmWHOMwf
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Length: ['236']
+      Content-Type: [application/x-www-form-urlencoded]
+      Cookie: [csrftoken=3SB7jwwt8ALf2bl6DBjF27TdS2oAinlb; sessionid=ja12v7lkwyy6quy5bphye7lwgr5z2y9w]
+      Referer: ['https://sandbox.app.passaporteweb.com.br/sso/authorize/?oauth_token=JL0KLSpLpmWHOMwf']
+      User-Agent: [python-requests/2.4.1 CPython/2.7.6 Linux/3.13.0-36-generic]
+    method: POST
+    uri: https://sandbox.app.passaporteweb.com.br:443/oauth/1.0/login/?oauth_token=JL0KLSpLpmWHOMwf&next=/sso/authorize/%3Foauth_token%3DJL0KLSpLpmWHOMwf
+  response:
+    body: {string: !!python/unicode ''}
+    headers:
+      cache-control: [max-age=0]
+      connection: [keep-alive]
+      content-length: ['0']
+      content-type: [text/html; charset=utf-8]
+      date: ['Thu, 02 Oct 2014 21:35:14 GMT']
+      expires: ['Thu, 02 Oct 2014 21:35:14 GMT']
+      last-modified: ['Thu, 02 Oct 2014 21:35:14 GMT']
+      location: ['https://sandbox.app.passaporteweb.com.br/sso/authorize/?oauth_token=JL0KLSpLpmWHOMwf']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/1.6.2]
+      set-cookie: ['csrftoken=91ABXa9ffpL8BnNjKYhQosQ7CK4gVUDU; expires=Thu, 01-Oct-2015
+          21:35:14 GMT; Max-Age=31449600; Path=/', sessionid=1t9h84od3isyfu7963ln1g2yl56gdxue;
+          httponly; Path=/]
+      vary: [Cookie]
+    status: {code: 302, message: FOUND}
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Type: [application/x-www-form-urlencoded]
+      Cookie: [csrftoken=91ABXa9ffpL8BnNjKYhQosQ7CK4gVUDU; sessionid=1t9h84od3isyfu7963ln1g2yl56gdxue]
+      Referer: ['https://sandbox.app.passaporteweb.com.br/sso/authorize/?oauth_token=JL0KLSpLpmWHOMwf']
+      User-Agent: [python-requests/2.4.1 CPython/2.7.6 Linux/3.13.0-36-generic]
+    method: GET
+    uri: https://sandbox.app.passaporteweb.com.br:443/sso/authorize/?oauth_token=JL0KLSpLpmWHOMwf
+  response:
+    body:
+      string: !!binary |
+        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
+    headers:
+      cache-control: [max-age=0]
+      connection: [keep-alive]
+      content-encoding: [gzip]
+      content-length: ['2214']
+      content-type: [text/html; charset=utf-8]
+      date: ['Thu, 02 Oct 2014 21:35:14 GMT']
+      expires: ['Thu, 02 Oct 2014 21:35:14 GMT']
+      last-modified: ['Thu, 02 Oct 2014 21:35:14 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/1.6.2]
+      set-cookie: [sessionid=1t9h84od3isyfu7963ln1g2yl56gdxue; httponly; Path=/]
+      vary: ['Cookie, Accept-Encoding']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: ['OAuth oauth_nonce="101509978215304836771412285960", oauth_timestamp="1412285960",
+          oauth_version="1.0", oauth_signature_method="HMAC-SHA1", oauth_consumer_key="qxRSNcIdeA",
+          oauth_token="JL0KLSpLpmWHOMwf", oauth_callback="http%3A%2F%2Ftestserver%2Fsso%2Fcallback%2F",
+          oauth_verifier="28583669", oauth_signature="bteIb2WK6ZGPFGugKgr0VuPAPOw%3D"']
+      Connection: [keep-alive]
+      Content-Length: ['0']
+      User-Agent: [python-requests/2.4.1 CPython/2.7.6 Linux/3.13.0-36-generic]
+    method: POST
+    uri: https://sandbox.app.passaporteweb.com.br:443/sso/token/
+  response:
+    body: {string: !!python/unicode 'oauth_token_secret=pqtkne3xOh838vtJ&oauth_token=pSKTtK9DdUrypvyx&oauth_callback_confirmed=false'}
+    headers:
+      cache-control: [max-age=0]
+      connection: [keep-alive]
+      content-length: ['95']
+      content-type: [text/html; charset=utf-8]
+      date: ['Thu, 02 Oct 2014 21:39:24 GMT']
+      expires: ['Thu, 02 Oct 2014 21:39:24 GMT']
+      last-modified: ['Thu, 02 Oct 2014 21:39:24 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/1.6.2]
+      vary: [Cookie]
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: ['OAuth oauth_nonce="158663874207504422461412285962", oauth_timestamp="1412285962",
+          oauth_version="1.0", oauth_signature_method="HMAC-SHA1", oauth_consumer_key="qxRSNcIdeA",
+          oauth_token="pSKTtK9DdUrypvyx", oauth_callback="http%3A%2F%2Ftestserver%2Fsso%2Fcallback%2F",
+          oauth_signature="mZAeCtjAKWFTChkbcaQixeIU8hE%3D"']
+      Connection: [keep-alive]
+      Content-Length: ['0']
+      User-Agent: [python-requests/2.4.1 CPython/2.7.6 Linux/3.13.0-36-generic]
+    method: POST
+    uri: https://sandbox.app.passaporteweb.com.br:443/sso/fetchuserdata/
+  response:
+    body:
+      string: !!binary |
+        H4sIAA7GLVQC/71V74/TOBD9V6JoP66b32myn447+MAhwR1wQjqErIk9bk1TO2c72y0r/nfstAul
+        K61adGpURU3GfvPmPWfmPh4kc6PB+CaKl84N9iZJDNoZ6/XIpQKznTG9TgawFgZtHJINdolcwwKT
+        ceg18IRRtxzX3TWnHAWMvaNwCw7M9ZJmeXO9Cffk59BsUIv4OoqFNNZRBesp/0uOykm3DZEeDgJ/
+        9NJHwmuLitMBjFNoqMKN9WFnRvShcZQ8LGbFvG7bLCcdQEtKSBlpm6omRVvBPK3ZnFfzXQa1GH0Z
+        YU94lpw6vUIVnud5y3kBWcVEWkCTpnnJ07apOSK2gG0mOK94U5QCOlGLdtpvKTAnb/GA0sDBIZVK
+        aDqa/lBjC4p3+m4GwzD7Ia7XNsg960wCjOlROZvAIBO5U0aiTU4pLwl8lHZSSAZOahVkuo8nQP+v
+        DNVL687i8xPcRCr+6nEeaHqsj/fx4EWlth8XAdpi36OZqOx9fOGx1mgYRs9220LQ6B6n7bHeeFfj
+        T0G4M8XSZgFKfjkg912+SmSVmHcVgbmovV5FRZpqXpCUQ1XwIi0waya98G6QZkLwqdXY98canm3h
+        Y8l+hZVDo6Cn0+He03o46qegBJeOjBmVdA6tO7TmtY725KKNdMvILaWNQjDCO39U7AWc4iXwNK05
+        EXXGfTVckK7GmjSl/xh9oV2ZtZd36gxWTzh1CsoTTpFdJ+GHjr337y/4HUHJ2o5hSXJoGCmrXBDA
+        zJ81SLu65YKXHTx2J279RXy3KrIoTW+m36Pm9H/adQbNJ+w6BSX++ulhIK23wiCG5nY0kyyaW8lw
+        1373TXxL2W6c/fI02KOSMFdOmwdHqXet28k1ftHq+wCE0S3Dsp2udIXbELnK4SrLr9SzAni+reDd
+        7/2iSV+1uOpej7fq7Zvszcvswz+v/t3qP//78GK5mv319/C8mdWfV+8mndcgJ3ePOPzGpR20ha5H
+        qULtvtKwfjBayB4vOy/3SaeD4RWhQRoa0my04Zel4tOTkJ48pPdmfQPaAxygpgkAAA==
+    headers:
+      allow: ['GET, POST, HEAD, OPTIONS']
+      connection: [keep-alive]
+      content-encoding: [gzip]
+      content-length: ['790']
+      content-type: [application/json]
+      date: ['Thu, 02 Oct 2014 21:39:26 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/1.6.2]
+      vary: ['Authenticate, Accept, Cookie, Accept-Encoding']
+      x-oauth-consumer: [identity_client]
+      x-oauth-resource-owner: ['https://sandbox.app.passaporteweb.com.br/accounts/api/identities/c3769912-baa9-4a0c-9856-395a706c7d57/']
+    status: {code: 200, message: OK}
+version: 1

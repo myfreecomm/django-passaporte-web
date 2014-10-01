@@ -1,0 +1,30 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: ['OAuth oauth_nonce="174999433346117501861412191870", oauth_timestamp="1412191870",
+          oauth_version="1.0", oauth_signature_method="HMAC-SHA1", oauth_consumer_key="qxRSNcIdeA",
+          oauth_token="HsLM5nlBdCpARdrt", oauth_callback="http%3A%2F%2F127.0.0.1%3A9000%2Fsso%2Fcallback%2F",
+          oauth_verifier="56967615", oauth_signature="3L5BBDbaMZn76l1lCwZqf0AFL4w%3D"']
+      Connection: [keep-alive]
+      Content-Length: ['0']
+      User-Agent: [python-requests/2.4.1 CPython/2.7.6 Linux/3.13.0-36-generic]
+    method: POST
+    uri: https://sandbox.app.passaporteweb.com.br:443/sso/token/
+  response:
+    body: {string: !!python/unicode 'oauth_token_secret=Xq2U3m3oaKkVfQZ6&oauth_token=wT06MCzJYkEVmcLE&oauth_callback_confirmed=false'}
+    headers:
+      cache-control: [max-age=0]
+      connection: [keep-alive]
+      content-length: ['95']
+      content-type: [text/html; charset=utf-8]
+      date: ['Wed, 01 Oct 2014 19:31:14 GMT']
+      expires: ['Wed, 01 Oct 2014 19:31:14 GMT']
+      last-modified: ['Wed, 01 Oct 2014 19:31:14 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/1.6.2]
+      vary: [Cookie]
+    status: {code: 200, message: OK}
+version: 1
