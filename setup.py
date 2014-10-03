@@ -27,7 +27,7 @@ class Tox(TestCommand):
 
 setuptools.setup(
     name="django-passaporte-web",
-    version="1.1.7",
+    version="1.2",
     packages=["identity_client"],
     include_package_data=True,  # declarations in MANIFEST.in
     install_requires=open(join(dirname(__file__), 'requirements.txt')).readlines(),
