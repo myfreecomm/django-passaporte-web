@@ -38,7 +38,7 @@ def configure_settings(options):
             TEST_RUNNER='django.test.simple.DjangoTestSuiteRunner',
             TEST_ROOT=join(dirname(__file__), 'identity_client', 'tests'),
             TEMPLATE_DIRS=(join(dirname(__file__), 'identity_client', 'tests', 'templates'), ),
-            ROOT_URLCONF='identity_client.urls',
+            ROOT_URLCONF='identity_client.tests.urls',
 
             TEMPLATE_CONTEXT_PROCESSORS = (
                 'identity_client.processors.hosts',
