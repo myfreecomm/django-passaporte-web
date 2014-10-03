@@ -82,6 +82,7 @@ def login(request, template_name='login.html',
 
     return result
 
+
 @sso_login_required
 def list_accounts(request):
     identity = request.user

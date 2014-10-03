@@ -24,4 +24,8 @@ urlpatterns += patterns('identity_client.views',
         'list_accounts',
         name='list_accounts'
     ),
+     url(r'^alternate_accounts/$',
+        'list_accounts',
+        name='alternate_accounts'
+    ),
 )

@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
 import os
 from vcr import VCR
+import requests
 
 from django.conf import settings
+from django.core.urlresolvers import reverse
+from django.contrib.auth import authenticate, login
+from django.http import HttpRequest
 from django.test.client import Client
 from django.test import TestCase
-from django.contrib.auth import authenticate, login
 from django.utils.importlib import import_module
-from django.http import HttpRequest
+
+from passaporte_web.tests.helpers import TEST_USER
 
 from identity_client import PERSISTENCE_MODULE
 
@@ -30,6 +34,28 @@ def use_sso_cassette(*args, **kwargs):
         match_on = ['method', 'scheme', 'host', 'port', 'path', 'query'],
         record_mode = 'none',
     ).use_cassette(*args, **kwargs)
+
+def full_oauth_dance(client, url=reverse('sso_consumer:request_token')):
+    with use_sso_cassette('fetch_user_data/active_request_token'):
+        initiate_response = client.get(url)
+
+        authorization_url = initiate_response['Location']
+        authentication_challenge = requests.get(authorization_url)
+
+        authorization_data = {
+            'email': TEST_USER['email'],
+            'password': TEST_USER['password'],
+            'csrfmiddlewaretoken': u'3SB7jwwt8ALf2bl6DBjF27TdS2oAinlb',
+            'next': authorization_url,
+        }
+        authentication_response = requests.post(
+            authentication_challenge.url, authorization_data,
+            headers = {'Referer': authorization_url},
+            cookies = authentication_challenge.cookies,
+        )
+
+        callback_url = u'http://testserver/sso/callback/?oauth_token=JL0KLSpLpmWHOMwf&oauth_verifier=28583669'
+        return client.get(callback_url)
 
 
 class MyfcIDTestClient(Client):

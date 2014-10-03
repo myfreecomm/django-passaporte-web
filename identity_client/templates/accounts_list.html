@@ -6,17 +6,16 @@
 {% endblock content-header %}
 
 {% block content-inner %}
-
     <div class="accounts">
         {% if error %}
-        <div class="alert-message error">
-            <a close="close" href="#">x</a>
-            <p>
-                <strong>Erro!</strong>
-            </p>
-            {% if error.status %}<p>Status: {{ error.status }}</p>{% endif %}
-            <p>Mensagem: {{ error.message }}</p>
-        </div>
+            <div class="alert-message error">
+                <a close="close" href="#">x</a>
+                <p>
+                    <strong>Erro!</strong>
+                </p>
+                {% if error.status %}<p>Status: {{ error.status }}</p>{% endif %}
+                <p>Mensagem: {{ error.message }}</p>
+            </div>
         {% endif %}
 
         <table>
@@ -36,14 +35,13 @@
                     <td>{{ account.name }}</td>
                     <td>{{ account.uuid }}</td>
                     <td>{{ account.plan_slug }}</td>
-                    <td>{{ account.members }}</td>
+                    <td>{{ account.members.all|join:", " }}</td>
                     <td>{{ account.expiration }}</td>
                     <td>{{ account.url }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-
 
         <table>
             <thead>
@@ -68,7 +66,6 @@
             </tbody>
         </table>
     </div>
-
 {% endblock content-inner %}
 
 {% block content-aside %}

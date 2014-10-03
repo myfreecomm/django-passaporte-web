@@ -4,6 +4,7 @@ import six
 from requests.exceptions import ReadTimeout, RequestException
 from requests_oauthlib.oauth1_session import TokenRequestDenied
 
+from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponseServerError, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.conf import settings

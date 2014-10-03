@@ -3,8 +3,11 @@ import logging
 from mock import Mock, patch
 from requests.packages.urllib3.exceptions import ReadTimeoutError
 
+from django.utils.importlib import import_module
 from django.test import TestCase
 from django.core.urlresolvers import reverse
+from django.conf import settings
+from django.contrib.auth import REDIRECT_FIELD_NAME
 
 import identity_client
 
@@ -12,15 +15,16 @@ from identity_client.utils import reverse_with_host
 from identity_client.tests.test_sso_client import (
     SSOClientRequestToken, SSOClientAccessToken, SSOClientAuthorize
 )
+from .helpers import full_oauth_dance
 from .mock_helpers import patch_request
 
 __all__ = [
     'OAuthCallbackWithoutRequestToken',
     'OAuthCallbackWithRequestToken',
+    'SSOLoginRequired',
 ]
 
 from warnings import warn;
-warn('decorators.sso_login_required não está testado')
 warn('decorators.requires_plan não está testado')
 
 SIDE_EFFECTS = {
@@ -206,3 +210,32 @@ class OAuthCallbackWithRequestToken(TestCase):
             self.client.session['access_token'],
             {SSOClientAccessToken.ACCESS_TOKEN['oauth_token']: SSOClientAccessToken.ACCESS_TOKEN['oauth_token_secret']}
         )
+
+
+class SSOLoginRequired(TestCase):
+
+    def test_anonymous_user_is_redirected_to_initiate(self):
+        expected_redirect = u'{0}?next={1}'.format(
+            reverse_with_host('sso_consumer:request_token'), settings.LOGIN_REDIRECT_URL
+        )
+        response = self.client.get(settings.LOGIN_REDIRECT_URL, follow=False)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['Location'], expected_redirect)
+
+    def test_requested_url_will_be_used_as_next_url(self):
+        requested_url = reverse('alternate_accounts')
+        expected_redirect = u'{0}?next={1}'.format(
+            reverse_with_host('sso_consumer:request_token'), requested_url
+        )
+        response = self.client.get(requested_url, follow=False)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['Location'], expected_redirect)
+
+    def test_authenticated_user_is_allowed_through(self):
+        sso_response = full_oauth_dance(self.client)
+        with identity_client.tests.use_sso_cassette('fetch_user_data/active_request_token'):
+            first_response = self.client.get(sso_response['Location'])
+            requested_url = reverse('alternate_accounts')
+            second_response = self.client.get(requested_url, follow=False)
+
+        self.assertEqual(second_response.status_code, 200)

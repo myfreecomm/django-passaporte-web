@@ -7,7 +7,6 @@ import requests
 from django import http
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from django.contrib.auth.decorators import user_passes_test
 from django.template import Context, loader
 
 from identity_client.utils import get_account_module

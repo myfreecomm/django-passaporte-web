@@ -165,7 +165,6 @@ class ServiceAccount(models.Model):
 
     @classmethod
     def refresh_accounts(cls, identity, **kwargs):
-
         accounts = cls.pull_remote_accounts(identity, **kwargs)
         cls.update_user_accounts(identity, accounts)
         cls.remove_stale_accounts(identity, accounts)
