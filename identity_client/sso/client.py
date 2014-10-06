@@ -22,10 +22,8 @@ class SSOClient(OAuth1Session):
             client_key, client_secret=client_secret, callback_uri=callback_uri, **kwargs
         )
 
-    def fetch_request_token(self, callback_url=None):
-        if callback_url is not None:
-            self.callback_uri = callback_url
-        return super(SSOClient, self).fetch_request_token(self.request_token_url)
+    def fetch_request_token(self, scopes=None):
+        return super(SSOClient, self).fetch_request_token(self.request_token_url, scopes=scopes)
 
     def authorize(self, request):
         request_token = self.fetch_request_token()
@@ -40,12 +38,3 @@ class SSOClient(OAuth1Session):
 
     def fetch_access_token(self):
         return super(SSOClient, self).fetch_access_token(self.access_token_url)
-
-    def get(self, url, **kwargs):
-        from warnings import warn;
-        warn(
-            'Existe um bug no provider do python-oauth2 quando requisições utilizando GET são utilizadas. '
-            'Você provavelmente vai precisar usar um POST.'
-        )
-        response = super(SSOClient, self).get(url, **kwargs)
-        return response
