@@ -1,7 +1,4 @@
 django<=1.7
-mock
-pymongo==2.5.2
-mongoengine>=0.8.5
 requests>=1.2.3
 requests-oauthlib>=0.4.1
 pytz==2013b
