@@ -22,8 +22,8 @@ class SSOClient(OAuth1Session):
             client_key, client_secret=client_secret, callback_uri=callback_uri, **kwargs
         )
 
-    def fetch_request_token(self, scopes=None):
-        return super(SSOClient, self).fetch_request_token(self.request_token_url, scopes=scopes)
+    def fetch_request_token(self, realm=None):
+        return super(SSOClient, self).fetch_request_token(self.request_token_url, realm=realm)
 
     def authorize(self, request):
         request_token = self.fetch_request_token()
