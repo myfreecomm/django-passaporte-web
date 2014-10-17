@@ -163,10 +163,6 @@ class OAuthCallbackWithRequestToken(TestCase):
         expected_start = b'Could not fetch access token. Unable to decode token from token response'
         self.assertEqual(content_start, expected_start)
 
-        content_end = response.content[-65:]
-        expected_end = b'Please ensure the request/response body is x-www-form-urlencoded.'
-        self.assertEqual(content_end, expected_end)
-
     def test_callback_fails_gracefully(self):
         with patch_request(Mock(side_effect=SIDE_EFFECTS['Memory'])):
             response = self.client.get(
