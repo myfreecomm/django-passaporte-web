@@ -14,6 +14,8 @@ class SSOClient(OAuth1Session):
     user_data_url = '%(HOST)s/%(FETCH_USER_DATA_PATH)s' % settings.PASSAPORTE_WEB
 
     def __init__(self, **kwargs):
+        self.realms = settings.PASSAPORTE_WEB.get('REALMS', ['sso:fetch_userdata'])
+
         client_key = settings.PASSAPORTE_WEB['CONSUMER_TOKEN']
         client_secret = settings.PASSAPORTE_WEB['CONSUMER_SECRET']
         callback_uri = reverse_with_host('sso_consumer:callback')
@@ -22,8 +24,8 @@ class SSOClient(OAuth1Session):
             client_key, client_secret=client_secret, callback_uri=callback_uri, **kwargs
         )
 
-    def fetch_request_token(self, realm=None):
-        return super(SSOClient, self).fetch_request_token(self.request_token_url, realm=realm)
+    def fetch_request_token(self):
+        return super(SSOClient, self).fetch_request_token(self.request_token_url, realm=self.realms)
 
     def authorize(self, request):
         request_token = self.fetch_request_token()

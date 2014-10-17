@@ -114,6 +114,30 @@ class SSOClientRequestToken(TestCase):
         sso_client = SSOClient()
         self.assertRaises(MemoryError, sso_client.fetch_request_token)
 
+    @patch('identity_client.sso.client.settings.APPLICATION_HOST', 'http://127.0.0.1:8000')
+    def test_default_realms(self):
+        sso_client = SSOClient()
+        with identity_client.tests.use_sso_cassette('fetch_request_token/default_realms') as recorded:
+            request_token = sso_client.fetch_request_token()
+            request = recorded.requests[0]
+
+        self.assertEqual(request.headers['Authorization'][:32], 'OAuth realm="sso:fetch_userdata"')
+
+    @patch('identity_client.sso.client.settings')
+    def test_requested_realms_can_be_changed_via_project_settings(self, settings_mock):
+        settings_mock.APPLICATION_HOST = 'http://127.0.0.1:8000'
+        settings_mock.PASSAPORTE_WEB = settings.PASSAPORTE_WEB
+        settings_mock.PASSAPORTE_WEB['REALMS'] = ['auth:api', 'sso:fetch_userdata', 'account_manager:api:service_accounts_root_api']
+        sso_client = SSOClient()
+        with identity_client.tests.use_sso_cassette('fetch_request_token/changed_realms') as recorded:
+            request_token = sso_client.fetch_request_token()
+            request = recorded.requests[0]
+
+        self.assertEqual(
+            request.headers['Authorization'][:87],
+            'OAuth realm="auth:api sso:fetch_userdata account_manager:api:service_accounts_root_api"'
+        )
+
 
 class SSOClientAccessToken(TestCase):
 

@@ -1,0 +1,30 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Authorization: ['OAuth realm="sso:fetch_userdata", oauth_nonce="897813936771991641413579419",
+          oauth_timestamp="1413579419", oauth_version="1.0", oauth_signature_method="HMAC-SHA1",
+          oauth_consumer_key="qxRSNcIdeA", oauth_callback="http%3A%2F%2F127.0.0.1%3A8000%2Fsso%2Fcallback%2F",
+          oauth_signature="%2F%2F%2B7IdeNbFejoSMziNZ2xkR6bNw%3D"']
+      Connection: [keep-alive]
+      Content-Length: ['0']
+      User-Agent: [python-requests/2.4.3 CPython/2.7.6 Linux/3.13.0-37-generic]
+    method: POST
+    uri: https://sandbox.app.passaporteweb.com.br:443/sso/initiate/
+  response:
+    body: {string: !!python/unicode 'oauth_token_secret=C2vwIlsHemQkfvsV9G5lh2cwLg8r7R&oauth_token=Kxvd89OLABPrg8vqwKA6Snjmiy60XG&oauth_callback_confirmed=true'}
+    headers:
+      cache-control: [max-age=0]
+      connection: [keep-alive]
+      content-length: ['122']
+      content-type: [application/x-www-form-urlencoded]
+      date: ['Fri, 17 Oct 2014 20:57:01 GMT']
+      expires: ['Fri, 17 Oct 2014 20:57:01 GMT']
+      last-modified: ['Fri, 17 Oct 2014 20:57:01 GMT']
+      p3p: [CP="NON DSP COR CURa TIA"]
+      server: [nginx/1.6.2]
+      vary: [Cookie]
+    status: {code: 200, message: OK}
+version: 1
