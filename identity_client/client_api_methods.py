@@ -4,7 +4,7 @@ import json
 from datetime import datetime, date
 
 import requests
-from passaporte_web.main import Application, Identity as RemoteIdentity, ServiceAccount as RemoteServiceAccount, AccountMembers, AccountMember
+from passaporte_web.main import PassaporteWeb, Identity as RemoteIdentity, ServiceAccount as RemoteServiceAccount, AccountMembers, AccountMember
 from django.conf import settings
 
 from identity_client.decorators import handle_api_exceptions, handle_api_exceptions_with_form
@@ -44,7 +44,7 @@ class APIClient(object):
              (app.host == cls.api_host)
 
         if (cls._application is None) or not is_same_app(cls._application):
-            cls._application = Application(host=cls.api_host, token=cls.api_user, secret=cls.api_password)
+            cls._application = PassaporteWeb(host=cls.api_host, token=cls.api_user, secret=cls.api_password)
 
         return cls._application
 
