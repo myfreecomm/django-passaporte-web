@@ -6,6 +6,7 @@ from django.contrib.sites.models import Site, RequestSite
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.views.decorators.cache import never_cache
+from django.utils import translation
 
 from identity_client.backend import MyfcidAPIBackend
 from identity_client.forms import RegistrationForm
@@ -116,6 +117,12 @@ def login_user(request, user):
         del(user.user_data)
     except AttributeError:
         request.session['user_data'] = {}
+
+    user_language = request.session['user_data'].get('language')
+    if user_language in [code for (code, label) in settings.LANGUAGES]:
+        # Django < 1.7 does not have translation.LANGUAGE_SESSION_KEY
+        LANGUAGE_SESSION_KEY = getattr(translation, 'LANGUAGE_SESSION_KEY', 'django_language')
+        request.session[LANGUAGE_SESSION_KEY] = user_language
 
     request.session.save()
 

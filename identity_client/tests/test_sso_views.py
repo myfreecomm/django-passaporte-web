@@ -6,6 +6,7 @@ import json
 
 from mock import Mock, patch
 
+from django.utils import translation
 from django.utils.importlib import import_module
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -25,7 +26,7 @@ mocked_user_json = """{
     "timezone": null,
     "nickname": null,
     "first_name": "John",
-    "language": null,
+    "language": "en",
     "country": null,
     "cpf": null,
     "gender": null,
@@ -168,6 +169,22 @@ class AccessUserData(TestCase):
 
         self.assertEqual(response.status_code, 302)
         self.assertTrue(response['Location'].endswith('/oauth-protected-view/'))
+
+
+    @patch.object(SSOClient, 'fetch_access_token', Mock(return_value=dummy_access_token))
+    @patch_httplib2(Mock(return_value=mocked_response(200, mocked_user_json)))
+    def test_user_language_is_added_to_session(self):
+        response = self.client.get(
+            reverse('sso_consumer:callback'), {
+                'oauth_token': OAUTH_REQUEST_TOKEN,
+                'oauth_verifier': 'niceverifier'
+            },
+        )
+
+        self.assertEqual(response.status_code, 302)
+        # Django < 1.7 does not have translation.LANGUAGE_SESSION_KEY
+        LANGUAGE_SESSION_KEY = getattr(translation, 'LANGUAGE_SESSION_KEY', 'django_language')
+        self.assertEqual(self.client.session.get(LANGUAGE_SESSION_KEY), 'en')
 
 
     @patch.object(SSOClient, 'fetch_access_token', Mock(return_value=dummy_access_token))
