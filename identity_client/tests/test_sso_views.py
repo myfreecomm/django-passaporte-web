@@ -6,6 +6,7 @@ from django.utils.importlib import import_module
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.utils import translation
 
 import identity_client
 
@@ -183,6 +184,13 @@ class FetchUserData(OAuthCallbackWithRequestToken):
         response = full_oauth_dance(self.client)
         self.assertEqual(response.status_code, 302)
         self.assertNotEqual(self.client.session.get('user_data'), None)
+
+    def test_user_language_is_added_to_session(self):
+        response = full_oauth_dance(self.client)
+        self.assertEqual(response.status_code, 302)
+        # Django < 1.7 does not have translation.LANGUAGE_SESSION_KEY
+        LANGUAGE_SESSION_KEY = getattr(translation, 'LANGUAGE_SESSION_KEY', 'django_language')
+        self.assertEqual(self.client.session.get(LANGUAGE_SESSION_KEY), 'en')
 
     def test_next_url_is_LOGIN_REDIRECT_URL(self):
         response = full_oauth_dance(self.client)
