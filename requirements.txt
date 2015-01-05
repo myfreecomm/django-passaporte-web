@@ -6,5 +6,6 @@ mongoengine==0.8.2
 requests==1.2.3
 pytz==2013b
 vcrpy==0.5.0
+api-toolkit==0.3.5
 python-passaporte-web==0.2.1
 futures==2.1.6
