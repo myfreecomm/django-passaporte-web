@@ -11,3 +11,7 @@ recursive-include identity_client/south_migrations *.py
 recursive-include identity_client/tests *.py
 recursive-include identity_client/tests/cassettes *
 recursive-include identity_client/tests/templates *.html
+recursive-include identity_client/locale/pt_BR/LC_MESSAGES *.po
+recursive-include identity_client/locale/pt_BR/LC_MESSAGES *.mo
+recursive-include identity_client/locale/en/LC_MESSAGES *.po
+recursive-include identity_client/locale/en/LC_MESSAGES *.mo

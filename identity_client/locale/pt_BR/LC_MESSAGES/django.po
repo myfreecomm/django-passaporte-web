@@ -1,0 +1,184 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-06 19:32+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+
+#: forms.py:45
+msgid "First Name"
+msgstr ""
+
+#: forms.py:48
+msgid "Last Name"
+msgstr ""
+
+#: forms.py:51
+msgid "Email Address"
+msgstr ""
+
+#: forms.py:55 forms.py:98
+msgid "Password"
+msgstr ""
+
+#: forms.py:60
+msgid "Password (again)"
+msgstr ""
+
+#: forms.py:67 forms.py:169
+msgid "CPF"
+msgstr ""
+
+#: forms.py:70
+msgid "I have read and agree to the Terms of Service"
+msgstr ""
+
+#: forms.py:73
+msgid "Você precisa ler e concordar com os termos de serviço"
+msgstr ""
+
+#: forms.py:88
+msgid "As senhas informadas são diferentes."
+msgstr ""
+
+#: forms.py:97
+msgid "Email"
+msgstr ""
+
+#: forms.py:120
+msgid ""
+"Por favor digite seu e-mail e senha. O sistema diferencia minúsculas de "
+"maiúsculas."
+msgstr ""
+
+#: forms.py:122
+msgid "Esta conta está inativa."
+msgstr ""
+
+#: forms.py:127
+msgid ""
+"Parece que seu navegador não aceita cookies. Por favor habilite os cookies."
+msgstr ""
+
+#: forms.py:149
+msgid "Nome"
+msgstr ""
+
+#: forms.py:155
+msgid "Sobrenome"
+msgstr ""
+
+#: forms.py:158
+msgid "Quero receber novidades e promoções do Passaporte Web"
+msgstr ""
+
+#: forms.py:163
+msgid "Quero receber novidades e promoções de parceiros"
+msgstr ""
+
+#: forms.py:179
+msgid "Apelido"
+msgstr ""
+
+#: forms.py:185
+msgid "Data de nascimento"
+msgstr ""
+
+#: forms.py:187
+msgid "Enter a valid date."
+msgstr ""
+
+#: forms.py:192
+msgid "Não informado"
+msgstr ""
+
+#: forms.py:193
+msgid "Masculino"
+msgstr ""
+
+#: forms.py:194
+msgid "Feminino"
+msgstr ""
+
+#: forms.py:197
+msgid "Gênero"
+msgstr ""
+
+#: forms.py:203
+msgid "Empresa"
+msgstr ""
+
+#: forms.py:209
+msgid "Cargo"
+msgstr ""
+
+#: forms.py:215
+msgid "Profissão"
+msgstr ""
+
+#: forms.py:221
+msgid "Sobre você"
+msgstr ""
+
+#: forms.py:227
+msgid "Cidade"
+msgstr ""
+
+#: forms.py:230
+msgid "Estado"
+msgstr ""
+
+#: forms.py:236
+msgid "País"
+msgstr ""
+
+#: forms.py:240
+msgid "Idioma nativo"
+msgstr ""
+
+#: forms.py:245
+msgid "Fuso horário"
+msgstr ""
+
+#: django_db/models.py:23
+msgid "first name"
+msgstr ""
+
+#: django_db/models.py:24
+msgid "last name"
+msgstr ""
+
+#: django_db/models.py:25
+msgid "e-mail address"
+msgstr ""
+
+#: django_db/models.py:26
+msgid "universally unique id"
+msgstr ""
+
+#: django_db/models.py:27
+msgid "active"
+msgstr ""
+
+#: django_db/models.py:28
+msgid ""
+"Designates whether this user should be treated as active. Unselect this "
+"instead of deleting accounts."
+msgstr ""
+
+#: django_db/models.py:30
+msgid "last login"
+msgstr ""
