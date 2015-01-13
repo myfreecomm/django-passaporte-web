@@ -125,6 +125,7 @@ def login_user(request, user):
         # Django < 1.7 does not have translation.LANGUAGE_SESSION_KEY
         LANGUAGE_SESSION_KEY = getattr(translation, 'LANGUAGE_SESSION_KEY', 'django_language')
         request.session[LANGUAGE_SESSION_KEY] = user_language
+        translation.activate(user_language)
 
     request.session.save()
 
